@@ -8,6 +8,7 @@ import { getRuntimeConfig } from "./runtime-config.ts";
 import type { DecisionCard, DecisionRequest } from "./types.ts";
 import { demoEvidenceAdapter } from "../evidence/demo-evidence-adapter.ts";
 import { createDataHubEvidenceAdapter } from "../evidence/datahub-evidence-adapter.ts";
+import { dataHubSnapshotEvidenceAdapter } from "../evidence/datahub-snapshot-adapter.ts";
 
 function createDecisionId(question: string, userId: string): string {
   let hash = 2166136261;
@@ -33,9 +34,11 @@ export async function createDecision(
   }
 
   const evidenceAdapter =
-    config.evidenceSource === "datahub"
-      ? createDataHubEvidenceAdapter({ environment })
-      : demoEvidenceAdapter;
+    environment.EVIDENCE_SOURCE?.trim().toLowerCase() === "snapshot"
+      ? dataHubSnapshotEvidenceAdapter
+      : config.evidenceSource === "datahub"
+        ? createDataHubEvidenceAdapter({ environment })
+        : demoEvidenceAdapter;
   const retrieval = await evidenceAdapter.retrieve({
     question: request.question,
     locale: request.locale,

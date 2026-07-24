@@ -25,16 +25,20 @@ export function getRuntimeConfig(
   const requestedEvidence =
     environment.EVIDENCE_SOURCE?.trim().toLowerCase() ?? "demo";
 
-  if (requestedEvidence !== "demo" && requestedEvidence !== "datahub") {
+  if (
+    requestedEvidence !== "demo" &&
+    requestedEvidence !== "datahub" &&
+    requestedEvidence !== "snapshot"
+  ) {
     throw new UnsafeProviderConfigurationError(
-      "EVIDENCE_SOURCE must be demo or datahub.",
+      "EVIDENCE_SOURCE must be demo, snapshot or datahub.",
     );
   }
 
   if (!requestedProvider || requestedProvider === "demo") {
     return {
       provider: "demo",
-      evidenceSource: requestedEvidence,
+      evidenceSource: requestedEvidence === "snapshot" ? "datahub" : requestedEvidence,
       demoMode: requestedEvidence === "demo",
     };
   }
@@ -55,7 +59,7 @@ export function getRuntimeConfig(
     }
     return {
       provider: "openrouter",
-      evidenceSource: requestedEvidence,
+      evidenceSource: requestedEvidence === "snapshot" ? "datahub" : requestedEvidence,
       demoMode: requestedEvidence === "demo",
     };
   }

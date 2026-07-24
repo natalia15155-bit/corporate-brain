@@ -6,6 +6,7 @@ Corporate Brain has three independently selectable modes:
 | --- | --- | --- |
 | `demo` | `demo` | Fully offline and deterministic |
 | `demo` | `openrouter` | Validate live AI without requiring DataHub |
+| `snapshot` | `demo` | Fast local development with a small projection of real DataHub metadata |
 | `datahub` | `openrouter` | Full read flow with live metadata and AI synthesis |
 
 ## OpenRouter
@@ -26,6 +27,20 @@ Only normalized, authorized evidence is sent to the model. Secrets are never
 sent to the browser or returned by the API.
 
 ## DataHub MCP
+
+### Fast local development
+
+Use the checked-in snapshot mode when Docker is not available or the machine is
+resource constrained:
+
+```dotenv
+EVIDENCE_SOURCE=snapshot
+AI_PROVIDER=demo
+```
+
+The snapshot is a small, read-only projection of the official
+`showcase-ecommerce` DataHub pack. It is explicitly a development aid; the
+hackathon demo must use the live MCP path so judges can verify DataHub usage.
 
 Corporate Brain connects to a DataHub MCP server over Streamable HTTP or the
 official local stdio server and uses the official read tools:
@@ -77,9 +92,9 @@ full live validation needs either:
 1. an organizer-provided or managed DataHub MCP endpoint, or
 2. DataHub Core plus the official DataHub MCP server installed separately.
 
-Until one is available, keep `EVIDENCE_SOURCE=demo`. This still permits a live
-OpenRouter validation with synthetic evidence and exercises the complete
-Decision Card pipeline except for the external metadata retrieval.
+Until one is available, use `EVIDENCE_SOURCE=snapshot` for local UX work. It
+keeps the evidence contract and authorization behavior realistic without
+running the full DataHub Core stack on a resource-constrained machine.
 
 ## Write-back
 
