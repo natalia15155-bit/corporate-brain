@@ -410,6 +410,13 @@ p {
   line-height: 1.15;
 }
 
+.decision-question {
+  margin-bottom: 10px;
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
+
 .access-state {
   min-width: 210px;
   padding: 10px 12px;
@@ -960,6 +967,17 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.request-error {
+  margin: 13px 0 0;
+  padding: 10px 12px;
+  background: #fff0f1;
+  border: 1px solid #f4c5ca;
+  border-radius: 6px;
+  color: #a42834;
+  font-size: 0.64rem;
+  line-height: 1.45;
 }
 
 .privacy-note {

@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { ArrowIcon, CheckIcon, DatabaseIcon } from "@/components/icons";
-import {
-  getAuthorizedEvidence,
-  hasSufficientEvidence,
-  type DemoUser,
-} from "@/lib/access-control";
+import type { DemoUser } from "@/lib/access-control";
+import type { DecisionCard } from "@/lib/decision/types";
 import { copy, type Locale } from "@/lib/i18n";
 
 interface BriefScreenProps {
+  decision: DecisionCard;
   locale: Locale;
   user: DemoUser;
   onAskAgain: () => void;
@@ -17,6 +15,7 @@ interface BriefScreenProps {
 }
 
 export function BriefScreen({
+  decision,
   locale,
   user,
   onAskAgain,
@@ -24,16 +23,19 @@ export function BriefScreen({
 }: BriefScreenProps) {
   const t = copy[locale];
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const visibleEvidence = getAuthorizedEvidence(user);
-  const sufficient = hasSufficientEvidence(user);
+  const visibleEvidence = decision.evidence;
+  const sufficient = decision.status === "recommendation";
   const roleView = t.roleViews[user.role];
 
   return (
     <main className="page-shell brief-shell">
       <section className="brief-topline">
         <div>
-          <p className="section-kicker">{t.briefEyebrow}</p>
-          <h1>{t.briefTitle}</h1>
+          <p className="section-kicker">
+            {t.briefEyebrow} · {decision.id}
+          </p>
+          <p className="decision-question">{decision.question}</p>
+          <h1>{decision.recommendation}</h1>
         </div>
         <div className={`access-state ${sufficient ? "allowed" : "limited"}`}>
           <CheckIcon />
@@ -86,7 +88,7 @@ export function BriefScreen({
           <article className="outcome-card">
             <span>{t.projectedOutcome}</span>
             <div>
-              <strong>{sufficient ? "+22%" : "—"}</strong>
+              <strong>{decision.outcome ?? "—"}</strong>
               <p>{sufficient ? t.pipelineGrowth : t.outcomeUnavailable}</p>
             </div>
             <small>{sufficient ? t.outcomeDescription : t.outcomeLimited}</small>
@@ -98,7 +100,7 @@ export function BriefScreen({
               {t.riskAssessment}
             </h2>
             <ul>
-              {(sufficient ? t.risks : t.limitedRisks).map((risk) => (
+              {decision.risks.map((risk) => (
                 <li key={risk}>{risk}</li>
               ))}
             </ul>
@@ -109,7 +111,7 @@ export function BriefScreen({
       <section className="role-view">
         <span>{t.personalizedFor} {t.roles[user.role]}</span>
         <strong>{roleView.title}</strong>
-        <p>{sufficient ? roleView.complete : roleView.limited}</p>
+        <p>{decision.roleInsight || (sufficient ? roleView.complete : roleView.limited)}</p>
       </section>
 
       <section className="approval-bar">

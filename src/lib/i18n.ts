@@ -31,6 +31,9 @@ export const copy = {
     suggestionTwo: "Can the executive team rely on the churn dashboard?",
     suggestionThree: "What changed since the last retention decision?",
     generate: "Build decision brief",
+    generating: "Evaluating authorized evidence…",
+    decisionError:
+      "Corporate Brain could not build the decision brief. Your question is still here so you can try again.",
     evidenceReady: "Evidence ready",
     evidenceReadyDescription:
       "12 assets, 4 owners and 3 prior decisions are available for this scenario.",
@@ -202,6 +205,9 @@ export const copy = {
     suggestionTwo: "¿El equipo ejecutivo puede confiar en el panel de abandono?",
     suggestionThree: "¿Qué cambió desde la última decisión de retención?",
     generate: "Crear informe de decisión",
+    generating: "Evaluando evidencia autorizada…",
+    decisionError:
+      "Corporate Brain no pudo crear el informe. Tu pregunta sigue disponible para que vuelvas a intentar.",
     evidenceReady: "Evidencia preparada",
     evidenceReadyDescription:
       "Hay 12 activos, 4 responsables y 3 decisiones anteriores disponibles para este escenario.",

@@ -11,6 +11,10 @@ import {
 } from "@/components/icons";
 import { MemoryScreen } from "@/components/memory-screen";
 import { demoUsers } from "@/lib/access-control";
+import type {
+  DecisionApiResult,
+  DecisionCard,
+} from "@/lib/decision/types";
 import { copy, type Locale } from "@/lib/i18n";
 
 type Screen = "ask" | "brief" | "memory";
@@ -49,6 +53,9 @@ export function CorporateBrainApp() {
   const [screen, setScreen] = useState<Screen>("ask");
   const [saved, setSaved] = useState(false);
   const [userId, setUserId] = useState(demoUsers[0].id);
+  const [decision, setDecision] = useState<DecisionCard | null>(null);
+  const [loadingDecision, setLoadingDecision] = useState(false);
+  const [decisionError, setDecisionError] = useState<string | null>(null);
   const t = copy[locale];
   const activeUser =
     demoUsers.find((candidate) => candidate.id === userId) ?? demoUsers[0];
@@ -60,6 +67,49 @@ export function CorporateBrainApp() {
   function saveDecision() {
     setSaved(true);
     setScreen("memory");
+  }
+
+  function changePersona(nextUserId: string) {
+    setUserId(nextUserId);
+    setDecision(null);
+    setDecisionError(null);
+    setScreen("ask");
+  }
+
+  function changeLocale(nextLocale: Locale) {
+    persistLocale(nextLocale);
+    setDecision(null);
+    setDecisionError(null);
+    setScreen("ask");
+  }
+
+  async function generateDecision(question: string) {
+    setLoadingDecision(true);
+    setDecisionError(null);
+
+    try {
+      const response = await fetch("/api/decisions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, userId: activeUser.id, locale }),
+      });
+      const result = (await response.json()) as DecisionApiResult;
+
+      if (!response.ok || !result.ok) {
+        throw new Error(
+          result.ok ? t.decisionError : result.error.message,
+        );
+      }
+
+      setDecision(result.decision);
+      setScreen("brief");
+    } catch (error) {
+      setDecisionError(
+        error instanceof Error ? error.message : t.decisionError,
+      );
+    } finally {
+      setLoadingDecision(false);
+    }
   }
 
   const navItems = [
@@ -139,7 +189,7 @@ export function CorporateBrainApp() {
               </span>
               <select
                 value={activeUser.id}
-                onChange={(event) => setUserId(event.target.value)}
+                onChange={(event) => changePersona(event.target.value)}
                 aria-label={t.demoPersona}
               >
                 {demoUsers.map((user) => (
@@ -158,7 +208,7 @@ export function CorporateBrainApp() {
                 type="button"
                 aria-pressed={locale === language}
                 className={locale === language ? "active" : ""}
-                onClick={() => persistLocale(language)}
+                onClick={() => changeLocale(language)}
               >
                 {language.toUpperCase()}
               </button>
@@ -177,14 +227,28 @@ export function CorporateBrainApp() {
         </header>
 
         {screen === "ask" && (
-          <AskScreen locale={locale} onGenerate={() => setScreen("brief")} />
+          <AskScreen
+            locale={locale}
+            loading={loadingDecision}
+            error={decisionError}
+            onGenerate={generateDecision}
+          />
         )}
-        {screen === "brief" && (
+        {screen === "brief" && decision && (
           <BriefScreen
+            decision={decision}
             locale={locale}
             user={activeUser}
             onAskAgain={() => setScreen("ask")}
             onSave={saveDecision}
+          />
+        )}
+        {screen === "brief" && !decision && (
+          <AskScreen
+            locale={locale}
+            loading={loadingDecision}
+            error={decisionError}
+            onGenerate={generateDecision}
           />
         )}
         {screen === "memory" && (

@@ -1,6 +1,7 @@
 {
   "name": "corporate-brain",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,7 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/lib/access-control.test.ts"
+    "test": "node --experimental-strip-types --test src/lib/access-control.test.ts src/lib/decision/evidence-evaluator.test.ts src/lib/decision/request-validation.test.ts src/lib/decision/runtime-config.test.ts src/lib/decision/create-decision.test.ts"
   },
   "dependencies": {
     "next": "16.2.11",

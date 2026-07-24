@@ -11,10 +11,17 @@ import {
 
 interface AskScreenProps {
   locale: Locale;
-  onGenerate: (question: string) => void;
+  loading: boolean;
+  error: string | null;
+  onGenerate: (question: string) => Promise<void>;
 }
 
-export function AskScreen({ locale, onGenerate }: AskScreenProps) {
+export function AskScreen({
+  locale,
+  loading,
+  error,
+  onGenerate,
+}: AskScreenProps) {
   const t = copy[locale];
   const [question, setQuestion] = useState("");
   const suggestions = [t.suggestionOne, t.suggestionTwo, t.suggestionThree];
@@ -50,13 +57,18 @@ export function AskScreen({ locale, onGenerate }: AskScreenProps) {
             <button
               className="primary-button"
               type="button"
-              disabled={!question.trim()}
-              onClick={() => onGenerate(question)}
+              disabled={!question.trim() || loading}
+              onClick={() => void onGenerate(question)}
             >
-              {t.generate}
+              {loading ? t.generating : t.generate}
               <ArrowIcon />
             </button>
           </div>
+          {error && (
+            <p className="request-error" role="alert">
+              {error}
+            </p>
+          )}
         </div>
 
         <div className="suggestion-block">
