@@ -130,3 +130,47 @@ The UI uses High, Medium, Low, and Insufficient Evidence instead of numerical co
 ### Why
 
 A number such as 78% suggests a calibrated statistical probability that the MVP cannot honestly provide. Trust bands can be explained through visible evidence and warnings.
+
+## ADR-009 — Default-deny team isolation
+
+**Status:** Accepted
+
+**Date:** 2026-07-23
+
+Team and domain access is resolved before retrieval. Evidence outside the resolved scope is not retrieved, named, counted, cached across users, or sent to an AI provider.
+
+### Why
+
+- Confidential teams must remain isolated even when a prompt asks for broader context.
+- Hiding data in the interface is not authorization.
+- The safest insufficient-evidence response does not disclose that a hidden asset exists.
+
+### Trade-off
+
+The hackathon can demonstrate policy behavior with synthetic personas, but it cannot claim production-grade identity until a real identity provider and independently enforced DataHub access layer are connected.
+
+## ADR-010 — Profile changes presentation, never permission
+
+**Status:** Accepted
+
+**Date:** 2026-07-23
+
+The active role may change emphasis, vocabulary, and depth. It cannot change evidence scope, facts, trust evaluation, or write permissions.
+
+### Why
+
+The same decision should be useful to executives, managers, analysts, and stewards without creating different versions of organizational truth.
+
+## ADR-011 — Synthetic persona demonstration
+
+**Status:** Accepted
+
+**Date:** 2026-07-23
+
+The MVP includes three clearly labeled synthetic personas with explicit domain allowlists.
+
+### Why
+
+- Judges can see access-sensitive behavior without real employee or company data.
+- The scenario remains deterministic and free to operate.
+- The demo can distinguish a product security design from production authentication.

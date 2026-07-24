@@ -6,13 +6,28 @@ Design a trustworthy decision workspace for non-technical business users.
 
 The experience should help a person move from a question to a verifiable Decision Card without understanding DataHub, metadata, lineage, MCP, or AI infrastructure.
 
+## Approved visual direction — Operational Clarity
+
+The supplied operational dashboard proposal is the primary visual reference, adapted into an original Corporate Brain system.
+
+- Fixed light sidebar with brand, primary action, navigation, workspace, and active persona
+- Pale cool-gray workspace with crisp white evidence surfaces
+- Cobalt blue as the single primary accent
+- Compact sans-serif typography with clear labels and generous internal spacing
+- Central structured-evidence panel
+- Right decision column for projected outcome and risk assessment
+- Visible approval bar and contextual anchor cards
+- English by default with a persistent Spanish selector
+
+The design should feel operational and premium, not decorative. Density is acceptable when hierarchy remains obvious.
+
 ## Desired feeling
 
 - Calm
 - Intelligent
 - Trustworthy
 - Focused
-- Editorial
+- Operational
 - Premium but not luxurious
 - Human, not futuristic
 
@@ -46,7 +61,7 @@ Visual hierarchy must make source status, freshness, ownership, and warnings eas
 
 ### Calm density
 
-The interface may contain rich information, but it should use spacing, typography, grouping, and summaries to avoid feeling like a dashboard.
+The interface may contain rich information, but it should use spacing, typography, grouping, and summaries to avoid feeling like an overloaded BI dashboard.
 
 ### No false precision
 
@@ -97,36 +112,47 @@ Contents:
 - Evidence-change alert
 - Optional relationship graph as a secondary view
 
-## Visual direction
+## Visual system
+
+- Workspace background: cool off-white or pale gray
+- Primary: cobalt blue
+- Critical risk: charcoal surface with restrained red markers
+- Typography: compact sans-serif; monospace only for IDs and metrics
+- Borders: cool neutral gray, thin and consistent
+- Corners: modest radii, not pill-heavy
+- Shadows: minimal and limited to primary surfaces
+- Evidence: rows with owner, freshness, source type, and sensitivity
+- Active navigation: pale blue surface plus cobalt icon and text
+- Responsive behavior: sidebar collapses into a compact top control on narrow screens
 
 Avoid:
 
 - Neon gradients
 - Dark sci-fi dashboards
 - Chat bubbles as the main experience
-- Dense analytics dashboards
+- Overloaded analytics dashboards
 - Decorative brain imagery
 - Overwhelming node graphs
 - Excessive glassmorphism
 
-Explore:
+Use:
 
-- Warm neutral or cool neutral canvas
+- Cool neutral canvas
 - Ink, slate, or deep navy text
-- One restrained accent color
+- Cobalt blue accent
 - Amber for caution and red only for actionable risk
 - Green used sparingly for verified states
-- Editorial typography and generous spacing
+- Compact interface typography and generous internal spacing
 - Subtle borders and surfaces
 - Clear source and status chips
 
-## Inspiration without copying
+## Product foundations
 
-- Obsidian: connected knowledge and depth
-- Engram: persistent memory
-- Linear: clarity and interaction discipline
-- Notion: editorial calm
-- Financial products: evidence and trust
+- Connected organizational knowledge
+- Durable decision memory
+- Clarity and interaction discipline
+- Operational clarity
+- Visible evidence and trust
 
 Do not reproduce any third-party layout, logo, or branded visual asset.
 

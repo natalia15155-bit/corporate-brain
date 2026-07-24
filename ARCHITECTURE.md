@@ -11,8 +11,9 @@ The system separates evidence retrieval, deterministic assessment, AI synthesis,
 ```mermaid
 flowchart LR
     USER["Business user"] --> WEB["Corporate Brain Web App"]
-    WEB --> SERVER["Server-side Decision Orchestrator"]
-    SERVER --> DH["DataHub MCP Server"]
+    WEB --> AUTHZ["Identity and Authorization Boundary"]
+    AUTHZ --> SERVER["Server-side Decision Orchestrator"]
+    SERVER --> DH["Scope-limited DataHub Adapter"]
     DH --> GRAPH["DataHub Context Graph"]
     SERVER --> RULES["Evidence Evaluator"]
     SERVER --> AI["AI Provider"]
@@ -47,6 +48,7 @@ Planned technology:
 Responsibilities:
 
 - Receive and validate a business question
+- Require a server-resolved user context
 - Select the allowed DataHub retrieval workflow
 - Normalize DataHub evidence
 - Run deterministic evidence rules
@@ -55,6 +57,35 @@ Responsibilities:
 - Require confirmation before write-back
 
 The orchestrator must not allow the model to select arbitrary network endpoints or execute arbitrary code.
+
+### Identity and authorization boundary
+
+The authorization boundary runs before evidence retrieval and before every consequential write.
+
+Resolved user context:
+
+```ts
+interface UserContext {
+  organizationId: string;
+  userId: string;
+  teamIds: string[];
+  role: "executive" | "manager" | "analyst" | "data-steward";
+  allowedDomains: string[];
+  locale: "en" | "es";
+  detailPreference: "summary" | "operational" | "technical";
+}
+```
+
+Rules:
+
+- Default deny: an unlisted domain is inaccessible.
+- The browser cannot grant itself a team or domain.
+- Authorization is deterministic server logic, never an LLM decision.
+- Retrieval queries must carry an already resolved scope.
+- Hidden entities are not named, counted, cached across users, or sent to the AI provider.
+- If the remaining authorized evidence is insufficient, the evaluator abstains.
+
+The hackathon UI uses an explicit synthetic persona switcher to demonstrate these rules. It is not presented as production authentication.
 
 ### DataHub adapter
 
@@ -111,6 +142,7 @@ The AI provider may:
 - Summarize normalized evidence
 - Explain risks in plain language
 - Propose a next action
+- Adapt emphasis and detail to the resolved role
 
 The AI provider may not:
 
@@ -118,6 +150,19 @@ The AI provider may not:
 - Override deterministic warnings
 - Perform write operations
 - Select a paid model
+- Infer permissions or request hidden evidence
+- Alter deterministic trust or access results
+
+### Presentation adapter
+
+After authorization and deterministic evaluation, a presentation adapter shapes the response:
+
+- Executive: recommendation, projected impact, and material risks.
+- Manager: owners, dependencies, and next steps.
+- Analyst: lineage, freshness, quality, and sources.
+- Data steward: gaps, policy issues, and remediation.
+
+It receives only the normalized authorized evidence and cannot broaden scope.
 
 ### Decision storage
 
@@ -132,13 +177,16 @@ sequenceDiagram
     participant U as User
     participant W as Web App
     participant O as Orchestrator
+    participant Z as Authorization
     participant D as DataHub MCP
     participant E as Evidence Evaluator
     participant A as AI Provider
 
     U->>W: Ask a business question
-    W->>O: Validated question
-    O->>D: Search and retrieve allowed context
+    W->>O: Question plus session
+    O->>Z: Resolve organization, teams, role and domains
+    Z-->>O: Server-trusted UserContext
+    O->>D: Search within resolved domains
     D-->>O: Metadata and evidence
     O->>E: Normalized evidence
     E-->>O: Trust band, gaps, conflicts
@@ -178,6 +226,16 @@ sequenceDiagram
 - Never fall back automatically to a paid model.
 
 ## 7. Security and privacy
+
+### Team isolation
+
+- Authorization is enforced at the server boundary, not only in navigation or client filters.
+- Per-user results are never stored in a shared cache.
+- The DataHub adapter receives a domain allowlist and returns only authorized entities.
+- Write-back revalidates user, target, visibility, sensitivity, and approver policy.
+- Audit events record the actor, action, decision ID, target, and result without recording restricted content.
+
+DataHub Cloud can provide per-user OAuth and query-time search controls. DataHub Open Source does not provide equivalent query-filtered search by default, so the hackathon build uses synthetic personas and an application-level policy demonstrator. A production deployment must use DataHub Cloud access controls or another independently enforced authorization layer; UI filtering alone is never sufficient.
 
 ### Secrets
 

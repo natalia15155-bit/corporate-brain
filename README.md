@@ -67,4 +67,39 @@ No paid OpenAI API and no Supabase database are planned for the hackathon MVP.
 
 ## Current status
 
-Phase 0 — product definition and architecture. No functional application code has been written yet.
+Phase 2 is in progress.
+
+Implemented:
+
+- Approved bilingual operational experience
+- Synthetic role and team isolation demonstration
+- Server-side decision request validation
+- Deterministic evidence evaluation and abstention
+- Provider-neutral Decision Card contract
+- Zero-cost demonstration provider
+- Safe provider configuration that rejects unverified or paid fallbacks
+
+Model and live DataHub integrations remain disabled until their adapters and
+free-tier safeguards are independently verified.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+Quality checks:
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+The Ask screen now calls `POST /api/decisions`. This route validates the request,
+resolves a server-known synthetic persona, filters evidence, evaluates trust,
+and returns a structured Decision Card without shared caching.

@@ -21,6 +21,8 @@ Exit criteria:
 
 **July 24–25**
 
+**Status: Complete**
+
 - Generate three comparable Stitch directions
 - Select one visual direction
 - Confirm Ask, Decision Brief, and Corporate Memory screens
@@ -35,12 +37,30 @@ Exit criteria:
 
 **July 26–27**
 
+**Status: In progress**
+
 - Bootstrap Next.js and TypeScript
 - Configure linting, formatting, tests, and CI
 - Create provider-neutral AI contract
 - Add Groq Free Tier adapter
 - Add deterministic demonstration mode
 - Add safe configuration validation
+
+Completed foundation:
+
+- Next.js and TypeScript application shell
+- Bilingual Ask, Decision Brief, and Corporate Memory screens
+- Provider-neutral Decision Card contract
+- Deterministic demonstration provider
+- Server-side request validation, evidence filtering, and abstention
+- Safe provider configuration with paid and unverified providers disabled
+- Unit tests for access, validation, evaluation, and provider policy
+
+Remaining:
+
+- CI workflow
+- Verified Groq Free Tier adapter
+- Provider failure and rate-limit states
 
 Exit criteria:
 

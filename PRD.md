@@ -4,7 +4,7 @@
 
 Corporate Brain is a decision-memory agent that connects business decisions to verifiable organizational evidence.
 
-It is inspired by the connected knowledge experience of Obsidian and the persistent AI memory concept of Engram, but its primary unit is not a note or a chat. Its primary unit is a **business decision with evidence and a lifecycle**.
+Its primary unit is not a note or a chat. Its primary unit is a **business decision with evidence and a lifecycle**.
 
 ## 2. Problem
 
@@ -30,6 +30,17 @@ A non-technical manager, team lead, analyst, or operator who needs to make or re
 ### Supporting user
 
 A data owner, analyst, or steward who needs to verify evidence, resolve warnings, or correct business context.
+
+### Role-aware experience
+
+Corporate Brain presents the same authorized facts differently according to the user's role:
+
+- Executives receive the recommendation, impact, and principal risks.
+- Managers receive owners, dependencies, and next actions.
+- Analysts receive lineage, freshness, quality, and source detail.
+- Data stewards receive evidence gaps and remediation actions.
+
+This personalization never expands access. Team membership and explicit domain permissions determine which evidence can be retrieved.
 
 ### Economic buyer
 
@@ -74,15 +85,16 @@ Read operations may be automatic. Publishing, tagging, or modifying shared conte
 
 ### Core workflow
 
-1. The user enters a business question.
-2. Corporate Brain searches DataHub for relevant assets and context.
-3. The system gathers ownership, definitions, lineage, quality, freshness, and related documentation.
-4. A deterministic evidence evaluator classifies the available support.
-5. The AI provider produces a concise explanation using only the supplied evidence.
-6. The user receives a Decision Card.
-7. The user may confirm and save the decision.
-8. Corporate Brain writes approved context back to DataHub.
-9. A later change to supporting evidence can flag the decision for review.
+1. The application resolves the authenticated organization, teams, role, and allowed domains.
+2. The user enters a business question.
+3. Corporate Brain searches DataHub only within the resolved authorization scope.
+4. The system gathers authorized ownership, definitions, lineage, quality, freshness, and related documentation.
+5. A deterministic evidence evaluator classifies the available support.
+6. The AI provider produces a concise, role-appropriate explanation using only the authorized evidence.
+7. The user receives a Decision Card or an abstention when authorized evidence is insufficient.
+8. The user may confirm and save the decision.
+9. Corporate Brain writes approved context back to DataHub after revalidating permission.
+10. A later change to supporting evidence can flag the decision for review.
 
 ### Required screens
 
@@ -97,6 +109,7 @@ Read operations may be automatic. Publishing, tagging, or modifying shared conte
 
 - Recommendation or abstention
 - Trust level: High, Medium, Low, or Insufficient Evidence
+- Active user, team, and role context
 - Short rationale
 - Evidence list
 - Risks and conflicts
@@ -133,6 +146,10 @@ Each Decision Card must contain:
 - Created date
 - Review date
 - Source update timestamps
+- Owner team
+- Visibility: private, team, or shared
+- Sensitivity: internal, confidential, or restricted
+- Authorized approvers
 
 The UI must not display a false numerical precision such as `78% confidence`. It will use explainable trust bands instead.
 
@@ -191,6 +208,22 @@ The system can identify when a supporting asset has changed or received a warnin
 
 The application includes deterministic synthetic scenarios so the visual flow remains testable when a free AI provider is unavailable.
 
+### FR-10 — Resolve access scope
+
+Before retrieval, the server resolves the user's organization, teams, role, and explicitly allowed domains. Access is denied by default.
+
+### FR-11 — Filter before AI
+
+Unauthorized evidence must not be retrieved, placed in prompts, summarized, counted, named, or exposed through error messages.
+
+### FR-12 — Adapt presentation by role
+
+The system may change emphasis, terminology, and detail according to the user's role, but it must not change the underlying authorized facts, trust evaluation, or permissions.
+
+### FR-13 — Revalidate consequential actions
+
+Saving, sharing, approving, and writing context back must revalidate the user and target scope on the server.
+
 ## 10. Non-functional requirements
 
 - No paid service can be enabled automatically.
@@ -203,13 +236,16 @@ The application includes deterministic synthetic scenarios so the visual flow re
 - Provider errors must fail clearly and safely.
 - DataHub content must be treated as untrusted input.
 - The application must not silently invent evidence.
+- Authorization must be enforced before retrieval and again before every write.
+- Restricted evidence must not be cached or logged in a cross-user scope.
+- When authorized evidence is insufficient, the product must abstain without revealing hidden asset names or teams.
 
 ## 11. Out of scope
 
 - Generic chat across all company content
 - Autonomous SQL execution
 - Multi-agent orchestration
-- Authentication and enterprise user management
+- Production SSO, SCIM provisioning, and enterprise directory administration
 - Billing and subscriptions
 - Slack, Teams, or email integrations
 - Arbitrary document upload
@@ -229,6 +265,8 @@ The application includes deterministic synthetic scenarios so the visual flow re
 ### Reliability
 
 - 100% of recommendations have evidence references or abstain.
+- 100% of displayed and model-supplied evidence is within the active user's resolved scope.
+- Switching to a restricted demo profile removes inaccessible evidence and recalculates the trust result.
 - Structured output passes schema validation.
 - A failed provider call does not lose the user question.
 - No paid-provider fallback is possible.
@@ -245,5 +283,5 @@ The application includes deterministic synthetic scenarios so the visual flow re
 
 - Which no-cost DataHub instance will remain available throughout judging?
 - Which exact synthetic DataHub assets best support the final story?
-- Which Stitch visual direction will be selected?
-- Should the final UI be English-only or include Spanish as an optional language?
+- Which identity provider and provisioning model should a commercial edition support first?
+- Will the judged DataHub environment support per-user OAuth and query-time access controls?
