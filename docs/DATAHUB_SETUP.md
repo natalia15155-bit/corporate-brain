@@ -27,8 +27,8 @@ sent to the browser or returned by the API.
 
 ## DataHub MCP
 
-Corporate Brain connects to a DataHub MCP server over Streamable HTTP and uses
-the official read tools:
+Corporate Brain connects to a DataHub MCP server over Streamable HTTP or the
+official local stdio server and uses the official read tools:
 
 - `search`
 - `get_entities`
@@ -45,6 +45,19 @@ The URL must point to the MCP endpoint, not to the normal DataHub web interface.
 The token is optional only when the endpoint itself does not require
 authentication.
 
+For the local DataHub Core quickstart, use the official stdio server:
+
+```dotenv
+EVIDENCE_SOURCE=datahub
+DATAHUB_MCP_TRANSPORT=stdio
+DATAHUB_GMS_URL=http://localhost:8080
+DATAHUB_MCP_COMMAND=uvx
+DATAHUB_MCP_ARGS=mcp-server-datahub@latest
+```
+
+The first run may download the MCP server through `uvx`. This path keeps the
+integration local and read-only; no DataHub write tools are enabled.
+
 ## Access isolation
 
 For a production-like test, use a DataHub service account whose default view is
@@ -58,8 +71,8 @@ identity layer.
 
 ## Current local prerequisite
 
-The current machine does not yet have a local DataHub runtime. A full live
-DataHub validation therefore needs either:
+The local runtime can be created with the official DataHub Core quickstart. A
+full live validation needs either:
 
 1. an organizer-provided or managed DataHub MCP endpoint, or
 2. DataHub Core plus the official DataHub MCP server installed separately.

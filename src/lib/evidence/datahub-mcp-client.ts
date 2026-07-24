@@ -1,5 +1,6 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
 export interface McpToolDefinition {
   name: string;
@@ -15,24 +16,35 @@ export interface McpToolClient {
 }
 
 export interface DataHubMcpConnection {
-  url: string;
+  url?: string;
   token?: string;
+  transport?: "http" | "stdio";
+  command?: string;
+  args?: string[];
+  env?: Record<string, string>;
 }
 
 export async function connectDataHubMcp(
   connection: DataHubMcpConnection,
 ): Promise<McpToolClient> {
-  const headers = new Headers();
-  if (connection.token) {
-    headers.set("Authorization", `Bearer ${connection.token}`);
-  }
-
-  const transport = new StreamableHTTPClientTransport(
-    new URL(connection.url),
-    {
-      requestInit: { headers },
-    },
-  );
+  const transport = connection.transport === "stdio"
+    ? new StdioClientTransport({
+        command: connection.command ?? "uvx",
+        args: connection.args ?? ["mcp-server-datahub@latest"],
+        env: {
+          ...process.env,
+          ...connection.env,
+          ...(connection.token ? { DATAHUB_GMS_TOKEN: connection.token } : {}),
+        },
+      })
+    : (() => {
+        if (!connection.url) throw new Error("DataHub MCP URL is required for HTTP transport");
+        const headers = new Headers();
+        if (connection.token) headers.set("Authorization", `Bearer ${connection.token}`);
+        return new StreamableHTTPClientTransport(new URL(connection.url), {
+          requestInit: { headers },
+        });
+      })();
   const client = new Client({
     name: "corporate-brain",
     version: "0.1.0",
@@ -52,13 +64,14 @@ export async function connectDataHubMcp(
       return client.callTool({ name, arguments: arguments_ });
     },
     async close() {
-      try {
-        await transport.terminateSession();
-      } catch {
-        // Stateless servers and some managed endpoints do not support DELETE.
+      if ("terminateSession" in transport) {
+        try {
+          await transport.terminateSession();
+        } catch {
+          // Stateless servers and some managed endpoints do not support DELETE.
+        }
       }
       await client.close();
     },
   };
 }
-

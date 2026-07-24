@@ -215,7 +215,8 @@ export function createDataHubEvidenceAdapter(
       const token =
         environment.DATAHUB_TOKEN ?? environment.DATAHUB_MCP_TOKEN;
 
-      if (!url) {
+      const isStdio = environment.DATAHUB_MCP_TRANSPORT === "stdio";
+      if (!url && !isStdio) {
         throw new EvidenceSourceError(
           "DataHub MCP is not configured on the server.",
           "configuration",
@@ -224,7 +225,18 @@ export function createDataHubEvidenceAdapter(
 
       let client: McpToolClient | null = null;
       try {
-        client = await connect({ url, token });
+        client = await connect({
+          url,
+          token,
+          transport: isStdio ? "stdio" : "http",
+          command: environment.DATAHUB_MCP_COMMAND,
+          args: environment.DATAHUB_MCP_ARGS
+            ? environment.DATAHUB_MCP_ARGS.split(" ").filter(Boolean)
+            : undefined,
+          env: {
+            DATAHUB_GMS_URL: environment.DATAHUB_GMS_URL ?? "http://localhost:8080",
+          },
+        });
         const tools = await client.listTools();
         const searchTool = tools.find((tool) => tool.name === "search");
         const getEntitiesTool = tools.find(
