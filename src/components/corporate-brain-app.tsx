@@ -93,6 +93,14 @@ export function CorporateBrainApp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, userId: activeUser.id, locale }),
       });
+      const contentType = response.headers.get("content-type") ?? "";
+      if (!contentType.includes("application/json")) {
+        throw new Error(
+          response.status === 404
+            ? "The decision service is not running. Restart Corporate Brain and try again."
+            : "The decision service returned an unexpected response. Try again in a moment.",
+        );
+      }
       const result = (await response.json()) as DecisionApiResult;
 
       if (!response.ok || !result.ok) {
