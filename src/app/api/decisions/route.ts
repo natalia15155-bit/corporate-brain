@@ -6,6 +6,8 @@ import {
   UnknownPersonaError,
 } from "@/lib/decision/request-validation";
 import { UnsafeProviderConfigurationError } from "@/lib/decision/runtime-config";
+import { OpenRouterProviderError } from "@/lib/decision/openrouter-provider";
+import { EvidenceSourceError } from "@/lib/evidence/types";
 import type {
   DecisionApiResult,
   DecisionErrorCode,
@@ -53,6 +55,14 @@ export async function POST(request: Request) {
     }
 
     if (error instanceof UnsafeProviderConfigurationError) {
+      return errorResponse("PROVIDER_UNAVAILABLE", error.message, 503);
+    }
+
+    if (error instanceof OpenRouterProviderError) {
+      return errorResponse("PROVIDER_UNAVAILABLE", error.message, 503);
+    }
+
+    if (error instanceof EvidenceSourceError) {
       return errorResponse("PROVIDER_UNAVAILABLE", error.message, 503);
     }
 

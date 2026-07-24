@@ -49,7 +49,7 @@ This project is being created for **Build with DataHub: The Agent Hackathon**.
 - TypeScript
 - DataHub Open Source
 - DataHub MCP Server
-- Groq Free Tier with `openai/gpt-oss-120b`
+- OpenRouter with an explicitly free model
 - Gemini API Free Tier as a disabled fallback
 - Vercel Hobby for the experimental public demo
 
@@ -78,9 +78,13 @@ Implemented:
 - Provider-neutral Decision Card contract
 - Zero-cost demonstration provider
 - Safe provider configuration that rejects unverified or paid fallbacks
+- OpenRouter adapter with strict structured-output validation
+- DataHub MCP read adapter for search and entity metadata
+- Default-deny filtering for unknown or unauthorized domains
 
-Model and live DataHub integrations remain disabled until their adapters and
-free-tier safeguards are independently verified.
+The adapters are implemented and independently tested. Live OpenRouter can be
+enabled with server-side environment variables. Live DataHub validation requires
+an accessible DataHub MCP endpoint and a scope-limited token.
 
 ## Local development
 
@@ -103,3 +107,6 @@ npm run build
 The Ask screen now calls `POST /api/decisions`. This route validates the request,
 resolves a server-known synthetic persona, filters evidence, evaluates trust,
 and returns a structured Decision Card without shared caching.
+
+See [DataHub and OpenRouter setup](./docs/DATAHUB_SETUP.md) to switch from the
+deterministic demonstration to the live adapters.

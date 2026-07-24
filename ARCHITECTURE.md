@@ -17,7 +17,7 @@ flowchart LR
     DH --> GRAPH["DataHub Context Graph"]
     SERVER --> RULES["Evidence Evaluator"]
     SERVER --> AI["AI Provider"]
-    AI --> GROQ["Groq Free Tier"]
+    AI --> OR["OpenRouter explicitly free model"]
     AI -. "Disabled fallback" .-> GEMINI["Gemini Free Tier"]
     SERVER --> OUTPUT["Validated Decision Card"]
     OUTPUT --> USER
@@ -127,9 +127,9 @@ The provider contract is intentionally replaceable.
 
 Primary:
 
-- Groq Free Tier
-- Model: `openai/gpt-oss-120b`
+- OpenRouter using `openrouter/free` or a model ID ending in `:free`
 - Structured output required
+- Paid-model fallback rejected by server configuration
 
 Fallback:
 
@@ -267,7 +267,7 @@ Controls:
 
 - Hackathon data is synthetic.
 - No personal, confidential, or production company data is allowed.
-- Groq data controls should use the strongest free retention setting available.
+- Only synthetic evidence may be sent through the free OpenRouter route.
 - Gemini free tier is a last resort for synthetic data only.
 
 ## 8. Deployment
@@ -276,7 +276,7 @@ Controls:
 
 - Next.js runs locally.
 - DataHub Open Source runs locally with a sample dataset.
-- Groq Free Tier provides live synthesis.
+- OpenRouter provides live synthesis through an explicitly free model.
 
 ### Public demo
 

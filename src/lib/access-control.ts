@@ -1,6 +1,6 @@
 export type DomainId = "shared" | "growth" | "finance";
 export type RoleId = "executive" | "analyst" | "data-steward";
-export type EvidenceId = "EVP-029" | "EVP-044" | "EVP-052";
+export type EvidenceId = string;
 
 export interface DemoUser {
   id: string;
@@ -14,6 +14,7 @@ export interface DemoUser {
 export interface EvidenceAsset {
   id: EvidenceId;
   name: string;
+  description: string;
   type: string;
   owner: string;
   freshness: string;
@@ -22,6 +23,7 @@ export interface EvidenceAsset {
   domain: DomainId;
   sensitivity: "internal" | "confidential";
   required: boolean;
+  source: "demo" | "datahub";
 }
 
 export const demoUsers: readonly DemoUser[] = [
@@ -55,6 +57,8 @@ export const evidenceAssets: readonly EvidenceAsset[] = [
   {
     id: "EVP-029",
     name: "Market Saturation Analysis",
+    description:
+      "Competitor spend declined while high-yield channels continued to create qualified demand.",
     type: "DataHub · Certified dataset",
     owner: "Growth Analytics",
     freshness: "18 min",
@@ -63,10 +67,13 @@ export const evidenceAssets: readonly EvidenceAsset[] = [
     domain: "growth",
     sensitivity: "internal",
     required: true,
+    source: "demo",
   },
   {
     id: "EVP-044",
     name: "Customer Acquisition Cost Trends",
+    description:
+      "Current blended CAC remains below the lifetime-value efficiency threshold.",
     type: "DataHub · Executive dashboard",
     owner: "Finance AI",
     freshness: "2 hr",
@@ -75,10 +82,13 @@ export const evidenceAssets: readonly EvidenceAsset[] = [
     domain: "shared",
     sensitivity: "internal",
     required: true,
+    source: "demo",
   },
   {
     id: "EVP-052",
     name: "Finance Customer Feed",
+    description:
+      "The customer finance feed missed its freshness target and requires owner review.",
     type: "DataHub · Restricted data flow",
     owner: "Finance Data",
     freshness: "31 hr",
@@ -87,6 +97,7 @@ export const evidenceAssets: readonly EvidenceAsset[] = [
     domain: "finance",
     sensitivity: "confidential",
     required: true,
+    source: "demo",
   },
 ] as const;
 

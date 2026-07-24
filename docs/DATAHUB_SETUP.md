@@ -1,0 +1,75 @@
+# DataHub and OpenRouter setup
+
+Corporate Brain has three independently selectable modes:
+
+| Evidence | Synthesis | Purpose |
+| --- | --- | --- |
+| `demo` | `demo` | Fully offline and deterministic |
+| `demo` | `openrouter` | Validate live AI without requiring DataHub |
+| `datahub` | `openrouter` | Full read flow with live metadata and AI synthesis |
+
+## OpenRouter
+
+Set these server-side variables without committing their values:
+
+```dotenv
+AI_PROVIDER=openrouter
+OPENROUTER_API_KEY=
+OPENROUTER_MODEL=nvidia/nemotron-3-super-120b-a12b:free
+ALLOW_PAID_MODELS=false
+```
+
+`OPENROUTER_MODEL` must be `openrouter/free` or end in `:free`. The application
+rejects other model IDs and also rejects `ALLOW_PAID_MODELS=true`.
+
+Only normalized, authorized evidence is sent to the model. Secrets are never
+sent to the browser or returned by the API.
+
+## DataHub MCP
+
+Corporate Brain connects to a DataHub MCP server over Streamable HTTP and uses
+the official read tools:
+
+- `search`
+- `get_entities`
+
+Set:
+
+```dotenv
+EVIDENCE_SOURCE=datahub
+DATAHUB_MCP_URL=
+DATAHUB_TOKEN=
+```
+
+The URL must point to the MCP endpoint, not to the normal DataHub web interface.
+The token is optional only when the endpoint itself does not require
+authentication.
+
+## Access isolation
+
+For a production-like test, use a DataHub service account whose default view is
+already restricted to the domains that Corporate Brain may search. The adapter
+also sends the resolved domain allowlist when the MCP tool schema supports it and
+filters every normalized result again.
+
+Unknown domains are denied by default. Application filtering is defense in
+depth; it is not a substitute for restrictions enforced by DataHub or the
+identity layer.
+
+## Current local prerequisite
+
+The current machine does not yet have a local DataHub runtime. A full live
+DataHub validation therefore needs either:
+
+1. an organizer-provided or managed DataHub MCP endpoint, or
+2. DataHub Core plus the official DataHub MCP server installed separately.
+
+Until one is available, keep `EVIDENCE_SOURCE=demo`. This still permits a live
+OpenRouter validation with synthetic evidence and exercises the complete
+Decision Card pipeline except for the external metadata retrieval.
+
+## Write-back
+
+This phase is read-only. DataHub mutation tools remain disabled. Saving an
+approved decision will be implemented separately with explicit user
+confirmation and server-side revalidation.

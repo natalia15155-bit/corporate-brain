@@ -63,7 +63,7 @@ export function BriefScreen({
                     <h3>{asset.name}</h3>
                     <code>ID: {asset.id}</code>
                   </div>
-                  <p>{t.assetDescriptions[asset.id]}</p>
+                  <p>{asset.description}</p>
                   <div className="evidence-meta">
                     <span>{asset.owner}</span>
                     <span>{asset.freshness}</span>

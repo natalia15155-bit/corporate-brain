@@ -4,10 +4,11 @@ import type {
   RoleId,
 } from "../access-control.ts";
 import type { Locale } from "../i18n.ts";
+import type { EvidenceSourceId } from "../evidence/types.ts";
 
 export type TrustBand = "medium" | "insufficient";
 export type DecisionStatus = "recommendation" | "abstention";
-export type ProviderId = "demo";
+export type ProviderId = "demo" | "openrouter";
 export type DecisionErrorCode =
   | "INVALID_REQUEST"
   | "UNKNOWN_PERSONA"
@@ -55,6 +56,7 @@ export interface DecisionCard {
   roleInsight: string;
   presentationRole: RoleId;
   provider: ProviderId;
+  evidenceSource: EvidenceSourceId;
   generatedAt: string;
 }
 

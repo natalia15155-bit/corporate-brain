@@ -1,12 +1,13 @@
 import {
   demoUsers,
-  getAuthorizedEvidence,
-  hasSufficientEvidence,
 } from "../access-control.ts";
 import { demoDecisionProvider } from "./demo-provider.ts";
 import { evaluateEvidence } from "./evidence-evaluator.ts";
+import { createOpenRouterDecisionProvider } from "./openrouter-provider.ts";
 import { getRuntimeConfig } from "./runtime-config.ts";
 import type { DecisionCard, DecisionRequest } from "./types.ts";
+import { demoEvidenceAdapter } from "../evidence/demo-evidence-adapter.ts";
+import { createDataHubEvidenceAdapter } from "../evidence/datahub-evidence-adapter.ts";
 
 function createDecisionId(question: string, userId: string): string {
   let hash = 2166136261;
@@ -22,24 +23,33 @@ function createDecisionId(question: string, userId: string): string {
 
 export async function createDecision(
   request: DecisionRequest,
+  environment: Record<string, string | undefined> = process.env,
 ): Promise<DecisionCard> {
-  const config = getRuntimeConfig();
+  const config = getRuntimeConfig(environment);
   const user = demoUsers.find((candidate) => candidate.id === request.userId);
 
   if (!user) {
     throw new Error("Resolved demonstration persona is unavailable.");
   }
 
-  const evidence = getAuthorizedEvidence(user);
+  const evidenceAdapter =
+    config.evidenceSource === "datahub"
+      ? createDataHubEvidenceAdapter({ environment })
+      : demoEvidenceAdapter;
+  const retrieval = await evidenceAdapter.retrieve({
+    question: request.question,
+    locale: request.locale,
+    user,
+  });
+  const evidence = retrieval.evidence;
   const evaluation = evaluateEvidence({
     evidence,
-    requiredEvidenceSatisfied: hasSufficientEvidence(user),
+    requiredEvidenceSatisfied: retrieval.requiredEvidenceSatisfied,
   });
-  const provider = config.provider === "demo" ? demoDecisionProvider : null;
-
-  if (!provider) {
-    throw new Error("Configured provider is unavailable.");
-  }
+  const provider =
+    !evaluation.sufficient || config.provider === "demo"
+      ? demoDecisionProvider
+      : createOpenRouterDecisionProvider(environment);
 
   const synthesis = await provider.synthesize({
     question: request.question,
@@ -63,6 +73,7 @@ export async function createDecision(
     roleInsight: synthesis.roleInsight,
     presentationRole: user.role,
     provider: provider.id,
+    evidenceSource: retrieval.source,
     generatedAt: new Date().toISOString(),
   };
 }

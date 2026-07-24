@@ -55,25 +55,29 @@ Trust bands and evidence warnings are calculated by code. The LLM explains the r
 
 Evidence rules require explicit design and tests instead of relying on a single prompt.
 
-## ADR-004 — Groq primary, Gemini disabled fallback
+## ADR-004 — OpenRouter primary, Gemini disabled fallback
 
 **Status:** Accepted
 
 **Date:** 2026-07-23
 
-The primary provider is Groq Free Tier using `openai/gpt-oss-120b`. Gemini API Free Tier is an optional disabled fallback.
+The primary provider is OpenRouter using only `openrouter/free` or a model ID
+explicitly marked with `:free`. Gemini API Free Tier remains an optional disabled
+fallback.
 
 ### Why
 
 - Zero additional cost
 - Structured output support
-- Suitable free rate limits
-- Fast inference
+- Reuses the already available project credential
+- Can route only to explicitly free models
 - Provider can be replaced through a small contract
 
 ### Trade-off
 
-Free tiers have no production SLA. The MVP needs safe failure and deterministic demonstration scenarios.
+Free models have no production SLA and may change availability. The MVP therefore
+has safe failure, a deterministic demonstration provider, and no automatic paid
+fallback.
 
 ## ADR-005 — Zero additional spending
 
