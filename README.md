@@ -67,4 +67,22 @@ No paid OpenAI API and no Supabase database are planned for the hackathon MVP.
 
 ## Current status
 
-Phase 0 — product definition and architecture. No functional application code has been written yet.
+Phase 1 — the first bilingual product experience is being implemented with
+synthetic demonstration data. Model and DataHub integrations remain disabled.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+Quality checks:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```

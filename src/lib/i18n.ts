@@ -1,0 +1,178 @@
+export type Locale = "en" | "es";
+
+export const copy = {
+  en: {
+    brandDescriptor: "Decision intelligence",
+    navAsk: "Ask",
+    navMemory: "Corporate Memory",
+    demoConnected: "DataHub demo connected",
+    eyebrow: "Grounded in your organization",
+    askTitle: "Make the next decision with evidence, not assumptions.",
+    askDescription:
+      "Ask a strategic question. Corporate Brain connects the recommendation to ownership, lineage, quality and the decisions your team already made.",
+    questionLabel: "What decision are you facing?",
+    questionPlaceholder:
+      "Should we consolidate customer data into the Unified Customer 360 dataset?",
+    suggestionLabel: "Try a demonstration question",
+    suggestionOne: "Should we consolidate customer data into Customer 360?",
+    suggestionTwo: "Can the executive team rely on the churn dashboard?",
+    suggestionThree: "What changed since the last retention decision?",
+    generate: "Build decision brief",
+    evidenceReady: "Evidence ready",
+    evidenceReadyDescription:
+      "12 assets, 4 owners and 3 prior decisions are available for this scenario.",
+    trustFramework: "Trust framework",
+    trustFrameworkDescription:
+      "Corporate Brain calculates evidence strength before asking AI to explain it.",
+    sourceData: "Synthetic demonstration data",
+    sourceDataDescription:
+      "No customer or company information is sent to an external model.",
+    briefEyebrow: "Decision brief · generated from traceable evidence",
+    briefTitle: "Consolidate in phases, starting with retention analytics.",
+    recommendation:
+      "Proceed with a staged consolidation into Customer 360. Start with the retention domain, resolve the two ownership gaps, and keep the legacy finance feed read-only until its quality incident is closed.",
+    trustBand: "Trust band",
+    medium: "Medium",
+    mediumReason: "Strong lineage · 2 unresolved warnings",
+    keyReasons: "Why this recommendation",
+    reasonOne:
+      "Customer 360 already supplies 78% of the fields used by the retention dashboard.",
+    reasonTwo:
+      "The approved FY26 data strategy names Customer 360 as the canonical customer layer.",
+    reasonThree:
+      "Finance ownership and freshness remain unresolved, so a full migration would be premature.",
+    whatChanged: "What changed since the last decision",
+    changeDescription:
+      "The retention model now depends on Customer 360, but the finance feed has missed its freshness target twice in seven days.",
+    evidenceTrail: "Evidence trail",
+    evidenceTrailDescription:
+      "Every claim links back to an asset, owner or prior decision in DataHub.",
+    viewInDataHub: "View in DataHub",
+    owner: "Owner",
+    freshness: "Freshness",
+    quality: "Quality",
+    current: "Current",
+    warning: "Warning",
+    verified: "Verified",
+    saveMemory: "Save to Corporate Memory",
+    askAnother: "Ask another question",
+    confirmationTitle: "Confirm shared write",
+    confirmationDescription:
+      "This will attach the approved decision context to Customer 360 in the demonstration workspace. Corporate Brain never writes shared context without confirmation.",
+    cancel: "Cancel",
+    confirmSave: "Confirm and save",
+    memoryEyebrow: "Durable organizational context",
+    memoryTitle: "The decisions your company should not have to make twice.",
+    memoryDescription:
+      "Approved decisions stay connected to the evidence that supported them. When that evidence changes, the decision becomes reviewable—not silently obsolete.",
+    saved: "Saved",
+    savedNotice: "Decision saved to Corporate Memory",
+    active: "Active",
+    reviewNeeded: "Review needed",
+    decided: "Decided",
+    evidence: "evidence",
+    changedEvidence: "Evidence changed 2 days ago",
+    stableEvidence: "Evidence remains stable",
+    memoryDecisionOne: "Consolidate retention data into Customer 360",
+    memoryDecisionTwo: "Use churn score v3 for executive reporting",
+    memoryDecisionThree: "Keep finance customer feed read-only",
+    decisionOneDate: "Today",
+    decisionTwoDate: "July 18",
+    decisionThreeDate: "July 11",
+    integrityTitle: "Memory integrity",
+    integrityDescription:
+      "1 decision needs review because supporting evidence changed.",
+    openDecision: "Open decision",
+    footer: "Corporate Brain · Built for the DataHub AI Hackathon",
+    demoMode: "Demo mode",
+    navLabel: "Primary navigation",
+    languageLabel: "Language",
+  },
+  es: {
+    brandDescriptor: "Inteligencia para decisiones",
+    navAsk: "Preguntar",
+    navMemory: "Memoria Corporativa",
+    demoConnected: "Demo de DataHub conectada",
+    eyebrow: "Basado en tu organización",
+    askTitle: "Tomá la próxima decisión con evidencia, no con supuestos.",
+    askDescription:
+      "Hacé una pregunta estratégica. Corporate Brain conecta la recomendación con responsables, linaje, calidad y las decisiones que tu equipo ya tomó.",
+    questionLabel: "¿Qué decisión estás evaluando?",
+    questionPlaceholder:
+      "¿Deberíamos consolidar los datos de clientes en Unified Customer 360?",
+    suggestionLabel: "Probá una pregunta de demostración",
+    suggestionOne: "¿Deberíamos consolidar los datos en Customer 360?",
+    suggestionTwo: "¿El equipo ejecutivo puede confiar en el panel de abandono?",
+    suggestionThree: "¿Qué cambió desde la última decisión de retención?",
+    generate: "Crear informe de decisión",
+    evidenceReady: "Evidencia preparada",
+    evidenceReadyDescription:
+      "Hay 12 activos, 4 responsables y 3 decisiones anteriores disponibles para este escenario.",
+    trustFramework: "Marco de confianza",
+    trustFrameworkDescription:
+      "Corporate Brain calcula la solidez de la evidencia antes de pedirle a la IA que la explique.",
+    sourceData: "Datos sintéticos de demostración",
+    sourceDataDescription:
+      "No se envía información de clientes o empresas a un modelo externo.",
+    briefEyebrow: "Informe de decisión · generado desde evidencia trazable",
+    briefTitle: "Consolidar por etapas, comenzando por analítica de retención.",
+    recommendation:
+      "Avanzá con una consolidación gradual en Customer 360. Empezá por el dominio de retención, resolvé los dos vacíos de responsabilidad y mantené la fuente financiera anterior en modo de sólo lectura hasta cerrar su incidente de calidad.",
+    trustBand: "Nivel de confianza",
+    medium: "Medio",
+    mediumReason: "Linaje sólido · 2 advertencias pendientes",
+    keyReasons: "Por qué recomendamos esto",
+    reasonOne:
+      "Customer 360 ya provee el 78 % de los campos usados por el panel de retención.",
+    reasonTwo:
+      "La estrategia de datos FY26 aprobada define Customer 360 como la capa canónica de clientes.",
+    reasonThree:
+      "La responsabilidad y actualización de Finanzas siguen pendientes; una migración completa sería prematura.",
+    whatChanged: "Qué cambió desde la última decisión",
+    changeDescription:
+      "El modelo de retención ahora depende de Customer 360, pero la fuente financiera incumplió su objetivo de actualización dos veces en siete días.",
+    evidenceTrail: "Rastro de evidencia",
+    evidenceTrailDescription:
+      "Cada afirmación se conecta con un activo, responsable o decisión anterior en DataHub.",
+    viewInDataHub: "Ver en DataHub",
+    owner: "Responsable",
+    freshness: "Actualización",
+    quality: "Calidad",
+    current: "Vigente",
+    warning: "Advertencia",
+    verified: "Verificado",
+    saveMemory: "Guardar en Memoria Corporativa",
+    askAnother: "Hacer otra pregunta",
+    confirmationTitle: "Confirmar escritura compartida",
+    confirmationDescription:
+      "Esto adjuntará el contexto aprobado a Customer 360 en el entorno de demostración. Corporate Brain nunca escribe contexto compartido sin confirmación.",
+    cancel: "Cancelar",
+    confirmSave: "Confirmar y guardar",
+    memoryEyebrow: "Contexto organizacional duradero",
+    memoryTitle: "Las decisiones que tu empresa no debería tener que tomar dos veces.",
+    memoryDescription:
+      "Las decisiones aprobadas permanecen conectadas con la evidencia que las respaldó. Si esa evidencia cambia, la decisión pasa a revisión; no queda obsoleta en silencio.",
+    saved: "Guardado",
+    savedNotice: "Decisión guardada en Memoria Corporativa",
+    active: "Activa",
+    reviewNeeded: "Requiere revisión",
+    decided: "Decidida",
+    evidence: "evidencias",
+    changedEvidence: "La evidencia cambió hace 2 días",
+    stableEvidence: "La evidencia permanece estable",
+    memoryDecisionOne: "Consolidar datos de retención en Customer 360",
+    memoryDecisionTwo: "Usar churn score v3 para reportes ejecutivos",
+    memoryDecisionThree: "Mantener la fuente financiera en sólo lectura",
+    decisionOneDate: "Hoy",
+    decisionTwoDate: "18 de julio",
+    decisionThreeDate: "11 de julio",
+    integrityTitle: "Integridad de la memoria",
+    integrityDescription:
+      "1 decisión necesita revisión porque cambió la evidencia que la respalda.",
+    openDecision: "Abrir decisión",
+    footer: "Corporate Brain · Creado para el Hackathon de IA de DataHub",
+    demoMode: "Modo demo",
+    navLabel: "Navegación principal",
+    languageLabel: "Idioma",
+  },
+} as const;
