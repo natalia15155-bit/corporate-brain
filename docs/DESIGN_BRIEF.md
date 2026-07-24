@@ -120,13 +120,13 @@ Explore:
 - Subtle borders and surfaces
 - Clear source and status chips
 
-## Inspiration without copying
+## Product foundations
 
-- Obsidian: connected knowledge and depth
-- Engram: persistent memory
-- Linear: clarity and interaction discipline
-- Notion: editorial calm
-- Financial products: evidence and trust
+- Connected organizational knowledge
+- Durable decision memory
+- Clarity and interaction discipline
+- Editorial calm
+- Visible evidence and trust
 
 Do not reproduce any third-party layout, logo, or branded visual asset.
 

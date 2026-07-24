@@ -4,7 +4,7 @@
 
 Corporate Brain is a decision-memory agent that connects business decisions to verifiable organizational evidence.
 
-It is inspired by the connected knowledge experience of Obsidian and the persistent AI memory concept of Engram, but its primary unit is not a note or a chat. Its primary unit is a **business decision with evidence and a lifecycle**.
+Its primary unit is not a note or a chat. Its primary unit is a **business decision with evidence and a lifecycle**.
 
 ## 2. Problem
 
