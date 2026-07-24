@@ -1,169 +1,153 @@
 "use client";
 
 import { useState } from "react";
-import { copy, type Locale } from "@/lib/i18n";
+import { ArrowIcon, CheckIcon, DatabaseIcon } from "@/components/icons";
 import {
-  ArrowIcon,
-  CheckIcon,
-  DatabaseIcon,
-  SparkIcon,
-} from "@/components/icons";
-
-const evidenceAssets = [
-  {
-    name: "customer_360",
-    type: "Snowflake · Dataset",
-    owner: "Customer Data",
-    freshness: "18 min",
-    quality: "98.4%",
-    tone: "verified",
-  },
-  {
-    name: "retention_executive",
-    type: "Looker · Dashboard",
-    owner: "Growth Analytics",
-    freshness: "2 hr",
-    quality: "96.1%",
-    tone: "verified",
-  },
-  {
-    name: "finance_customer_feed",
-    type: "Airflow · Data flow",
-    owner: "Unassigned",
-    freshness: "31 hr",
-    quality: "Warning",
-    tone: "warning",
-  },
-] as const;
+  getAuthorizedEvidence,
+  hasSufficientEvidence,
+  type DemoUser,
+} from "@/lib/access-control";
+import { copy, type Locale } from "@/lib/i18n";
 
 interface BriefScreenProps {
   locale: Locale;
+  user: DemoUser;
   onAskAgain: () => void;
   onSave: () => void;
 }
 
 export function BriefScreen({
   locale,
+  user,
   onAskAgain,
   onSave,
 }: BriefScreenProps) {
   const t = copy[locale];
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const visibleEvidence = getAuthorizedEvidence(user);
+  const sufficient = hasSufficientEvidence(user);
+  const roleView = t.roleViews[user.role];
 
   return (
     <main className="page-shell brief-shell">
-      <section className="brief-heading">
+      <section className="brief-topline">
         <div>
-          <p className="eyebrow">
-            <span className="eyebrow-mark">
-              <SparkIcon />
-            </span>
-            {t.briefEyebrow}
-          </p>
+          <p className="section-kicker">{t.briefEyebrow}</p>
           <h1>{t.briefTitle}</h1>
         </div>
-        <div className="trust-badge">
-          <span>{t.trustBand}</span>
-          <strong>{t.medium}</strong>
-          <small>{t.mediumReason}</small>
+        <div className={`access-state ${sufficient ? "allowed" : "limited"}`}>
+          <CheckIcon />
+          <span>
+            <strong>{sufficient ? t.scopeComplete : t.scopeLimited}</strong>
+            <small>{t.scopeFor} {user.name}</small>
+          </span>
         </div>
       </section>
 
-      <section className="brief-layout">
-        <div className="brief-main">
-          <article className="recommendation-card">
-            <div className="recommendation-mark">
-              <SparkIcon />
+      <section className="decision-grid">
+        <article className="structured-evidence">
+          <header>
+            <h2>{t.structuredEvidence}</h2>
+            <span>{visibleEvidence.length} {t.dataPoints}</span>
+          </header>
+          <div className="evidence-rows">
+            {visibleEvidence.map((asset) => (
+              <article className="evidence-row" key={asset.id}>
+                <span className={`asset-icon ${asset.tone}`}>
+                  <DatabaseIcon />
+                </span>
+                <div className="evidence-copy">
+                  <div className="evidence-title">
+                    <h3>{asset.name}</h3>
+                    <code>ID: {asset.id}</code>
+                  </div>
+                  <p>{t.assetDescriptions[asset.id]}</p>
+                  <div className="evidence-meta">
+                    <span>{asset.owner}</span>
+                    <span>{asset.freshness}</span>
+                    <span>{t.sensitivity[asset.sensitivity]}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          {!sufficient && (
+            <div className="abstention" role="status">
+              <CheckIcon />
+              <div>
+                <strong>{t.insufficientTitle}</strong>
+                <p>{t.insufficientAuthorizedEvidence}</p>
+              </div>
             </div>
-            <p>{t.recommendation}</p>
-          </article>
+          )}
+        </article>
 
-          <article className="reasons-card">
-            <h2>{t.keyReasons}</h2>
-            <ol>
-              {[t.reasonOne, t.reasonTwo, t.reasonThree].map((reason) => (
-                <li key={reason}>
-                  <span>
-                    <CheckIcon />
-                  </span>
-                  <p>{reason}</p>
-                </li>
-              ))}
-            </ol>
-          </article>
-
-          <article className="change-card">
-            <div className="change-symbol">↗</div>
+        <aside className="decision-aside">
+          <article className="outcome-card">
+            <span>{t.projectedOutcome}</span>
             <div>
-              <h2>{t.whatChanged}</h2>
-              <p>{t.changeDescription}</p>
+              <strong>{sufficient ? "+22%" : "—"}</strong>
+              <p>{sufficient ? t.pipelineGrowth : t.outcomeUnavailable}</p>
             </div>
+            <small>{sufficient ? t.outcomeDescription : t.outcomeLimited}</small>
           </article>
-        </div>
 
-        <aside className="relationship-card">
-          <div className="relationship-heading">
-            <span>{t.evidenceTrail}</span>
-            <strong>12</strong>
-          </div>
-          <div className="mini-graph" aria-hidden="true">
-            <span className="graph-line one" />
-            <span className="graph-line two" />
-            <span className="graph-line three" />
-            <span className="graph-node center">CB</span>
-            <span className="graph-node node-a">360</span>
-            <span className="graph-node node-b">R</span>
-            <span className="graph-node node-c">F</span>
-          </div>
-          <p>{t.evidenceTrailDescription}</p>
+          <article className="risk-card">
+            <h2>
+              <span>◇</span>
+              {t.riskAssessment}
+            </h2>
+            <ul>
+              {(sufficient ? t.risks : t.limitedRisks).map((risk) => (
+                <li key={risk}>{risk}</li>
+              ))}
+            </ul>
+          </article>
         </aside>
       </section>
 
-      <section className="evidence-section">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">DataHub</p>
-            <h2>{t.evidenceTrail}</h2>
-          </div>
-          <p>{t.evidenceTrailDescription}</p>
-        </div>
+      <section className="role-view">
+        <span>{t.personalizedFor} {t.roles[user.role]}</span>
+        <strong>{roleView.title}</strong>
+        <p>{sufficient ? roleView.complete : roleView.limited}</p>
+      </section>
 
-        <div className="evidence-list">
-          {evidenceAssets.map((asset) => (
-            <article className="evidence-card" key={asset.name}>
-              <div className={`asset-icon ${asset.tone}`}>
-                <DatabaseIcon />
+      <section className="approval-bar">
+        <div>
+          <CheckIcon />
+          <span>{sufficient ? t.readyToFinalize : t.reviewBeforeDecision}</span>
+        </div>
+        <div>
+          <button className="secondary-button" type="button" onClick={onAskAgain}>
+            {t.askAnother}
+          </button>
+          <button
+            className="primary-button"
+            type="button"
+            disabled={!sufficient}
+            onClick={() => setShowConfirmation(true)}
+          >
+            {t.approveDecision}
+          </button>
+        </div>
+      </section>
+
+      <section className="anchor-section">
+        <h2>{t.contextualAnchors}</h2>
+        <div className="anchor-grid">
+          {t.anchors.map((anchor, index) => (
+            <article key={anchor.title}>
+              {index === 1 ? <CheckIcon /> : <DatabaseIcon />}
+              <div>
+                <strong>{anchor.title}</strong>
+                <small>{anchor.meta}</small>
               </div>
-              <div className="asset-identity">
-                <h3>{asset.name}</h3>
-                <p>{asset.type}</p>
-              </div>
-              <dl>
-                <div>
-                  <dt>{t.owner}</dt>
-                  <dd>{asset.owner}</dd>
-                </div>
-                <div>
-                  <dt>{t.freshness}</dt>
-                  <dd>{asset.freshness}</dd>
-                </div>
-                <div>
-                  <dt>{t.quality}</dt>
-                  <dd className={asset.tone}>
-                    {asset.quality === "Warning" ? t.warning : asset.quality}
-                  </dd>
-                </div>
-              </dl>
-              <button type="button" className="text-button">
-                {t.viewInDataHub}
-                <ArrowIcon />
-              </button>
             </article>
           ))}
         </div>
       </section>
 
-      {showConfirmation ? (
+      {showConfirmation && (
         <section className="confirmation-panel" aria-live="polite">
           <div className="confirmation-icon">
             <DatabaseIcon />
@@ -182,23 +166,9 @@ export function BriefScreen({
             </button>
             <button className="primary-button" type="button" onClick={onSave}>
               {t.confirmSave}
-              <CheckIcon />
+              <ArrowIcon />
             </button>
           </div>
-        </section>
-      ) : (
-        <section className="brief-actions">
-          <button className="secondary-button" type="button" onClick={onAskAgain}>
-            {t.askAnother}
-          </button>
-          <button
-            className="primary-button"
-            type="button"
-            onClick={() => setShowConfirmation(true)}
-          >
-            {t.saveMemory}
-            <ArrowIcon />
-          </button>
         </section>
       )}
     </main>

@@ -4,7 +4,20 @@ export const copy = {
   en: {
     brandDescriptor: "Decision intelligence",
     navAsk: "Ask",
+    navBrief: "Decision Brief",
     navMemory: "Corporate Memory",
+    newInquiry: "New inquiry",
+    activeWorkspace: "Active workspace",
+    authorizedDomains: "authorized domains",
+    security: "Security",
+    defaultDeny: "Default deny",
+    demoPersona: "Demo persona",
+    syntheticPersonaNotice: "Synthetic identity · no production data",
+    roles: {
+      executive: "Executive",
+      analyst: "Growth analyst",
+      "data-steward": "Data steward",
+    },
     demoConnected: "DataHub demo connected",
     eyebrow: "Grounded in your organization",
     askTitle: "Make the next decision with evidence, not assumptions.",
@@ -29,6 +42,77 @@ export const copy = {
       "No customer or company information is sent to an external model.",
     briefEyebrow: "Decision brief · generated from traceable evidence",
     briefTitle: "Consolidate in phases, starting with retention analytics.",
+    structuredEvidence: "Structured evidence",
+    dataPoints: "data points",
+    scopeComplete: "Authorized scope complete",
+    scopeLimited: "Authorized scope limited",
+    scopeFor: "Evidence filtered for",
+    assetDescriptions: {
+      "EVP-029":
+        "Competitor spend declined while high-yield channels continued to create qualified demand.",
+      "EVP-044":
+        "Current blended CAC remains below the lifetime-value efficiency threshold.",
+      "EVP-052":
+        "The customer finance feed missed its freshness target and requires owner review.",
+    },
+    sensitivity: {
+      internal: "Internal",
+      confidential: "Confidential",
+    },
+    insufficientTitle: "Insufficient authorized evidence",
+    insufficientAuthorizedEvidence:
+      "Corporate Brain cannot provide a trustworthy recommendation from the evidence available to this profile. No restricted source details are disclosed.",
+    projectedOutcome: "Projected outcome",
+    pipelineGrowth: "Expected pipeline growth",
+    outcomeUnavailable: "Outcome unavailable",
+    outcomeDescription:
+      "Based on the authorized evidence, the staged plan is expected to improve qualified pipeline over 90 days.",
+    outcomeLimited:
+      "A projected outcome is withheld until enough authorized evidence is available.",
+    riskAssessment: "Risk assessment",
+    risks: [
+      "Diminishing returns if spend exceeds the tested threshold.",
+      "Content production remains the primary bottleneck.",
+      "Recent channel volatility requires weekly review.",
+    ],
+    limitedRisks: [
+      "The available scope does not support a complete risk assessment.",
+      "Request an authorized reviewer instead of inferring hidden context.",
+    ],
+    personalizedFor: "Explanation tailored for",
+    roleViews: {
+      executive: {
+        title: "Decision impact",
+        complete:
+          "The phased option protects downside while preserving the expected growth opportunity.",
+        limited:
+          "Decision impact is withheld because the authorized evidence is incomplete.",
+      },
+      analyst: {
+        title: "Evidence quality and lineage",
+        complete:
+          "The visible sources are current, owned, and connected to the proposed outcome.",
+        limited:
+          "Visible sources are traceable, but they are not sufficient for a final recommendation.",
+      },
+      "data-steward": {
+        title: "Governance remediation",
+        complete:
+          "Resolve the freshness warning and document the accountable owner before the next review.",
+        limited:
+          "Document the evidence gap and route the decision to an authorized reviewer.",
+      },
+    },
+    readyToFinalize: "Ready to finalize this decision with the authorized evidence?",
+    reviewBeforeDecision:
+      "An authorized reviewer is required before this decision can be finalized.",
+    approveDecision: "Approve decision",
+    contextualAnchors: "Contextual anchors",
+    anchors: [
+      { title: "Q2 Budget Report", meta: "Official archive · 3.2 MB" },
+      { title: "Marketing Dependency Graph", meta: "Internal tool · Real-time" },
+      { title: "Stakeholder Decision Log", meta: "Shared context · 14 entries" },
+    ],
     recommendation:
       "Proceed with a staged consolidation into Customer 360. Start with the retention domain, resolve the two ownership gaps, and keep the legacy finance feed read-only until its quality incident is closed.",
     trustBand: "Trust band",
@@ -91,7 +175,20 @@ export const copy = {
   es: {
     brandDescriptor: "Inteligencia para decisiones",
     navAsk: "Preguntar",
+    navBrief: "Informe de decisión",
     navMemory: "Memoria Corporativa",
+    newInquiry: "Nueva consulta",
+    activeWorkspace: "Espacio activo",
+    authorizedDomains: "dominios autorizados",
+    security: "Seguridad",
+    defaultDeny: "Denegado por defecto",
+    demoPersona: "Persona de demostración",
+    syntheticPersonaNotice: "Identidad sintética · sin datos reales",
+    roles: {
+      executive: "Dirección ejecutiva",
+      analyst: "Analista de Growth",
+      "data-steward": "Responsable de datos",
+    },
     demoConnected: "Demo de DataHub conectada",
     eyebrow: "Basado en tu organización",
     askTitle: "Tomá la próxima decisión con evidencia, no con supuestos.",
@@ -116,6 +213,77 @@ export const copy = {
       "No se envía información de clientes o empresas a un modelo externo.",
     briefEyebrow: "Informe de decisión · generado desde evidencia trazable",
     briefTitle: "Consolidar por etapas, comenzando por analítica de retención.",
+    structuredEvidence: "Evidencia estructurada",
+    dataPoints: "puntos de datos",
+    scopeComplete: "Alcance autorizado completo",
+    scopeLimited: "Alcance autorizado limitado",
+    scopeFor: "Evidencia filtrada para",
+    assetDescriptions: {
+      "EVP-029":
+        "La inversión de competidores bajó mientras los canales de mayor rendimiento mantuvieron demanda calificada.",
+      "EVP-044":
+        "El costo de adquisición combinado permanece por debajo del umbral de eficiencia de valor de vida.",
+      "EVP-052":
+        "La fuente financiera de clientes incumplió su objetivo de actualización y requiere revisión.",
+    },
+    sensitivity: {
+      internal: "Interno",
+      confidential: "Confidencial",
+    },
+    insufficientTitle: "Evidencia autorizada insuficiente",
+    insufficientAuthorizedEvidence:
+      "Corporate Brain no puede dar una recomendación confiable con la evidencia disponible para este perfil. No se revelan detalles de fuentes restringidas.",
+    projectedOutcome: "Resultado proyectado",
+    pipelineGrowth: "Crecimiento esperado del pipeline",
+    outcomeUnavailable: "Resultado no disponible",
+    outcomeDescription:
+      "Según la evidencia autorizada, el plan gradual podría mejorar el pipeline calificado en 90 días.",
+    outcomeLimited:
+      "La proyección se oculta hasta contar con suficiente evidencia autorizada.",
+    riskAssessment: "Evaluación de riesgos",
+    risks: [
+      "Rendimientos decrecientes si la inversión supera el umbral probado.",
+      "La producción de contenido sigue siendo el principal cuello de botella.",
+      "La volatilidad reciente exige una revisión semanal.",
+    ],
+    limitedRisks: [
+      "El alcance disponible no permite evaluar todos los riesgos.",
+      "Solicitá una revisión autorizada en lugar de inferir contexto oculto.",
+    ],
+    personalizedFor: "Explicación adaptada para",
+    roleViews: {
+      executive: {
+        title: "Impacto de la decisión",
+        complete:
+          "La opción gradual protege el resultado y conserva la oportunidad de crecimiento.",
+        limited:
+          "El impacto se omite porque la evidencia autorizada está incompleta.",
+      },
+      analyst: {
+        title: "Calidad y linaje de evidencia",
+        complete:
+          "Las fuentes visibles están vigentes, tienen responsables y se conectan con el resultado.",
+        limited:
+          "Las fuentes visibles son trazables, pero no alcanzan para una recomendación final.",
+      },
+      "data-steward": {
+        title: "Corrección de gobernanza",
+        complete:
+          "Resolvé la advertencia de actualización y documentá al responsable antes de revisar.",
+        limited:
+          "Documentá el vacío de evidencia y derivá la decisión a una persona autorizada.",
+      },
+    },
+    readyToFinalize: "¿Listo para finalizar con la evidencia autorizada?",
+    reviewBeforeDecision:
+      "Se requiere una revisión autorizada antes de finalizar esta decisión.",
+    approveDecision: "Aprobar decisión",
+    contextualAnchors: "Anclas contextuales",
+    anchors: [
+      { title: "Informe de presupuesto Q2", meta: "Archivo oficial · 3,2 MB" },
+      { title: "Grafo de dependencias de Marketing", meta: "Herramienta interna · En vivo" },
+      { title: "Registro de decisiones", meta: "Contexto compartido · 14 entradas" },
+    ],
     recommendation:
       "Avanzá con una consolidación gradual en Customer 360. Empezá por el dominio de retención, resolvé los dos vacíos de responsabilidad y mantené la fuente financiera anterior en modo de sólo lectura hasta cerrar su incidente de calidad.",
     trustBand: "Nivel de confianza",
