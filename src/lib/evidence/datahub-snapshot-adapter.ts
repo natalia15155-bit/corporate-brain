@@ -1,9 +1,9 @@
 import type { DemoUser, DomainId, EvidenceAsset } from "../access-control.ts";
 import type { EvidenceAdapter, EvidenceRetrievalInput } from "./types.ts";
 
-// A small, offline projection of the official DataHub showcase-ecommerce pack.
-// It keeps local development fast while the live MCP connection is reserved for
-// integration tests and the public demo.
+// A read-only projection of the official DataHub showcase-ecommerce pack.
+// It keeps the public demo deterministic while the live MCP connection is
+// reserved for the final integration environment.
 const snapshotAssets: readonly EvidenceAsset[] = [
   {
     id: "urn:li:document:ecomm-catalog",
@@ -46,6 +46,96 @@ const snapshotAssets: readonly EvidenceAsset[] = [
     quality: "Published",
     tone: "verified",
     domain: "growth",
+    sensitivity: "internal",
+    required: false,
+    source: "datahub",
+  },
+  {
+    id: "urn:li:dataset:(urn:li:dataPlatform:postgres,orders,PROD)",
+    name: "Orders Production Dataset",
+    description:
+      "Canonical order events with status transitions, payment state and fulfillment timestamps for operational reporting.",
+    type: "DataHub · PostgreSQL dataset",
+    owner: "Order Platform",
+    freshness: "42 min",
+    quality: "99.2%",
+    tone: "verified",
+    domain: "growth",
+    sensitivity: "internal",
+    required: true,
+    source: "datahub",
+  },
+  {
+    id: "urn:li:dataset:(urn:li:dataPlatform:snowflake,customer_360,PROD)",
+    name: "Customer 360 Model",
+    description:
+      "Curated customer identity and lifecycle model used by retention, churn and executive reporting workflows.",
+    type: "DataHub · Snowflake dataset",
+    owner: "Analytics Engineering",
+    freshness: "1 hr",
+    quality: "98.7%",
+    tone: "verified",
+    domain: "shared",
+    sensitivity: "internal",
+    required: true,
+    source: "datahub",
+  },
+  {
+    id: "urn:li:dashboard:(urn:li:dataPlatform:looker,retention-overview,PROD)",
+    name: "Retention Overview Dashboard",
+    description:
+      "Executive dashboard downstream of Customer 360 and Orders, with documented metric definitions and owners.",
+    type: "DataHub · Looker dashboard",
+    owner: "Growth Analytics",
+    freshness: "2 hr",
+    quality: "Monitored",
+    tone: "verified",
+    domain: "growth",
+    sensitivity: "internal",
+    required: false,
+    source: "datahub",
+  },
+  {
+    id: "urn:li:dataset:(urn:li:dataPlatform:s3,returns,PROD)",
+    name: "Returns and Refunds Feed",
+    description:
+      "Refund and return events joined to order items; a dependency for net revenue and customer experience analysis.",
+    type: "DataHub · S3 dataset",
+    owner: "Finance Data",
+    freshness: "6 hr",
+    quality: "96.8%",
+    tone: "verified",
+    domain: "finance",
+    sensitivity: "confidential",
+    required: false,
+    source: "datahub",
+  },
+  {
+    id: "urn:li:dataset:(urn:li:dataPlatform:snowflake,net_revenue,PROD)",
+    name: "Net Revenue Metric Layer",
+    description:
+      "Governed metric layer for net revenue, connecting orders, refunds and the finance glossary definition.",
+    type: "DataHub · Snowflake metric",
+    owner: "Finance Data",
+    freshness: "3 hr",
+    quality: "Review required",
+    tone: "warning",
+    domain: "finance",
+    sensitivity: "confidential",
+    required: true,
+    source: "datahub",
+  },
+  {
+    id: "urn:li:pipeline:(urn:li:dataPlatform:airflow,orders-daily,PROD)",
+    name: "Orders Daily Pipeline",
+    description:
+      "Airflow pipeline that publishes the orders dataset and records the upstream-to-dashboard lineage chain.",
+    type: "DataHub · Airflow pipeline",
+    owner: "Data Platform",
+    freshness: "Last run 38 min ago",
+    quality: "Healthy",
+    tone: "verified",
+    domain: "shared",
     sensitivity: "internal",
     required: false,
     source: "datahub",

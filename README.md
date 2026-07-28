@@ -19,6 +19,7 @@ This project is being created for **Build with DataHub: The Agent Hackathon**.
 - Intended category: Agents That Do Real Work
 - Required foundation: DataHub Open Source and DataHub MCP
 - License: Apache 2.0
+- Public demo: https://corporate-brain-delta.vercel.app
 
 ## Product promise
 
@@ -67,7 +68,7 @@ No paid OpenAI API and no Supabase database are planned for the hackathon MVP.
 
 ## Current status
 
-Phase 2 is in progress.
+Phase 3 is in progress. The public demonstration is deployed and verified.
 
 Implemented:
 
@@ -81,10 +82,18 @@ Implemented:
 - OpenRouter adapter with strict structured-output validation
 - DataHub MCP read adapter for search and entity metadata
 - Default-deny filtering for unknown or unauthorized domains
+- Rich DataHub snapshot with datasets, dashboards, pipelines, ownership,
+  freshness, quality, sensitivity, and realistic URNs
+- GitHub Actions quality workflow
+- Verified Vercel production deployment and decision API
 
 The adapters are implemented and independently tested. Live OpenRouter can be
 enabled with server-side environment variables. Live DataHub validation requires
 an accessible DataHub MCP endpoint and a scope-limited token.
+
+The public demo intentionally uses the checked-in DataHub snapshot and the
+deterministic provider. The interface labels this state explicitly; it does not
+claim a live connection.
 
 ## Local development
 

@@ -65,8 +65,10 @@ export function BriefScreen({
                   </div>
                   <p>{asset.description}</p>
                   <div className="evidence-meta">
+                    <span>{asset.type}</span>
                     <span>{asset.owner}</span>
                     <span>{asset.freshness}</span>
+                    <span>{asset.quality}</span>
                     <span>{t.sensitivity[asset.sensitivity]}</span>
                   </div>
                 </div>

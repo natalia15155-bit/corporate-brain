@@ -18,7 +18,7 @@ export const copy = {
       analyst: "Growth analyst",
       "data-steward": "Data steward",
     },
-    demoConnected: "DataHub demo connected",
+    demoConnected: "DataHub snapshot connected",
     eyebrow: "Grounded in your organization",
     askTitle: "Make the next decision with evidence, not assumptions.",
     askDescription:
@@ -192,7 +192,7 @@ export const copy = {
       analyst: "Analista de Growth",
       "data-steward": "Responsable de datos",
     },
-    demoConnected: "Demo de DataHub conectada",
+    demoConnected: "Snapshot de DataHub conectado",
     eyebrow: "Basado en tu organización",
     askTitle: "Tomá la próxima decisión con evidencia, no con supuestos.",
     askDescription:
