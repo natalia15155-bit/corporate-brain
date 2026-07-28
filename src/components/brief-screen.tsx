@@ -25,6 +25,7 @@ export function BriefScreen({
   const [showConfirmation, setShowConfirmation] = useState(false);
   const visibleEvidence = decision.evidence;
   const sufficient = decision.status === "recommendation";
+  const isDataDiscovery = decision.intent === "data-discovery";
   const roleView = t.roleViews[user.role];
 
   return (
@@ -88,18 +89,30 @@ export function BriefScreen({
 
         <aside className="decision-aside">
           <article className="outcome-card">
-            <span>{t.projectedOutcome}</span>
+            <span>{isDataDiscovery ? t.catalogResult : t.projectedOutcome}</span>
             <div>
               <strong>{decision.outcome ?? "—"}</strong>
-              <p>{sufficient ? t.pipelineGrowth : t.outcomeUnavailable}</p>
+              <p>
+                {sufficient
+                  ? isDataDiscovery
+                    ? t.authorizedEvidence
+                    : t.pipelineGrowth
+                  : t.outcomeUnavailable}
+              </p>
             </div>
-            <small>{sufficient ? t.outcomeDescription : t.outcomeLimited}</small>
+            <small>
+              {sufficient
+                ? isDataDiscovery
+                  ? t.discoveryOutcomeDescription
+                  : t.outcomeDescription
+                : t.outcomeLimited}
+            </small>
           </article>
 
           <article className="risk-card">
             <h2>
               <span>◇</span>
-              {t.riskAssessment}
+              {isDataDiscovery ? t.dataConsiderations : t.riskAssessment}
             </h2>
             <ul>
               {decision.risks.map((risk) => (
@@ -119,37 +132,47 @@ export function BriefScreen({
       <section className="approval-bar">
         <div>
           <CheckIcon />
-          <span>{sufficient ? t.readyToFinalize : t.reviewBeforeDecision}</span>
+          <span>
+            {isDataDiscovery
+              ? t.discoveryNextStep
+              : sufficient
+                ? t.readyToFinalize
+                : t.reviewBeforeDecision}
+          </span>
         </div>
         <div>
           <button className="secondary-button" type="button" onClick={onAskAgain}>
-            {t.askAnother}
+            {isDataDiscovery ? t.returnToCatalog : t.askAnother}
           </button>
-          <button
-            className="primary-button"
-            type="button"
-            disabled={!sufficient}
-            onClick={() => setShowConfirmation(true)}
-          >
-            {t.approveDecision}
-          </button>
+          {!isDataDiscovery && (
+            <button
+              className="primary-button"
+              type="button"
+              disabled={!sufficient}
+              onClick={() => setShowConfirmation(true)}
+            >
+              {t.approveDecision}
+            </button>
+          )}
         </div>
       </section>
 
-      <section className="anchor-section">
-        <h2>{t.contextualAnchors}</h2>
-        <div className="anchor-grid">
-          {t.anchors.map((anchor, index) => (
-            <article key={anchor.title}>
-              {index === 1 ? <CheckIcon /> : <DatabaseIcon />}
-              <div>
-                <strong>{anchor.title}</strong>
-                <small>{anchor.meta}</small>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      {!isDataDiscovery && (
+        <section className="anchor-section">
+          <h2>{t.contextualAnchors}</h2>
+          <div className="anchor-grid">
+            {t.anchors.map((anchor, index) => (
+              <article key={anchor.title}>
+                {index === 1 ? <CheckIcon /> : <DatabaseIcon />}
+                <div>
+                  <strong>{anchor.title}</strong>
+                  <small>{anchor.meta}</small>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       {showConfirmation && (
         <section className="confirmation-panel" aria-live="polite">

@@ -4,7 +4,7 @@ import type { EvidenceAdapter, EvidenceRetrievalInput } from "./types.ts";
 // A read-only projection of the official DataHub showcase-ecommerce pack.
 // It keeps the public demo deterministic while the live MCP connection is
 // reserved for the final integration environment.
-const snapshotAssets: readonly EvidenceAsset[] = [
+export const dataHubSnapshotAssets: readonly EvidenceAsset[] = [
   {
     id: "urn:li:document:ecomm-catalog",
     name: "E-Commerce Data Catalog",
@@ -158,7 +158,7 @@ function canAccess(user: DemoUser, asset: EvidenceAsset): boolean {
 export const dataHubSnapshotEvidenceAdapter: EvidenceAdapter = {
   id: "datahub",
   async retrieve(input: EvidenceRetrievalInput) {
-    const evidence = snapshotAssets
+    const evidence = dataHubSnapshotAssets
       .filter((asset) => canAccess(input.user, asset))
       .map((asset, index) => ({ asset, relevance: score(asset, input.question) + (index === 0 ? 1 : 0) }))
       .sort((left, right) => right.relevance - left.relevance)

@@ -29,3 +29,25 @@ test("creates an abstention without leaking hidden evidence", async () => {
   assert.equal(serialized.includes("EVP-052"), false);
 });
 
+test("answers data discovery questions from the role-authorized snapshot", async () => {
+  const decision = await createDecision(
+    {
+      question: "¿Qué tipo de datos tenemos disponibles?",
+      userId: "sofia-finance",
+      locale: "es",
+    },
+    {
+      EVIDENCE_SOURCE: "snapshot",
+      AI_PROVIDER: "demo",
+      DEMO_MODE: "true",
+    },
+  );
+  const serialized = JSON.stringify(decision);
+
+  assert.equal(decision.intent, "data-discovery");
+  assert.match(decision.recommendation, /activos autorizados de DataHub/);
+  assert.equal(decision.evidence.some((asset) => asset.domain === "finance"), true);
+  assert.equal(decision.evidence.some((asset) => asset.domain === "growth"), false);
+  assert.equal(serialized.includes("Retention Overview Dashboard"), false);
+});
+

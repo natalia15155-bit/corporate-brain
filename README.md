@@ -27,13 +27,27 @@ This project is being created for **Build with DataHub: The Agent Hackathon**.
 
 ## MVP experience
 
-1. Ask a business question.
-2. Retrieve relevant evidence from DataHub.
-3. Generate a concise Decision Card.
-4. Show evidence, limitations, and a trust level.
-5. Ask a human to confirm before saving.
-6. Write the approved context back to DataHub.
-7. Flag the decision when its supporting evidence changes.
+1. Select a synthetic role and review the DataHub assets that role may use.
+2. Inspect each visible source's type, owner, freshness, quality, domain, and sensitivity.
+3. Ask either a data-discovery question or a concrete business decision.
+4. Retrieve only the evidence authorized for the selected role.
+5. Generate a concise Decision Card or an explicit abstention.
+6. Show evidence, limitations, and a role-appropriate next step.
+7. Ask a human to confirm before saving a consequential decision.
+
+Data-discovery questions do not create or approve decisions. They return the
+authorized catalog and guide the user toward a concrete question.
+
+## Recommended demo walkthrough
+
+1. Start as Alex Morgan to see the organization-wide catalog.
+2. Switch to Sofia Reyes, the Finance data steward.
+3. Confirm that Growth-only assets disappear and that the visible quality warning remains.
+4. Ask **What data is available to the Finance team?**
+5. Review the five authorized assets and their ownership, freshness, quality,
+   domain, and sensitivity signals.
+6. Return to the catalog and ask a concrete question about the net revenue
+   metric or the returns feed.
 
 ## Product principles
 
@@ -82,6 +96,9 @@ Implemented:
 - OpenRouter adapter with strict structured-output validation
 - DataHub MCP read adapter for search and entity metadata
 - Default-deny filtering for unknown or unauthorized domains
+- Server-filtered data catalog tailored to each role
+- Separate bilingual data-discovery and decision workflows
+- Role-specific starter questions and next-step guidance
 - Rich DataHub snapshot with datasets, dashboards, pipelines, ownership,
   freshness, quality, sensitivity, and realistic URNs
 - GitHub Actions quality workflow

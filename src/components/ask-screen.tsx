@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { copy, type Locale } from "@/lib/i18n";
+import type { DemoUser } from "@/lib/access-control";
+import type { RoleCatalog } from "@/lib/catalog/types";
 import {
   ArrowIcon,
   CheckIcon,
@@ -11,6 +13,10 @@ import {
 
 interface AskScreenProps {
   locale: Locale;
+  user: DemoUser;
+  catalog: RoleCatalog | null;
+  catalogLoading: boolean;
+  catalogError: string | null;
   loading: boolean;
   error: string | null;
   onGenerate: (question: string) => Promise<void>;
@@ -18,13 +24,22 @@ interface AskScreenProps {
 
 export function AskScreen({
   locale,
+  user,
+  catalog,
+  catalogLoading,
+  catalogError,
   loading,
   error,
   onGenerate,
 }: AskScreenProps) {
   const t = copy[locale];
   const [question, setQuestion] = useState("");
-  const suggestions = [t.suggestionOne, t.suggestionTwo, t.suggestionThree];
+  const [showAllData, setShowAllData] = useState(false);
+  const suggestions = t.roleSuggestions[user.role];
+  const visibleAssets = catalog?.assets.slice(
+    0,
+    showAllData ? catalog.assets.length : 4,
+  );
 
   return (
     <main className="page-shell">
@@ -38,7 +53,97 @@ export function AskScreen({
           </p>
           <h1>{t.askTitle}</h1>
           <p className="hero-description">{t.askDescription}</p>
+          <div className="product-purpose">
+            <strong>{t.productPurposeTitle}</strong>
+            <span>{t.productPurposeDescription}</span>
+          </div>
         </div>
+
+        <section className="role-data-panel" aria-labelledby="role-data-title">
+          <header className="role-data-header">
+            <div>
+              <p className="section-kicker">{t.roleWorkspaceLabel}</p>
+              <h2 id="role-data-title">
+                {t.roleWorkspaceTitle} {t.roles[user.role]}
+              </h2>
+              <p>{t.roleWorkspaceDescriptions[user.role]}</p>
+            </div>
+            <span className="role-team-badge">{user.team}</span>
+          </header>
+
+          {catalogLoading && !catalog && (
+            <p className="catalog-state" role="status">
+              {t.catalogLoading}
+            </p>
+          )}
+          {catalogError && (
+            <p className="request-error" role="alert">
+              {catalogError}
+            </p>
+          )}
+          {catalog && (
+            <>
+              <div className="catalog-stats" aria-label={t.catalogSummary}>
+                <span>
+                  <strong>{catalog.stats.assets}</strong>
+                  {t.assetsLabel}
+                </span>
+                <span>
+                  <strong>{catalog.stats.owners}</strong>
+                  {t.ownersLabel}
+                </span>
+                <span className={catalog.stats.warnings > 0 ? "warning" : ""}>
+                  <strong>{catalog.stats.warnings}</strong>
+                  {t.warningsLabel}
+                </span>
+                <span className="catalog-domains">
+                  {catalog.domains
+                    .map((domain) => t.domainLabels[domain])
+                    .join(" · ")}
+                </span>
+              </div>
+
+              <div className="catalog-heading">
+                <div>
+                  <h3>{t.availableData}</h3>
+                  <p>{t.availableDataDescription}</p>
+                </div>
+                {catalog.assets.length > 4 && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllData((current) => !current)}
+                  >
+                    {showAllData ? t.showLessData : t.showAllData}
+                  </button>
+                )}
+              </div>
+
+              <div className="catalog-grid">
+                {visibleAssets?.map((asset) => (
+                  <article className="catalog-card" key={asset.id}>
+                    <div className="catalog-card-title">
+                      <span className={`catalog-status ${asset.tone}`} />
+                      <div>
+                        <h4>{asset.name}</h4>
+                        <small>{asset.type}</small>
+                      </div>
+                    </div>
+                    <p>{asset.description}</p>
+                    <div className="catalog-card-meta">
+                      <span>{asset.owner}</span>
+                      <span>{asset.freshness}</span>
+                      <span>{asset.quality}</span>
+                    </div>
+                    <footer>
+                      <span>{t.domainLabels[asset.domain]}</span>
+                      <span>{t.sensitivity[asset.sensitivity]}</span>
+                    </footer>
+                  </article>
+                ))}
+              </div>
+            </>
+          )}
+        </section>
 
         <div className="question-card">
           <label htmlFor="decision-question">{t.questionLabel}</label>
@@ -72,7 +177,7 @@ export function AskScreen({
         </div>
 
         <div className="suggestion-block">
-          <p>{t.suggestionLabel}</p>
+          <p>{t.roleSuggestionLabel}</p>
           <div className="suggestion-list">
             {suggestions.map((suggestion) => (
               <button

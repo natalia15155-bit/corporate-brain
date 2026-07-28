@@ -6,6 +6,7 @@ import { evaluateEvidence } from "./evidence-evaluator.ts";
 import { createOpenRouterDecisionProvider } from "./openrouter-provider.ts";
 import { getRuntimeConfig } from "./runtime-config.ts";
 import type { DecisionCard, DecisionRequest } from "./types.ts";
+import { classifyQuestionIntent } from "./question-intent.ts";
 import { demoEvidenceAdapter } from "../evidence/demo-evidence-adapter.ts";
 import { createDataHubEvidenceAdapter } from "../evidence/datahub-evidence-adapter.ts";
 import { dataHubSnapshotEvidenceAdapter } from "../evidence/datahub-snapshot-adapter.ts";
@@ -27,6 +28,7 @@ export async function createDecision(
   environment: Record<string, string | undefined> = process.env,
 ): Promise<DecisionCard> {
   const config = getRuntimeConfig(environment);
+  const intent = classifyQuestionIntent(request.question);
   const user = demoUsers.find((candidate) => candidate.id === request.userId);
 
   if (!user) {
@@ -56,6 +58,7 @@ export async function createDecision(
 
   const synthesis = await provider.synthesize({
     question: request.question,
+    intent,
     locale: request.locale,
     user,
     evidence,
@@ -65,6 +68,7 @@ export async function createDecision(
   return {
     id: createDecisionId(request.question, request.userId),
     question: request.question,
+    intent,
     status: evaluation.sufficient ? "recommendation" : "abstention",
     trustBand: evaluation.trustBand,
     evidence,

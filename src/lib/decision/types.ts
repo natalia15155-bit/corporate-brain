@@ -5,6 +5,7 @@ import type {
 } from "../access-control.ts";
 import type { Locale } from "../i18n.ts";
 import type { EvidenceSourceId } from "../evidence/types.ts";
+import type { QuestionIntent } from "./question-intent.ts";
 
 export type TrustBand = "medium" | "insufficient";
 export type DecisionStatus = "recommendation" | "abstention";
@@ -29,6 +30,7 @@ export interface EvidenceEvaluation {
 
 export interface DecisionSynthesisInput {
   question: string;
+  intent: QuestionIntent;
   locale: Locale;
   user: DemoUser;
   evidence: readonly EvidenceAsset[];
@@ -45,6 +47,7 @@ export interface DecisionSynthesis {
 export interface DecisionCard {
   id: string;
   question: string;
+  intent: QuestionIntent;
   status: DecisionStatus;
   trustBand: TrustBand;
   evidence: readonly EvidenceAsset[];

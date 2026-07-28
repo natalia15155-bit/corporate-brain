@@ -42,6 +42,7 @@ test("validates a structured response from an explicitly free OpenRouter model",
 
   const result = await provider.synthesize({
     question: "Should we consolidate customer data?",
+    intent: "decision",
     locale: "en",
     user,
     evidence,
@@ -69,6 +70,7 @@ test("rejects models that are not explicitly free", async () => {
     () =>
       provider.synthesize({
         question: "Should we consolidate customer data?",
+        intent: "decision",
         locale: "en",
         user,
         evidence,

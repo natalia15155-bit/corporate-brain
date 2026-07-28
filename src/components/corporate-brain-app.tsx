@@ -11,6 +11,7 @@ import {
 } from "@/components/icons";
 import { MemoryScreen } from "@/components/memory-screen";
 import { demoUsers } from "@/lib/access-control";
+import type { CatalogApiResult, RoleCatalog } from "@/lib/catalog/types";
 import type {
   DecisionApiResult,
   DecisionCard,
@@ -56,6 +57,9 @@ export function CorporateBrainApp() {
   const [decision, setDecision] = useState<DecisionCard | null>(null);
   const [loadingDecision, setLoadingDecision] = useState(false);
   const [decisionError, setDecisionError] = useState<string | null>(null);
+  const [catalog, setCatalog] = useState<RoleCatalog | null>(null);
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
   const t = copy[locale];
   const activeUser =
     demoUsers.find((candidate) => candidate.id === userId) ?? demoUsers[0];
@@ -63,6 +67,44 @@ export function CorporateBrainApp() {
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCatalog() {
+      setCatalogLoading(true);
+      setCatalogError(null);
+
+      try {
+        const response = await fetch(
+          `/api/catalog?userId=${encodeURIComponent(activeUser.id)}`,
+          { cache: "no-store" },
+        );
+        const result = (await response.json()) as CatalogApiResult;
+
+        if (!response.ok || !result.ok) {
+          throw new Error(
+            result.ok ? copy[locale].catalogError : result.error.message,
+          );
+        }
+
+        if (!cancelled) setCatalog(result.catalog);
+      } catch {
+        if (!cancelled) {
+          setCatalog(null);
+          setCatalogError(copy[locale].catalogError);
+        }
+      } finally {
+        if (!cancelled) setCatalogLoading(false);
+      }
+    }
+
+    void loadCatalog();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeUser.id, locale]);
 
   function saveDecision() {
     setSaved(true);
@@ -236,7 +278,12 @@ export function CorporateBrainApp() {
 
         {screen === "ask" && (
           <AskScreen
+            key={activeUser.id}
             locale={locale}
+            user={activeUser}
+            catalog={catalog}
+            catalogLoading={catalogLoading}
+            catalogError={catalogError}
             loading={loadingDecision}
             error={decisionError}
             onGenerate={generateDecision}
@@ -253,7 +300,12 @@ export function CorporateBrainApp() {
         )}
         {screen === "brief" && !decision && (
           <AskScreen
+            key={activeUser.id}
             locale={locale}
+            user={activeUser}
+            catalog={catalog}
+            catalogLoading={catalogLoading}
+            catalogError={catalogError}
             loading={loadingDecision}
             error={decisionError}
             onGenerate={generateDecision}

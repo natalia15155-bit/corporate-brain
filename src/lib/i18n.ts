@@ -23,6 +23,55 @@ export const copy = {
     askTitle: "Make the next decision with evidence, not assumptions.",
     askDescription:
       "Ask a strategic question. Corporate Brain connects the recommendation to ownership, lineage, quality and the decisions your team already made.",
+    productPurposeTitle: "What Corporate Brain does",
+    productPurposeDescription:
+      "It shows the evidence your role is allowed to use, helps you frame a decision, explains the recommendation and preserves the approved context for future review.",
+    roleWorkspaceLabel: "Start with context",
+    roleWorkspaceTitle: "Data available to",
+    roleWorkspaceDescriptions: {
+      executive:
+        "Review shared, growth and finance evidence to compare business impact, risk, ownership and unresolved warnings.",
+      analyst:
+        "Explore shared and growth data for customer, retention and order analysis. Finance-confidential sources remain hidden.",
+      "data-steward":
+        "Inspect shared and finance data for ownership, freshness, quality and governance. Growth-only sources remain hidden.",
+    },
+    roleTeam: "Team",
+    catalogLoading: "Loading the authorized DataHub catalog…",
+    catalogError:
+      "The authorized data catalog is temporarily unavailable. You can still write a question and try the decision workflow.",
+    catalogSummary: "Authorized data summary",
+    assetsLabel: "assets",
+    ownersLabel: "owners",
+    warningsLabel: "warnings",
+    availableData: "Available data",
+    availableDataDescription:
+      "These are the sources this profile can use. Restricted domains are filtered on the server.",
+    showAllData: "Show all data",
+    showLessData: "Show less",
+    domainLabels: {
+      shared: "Shared",
+      growth: "Growth",
+      finance: "Finance",
+    },
+    roleSuggestionLabel: "Questions recommended for this role",
+    roleSuggestions: {
+      executive: [
+        "What data is available to my role?",
+        "Should we consolidate customer data into Customer 360?",
+        "Which visible sources create the greatest decision risk?",
+      ],
+      analyst: [
+        "What datasets are available for retention analysis?",
+        "Which dashboards depend on Customer 360?",
+        "Are the visible order sources fresh enough for churn analysis?",
+      ],
+      "data-steward": [
+        "What data is available to the Finance team?",
+        "Which finance assets require a quality review?",
+        "Who owns the sources used by the net revenue metric?",
+      ],
+    },
     questionLabel: "What decision are you facing?",
     questionPlaceholder:
       "Should we consolidate customer data into the Unified Customer 360 dataset?",
@@ -66,6 +115,10 @@ export const copy = {
     insufficientAuthorizedEvidence:
       "Corporate Brain cannot provide a trustworthy recommendation from the evidence available to this profile. No restricted source details are disclosed.",
     projectedOutcome: "Projected outcome",
+    catalogResult: "Data catalog result",
+    authorizedEvidence: "Authorized evidence",
+    discoveryOutcomeDescription:
+      "This count includes only the DataHub assets visible to the selected role.",
     pipelineGrowth: "Expected pipeline growth",
     outcomeUnavailable: "Outcome unavailable",
     outcomeDescription:
@@ -73,6 +126,7 @@ export const copy = {
     outcomeLimited:
       "A projected outcome is withheld until enough authorized evidence is available.",
     riskAssessment: "Risk assessment",
+    dataConsiderations: "Access and data considerations",
     risks: [
       "Diminishing returns if spend exceeds the tested threshold.",
       "Content production remains the primary bottleneck.",
@@ -107,6 +161,9 @@ export const copy = {
       },
     },
     readyToFinalize: "Ready to finalize this decision with the authorized evidence?",
+    discoveryNextStep:
+      "Choose one of these authorized sources, then ask a decision question about it.",
+    returnToCatalog: "Return to data catalog",
     reviewBeforeDecision:
       "An authorized reviewer is required before this decision can be finalized.",
     approveDecision: "Approve decision",
@@ -197,6 +254,55 @@ export const copy = {
     askTitle: "Tomá la próxima decisión con evidencia, no con supuestos.",
     askDescription:
       "Hacé una pregunta estratégica. Corporate Brain conecta la recomendación con responsables, linaje, calidad y las decisiones que tu equipo ya tomó.",
+    productPurposeTitle: "Qué hace Corporate Brain",
+    productPurposeDescription:
+      "Muestra la evidencia que tu rol puede utilizar, te ayuda a formular una decisión, explica la recomendación y conserva el contexto aprobado para revisarlo en el futuro.",
+    roleWorkspaceLabel: "Empezá con contexto",
+    roleWorkspaceTitle: "Datos disponibles para",
+    roleWorkspaceDescriptions: {
+      executive:
+        "Revisá evidencia compartida, de Growth y Finanzas para comparar impacto, riesgo, responsables y advertencias pendientes.",
+      analyst:
+        "Explorá datos compartidos y de Growth para analizar clientes, retención y órdenes. Las fuentes confidenciales de Finanzas permanecen ocultas.",
+      "data-steward":
+        "Inspeccioná datos compartidos y de Finanzas para revisar responsables, actualización, calidad y gobernanza. Las fuentes exclusivas de Growth permanecen ocultas.",
+    },
+    roleTeam: "Equipo",
+    catalogLoading: "Cargando el catálogo autorizado de DataHub…",
+    catalogError:
+      "El catálogo de datos autorizado no está disponible temporalmente. Podés escribir una pregunta y probar igualmente el flujo de decisión.",
+    catalogSummary: "Resumen de datos autorizados",
+    assetsLabel: "activos",
+    ownersLabel: "responsables",
+    warningsLabel: "advertencias",
+    availableData: "Datos disponibles",
+    availableDataDescription:
+      "Estas son las fuentes que puede utilizar este perfil. Los dominios restringidos se filtran en el servidor.",
+    showAllData: "Ver todos los datos",
+    showLessData: "Ver menos",
+    domainLabels: {
+      shared: "Compartido",
+      growth: "Growth",
+      finance: "Finanzas",
+    },
+    roleSuggestionLabel: "Preguntas recomendadas para este rol",
+    roleSuggestions: {
+      executive: [
+        "¿Qué datos están disponibles para mi rol?",
+        "¿Deberíamos consolidar los datos de clientes en Customer 360?",
+        "¿Qué fuentes visibles generan el mayor riesgo para la decisión?",
+      ],
+      analyst: [
+        "¿Qué datasets tengo disponibles para analizar retención?",
+        "¿Qué paneles dependen de Customer 360?",
+        "¿Las fuentes de órdenes están actualizadas para analizar abandono?",
+      ],
+      "data-steward": [
+        "¿Qué datos están disponibles para el equipo de Finanzas?",
+        "¿Qué activos financieros requieren una revisión de calidad?",
+        "¿Quién es responsable de las fuentes usadas por la métrica de ingresos netos?",
+      ],
+    },
     questionLabel: "¿Qué decisión estás evaluando?",
     questionPlaceholder:
       "¿Deberíamos consolidar los datos de clientes en Unified Customer 360?",
@@ -240,6 +346,10 @@ export const copy = {
     insufficientAuthorizedEvidence:
       "Corporate Brain no puede dar una recomendación confiable con la evidencia disponible para este perfil. No se revelan detalles de fuentes restringidas.",
     projectedOutcome: "Resultado proyectado",
+    catalogResult: "Resultado del catálogo de datos",
+    authorizedEvidence: "Evidencia autorizada",
+    discoveryOutcomeDescription:
+      "El total incluye únicamente los activos de DataHub visibles para el rol seleccionado.",
     pipelineGrowth: "Crecimiento esperado del pipeline",
     outcomeUnavailable: "Resultado no disponible",
     outcomeDescription:
@@ -247,6 +357,7 @@ export const copy = {
     outcomeLimited:
       "La proyección se oculta hasta contar con suficiente evidencia autorizada.",
     riskAssessment: "Evaluación de riesgos",
+    dataConsiderations: "Consideraciones de acceso y datos",
     risks: [
       "Rendimientos decrecientes si la inversión supera el umbral probado.",
       "La producción de contenido sigue siendo el principal cuello de botella.",
@@ -281,6 +392,9 @@ export const copy = {
       },
     },
     readyToFinalize: "¿Listo para finalizar con la evidencia autorizada?",
+    discoveryNextStep:
+      "Elegí una de estas fuentes autorizadas y luego hacé una pregunta de decisión sobre ella.",
+    returnToCatalog: "Volver al catálogo de datos",
     reviewBeforeDecision:
       "Se requiere una revisión autorizada antes de finalizar esta decisión.",
     approveDecision: "Aprobar decisión",
