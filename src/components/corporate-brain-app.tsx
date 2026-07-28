@@ -28,6 +28,7 @@ import {
 import type { MemoryItemKind } from "@/lib/memory/types";
 
 type Screen = "ask" | "brief" | "memory";
+type EvidenceMode = "unknown" | "demo" | "snapshot" | "live-datahub";
 
 const localeStorageKey = "corporate-brain-locale";
 const localeChangeEvent = "corporate-brain-locale-change";
@@ -68,6 +69,8 @@ export function CorporateBrainApp() {
   const [catalog, setCatalog] = useState<RoleCatalog | null>(null);
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [catalogError, setCatalogError] = useState<string | null>(null);
+  const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("unknown");
+  const [writebackEnabled, setWritebackEnabled] = useState(false);
   const memorySnapshot = useSyncExternalStore(
     subscribeToMemory,
     getMemorySnapshot,
@@ -84,6 +87,30 @@ export function CorporateBrainApp() {
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetch("/api/status")
+      .then((response) => response.json())
+      .then(
+        (payload: {
+          status?: {
+            evidenceMode?: EvidenceMode;
+            writebackEnabled?: boolean;
+          };
+        }) => {
+          if (cancelled || !payload.status) return;
+          if (payload.status.evidenceMode) {
+            setEvidenceMode(payload.status.evidenceMode);
+          }
+          setWritebackEnabled(Boolean(payload.status.writebackEnabled));
+        },
+      )
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -123,11 +150,50 @@ export function CorporateBrainApp() {
     };
   }, [activeUser.id, locale]);
 
-  function saveDecision(
+  async function saveDecision(
     kind: MemoryItemKind,
     alertRules: readonly AlertRule[],
   ) {
     if (!decision) return;
+
+    let syncStatus:
+      | "browser-only"
+      | "datahub-synced"
+      | "datahub-error" = "browser-only";
+    let dataHubDocumentUrn: string | null = null;
+
+    try {
+      const response = await fetch("/api/memory", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: decision.question,
+          userId: activeUser.id,
+          locale,
+          kind,
+          alertRules: alertRules.map((alert) => ({
+            id: alert.id,
+            enabled: alert.enabled,
+            threshold: alert.threshold,
+          })),
+        }),
+      });
+      const payload = (await response.json()) as {
+        ok?: boolean;
+        result?: {
+          destination?: "browser" | "datahub";
+          documentUrn?: string | null;
+        };
+      };
+      if (!response.ok || !payload.ok) {
+        syncStatus = "datahub-error";
+      } else if (payload.result?.destination === "datahub") {
+        syncStatus = "datahub-synced";
+        dataHubDocumentUrn = payload.result.documentUrn ?? null;
+      }
+    } catch {
+      syncStatus = "datahub-error";
+    }
 
     saveMemoryItem({
       id: `${decision.id}:${kind}`,
@@ -139,6 +205,8 @@ export function CorporateBrainApp() {
       createdAt: new Date().toISOString(),
       evidenceIds: decision.evidence.map((asset) => asset.id),
       alertRules,
+      syncStatus,
+      dataHubDocumentUrn,
     });
     setScreen("memory");
   }
@@ -303,9 +371,28 @@ export function CorporateBrainApp() {
         <header className="workspace-header">
           <div>
             <span className="status-dot" />
-            {t.demoConnected}
+            {evidenceMode === "live-datahub"
+              ? locale === "es"
+                ? "DataHub MCP en vivo conectado"
+                : "Live DataHub MCP connected"
+              : evidenceMode === "snapshot"
+                ? t.demoConnected
+                : evidenceMode === "demo"
+                  ? locale === "es"
+                    ? "Evidencia demo conectada"
+                    : "Demo evidence connected"
+                  : locale === "es"
+                    ? "Verificando fuente de evidencia"
+                    : "Verifying evidence source"}
           </div>
-          <span>{t.syntheticPersonaNotice}</span>
+          <span>
+            {t.syntheticPersonaNotice}
+            {writebackEnabled
+              ? locale === "es"
+                ? " · escritura confirmada habilitada"
+                : " · confirmed write-back enabled"
+              : ""}
+          </span>
         </header>
 
         {screen === "ask" && (
@@ -353,7 +440,15 @@ export function CorporateBrainApp() {
 
         <footer className="app-footer">
           <span>{t.footer}</span>
-          <span>{t.demoMode}</span>
+          <span>
+            {evidenceMode === "live-datahub"
+              ? "DataHub MCP"
+              : evidenceMode === "snapshot"
+                ? t.demoMode
+                : locale === "es"
+                  ? "Modo seguro"
+                  : "Secure mode"}
+          </span>
         </footer>
       </div>
     </div>

@@ -98,6 +98,27 @@ running the full DataHub Core stack on a resource-constrained machine.
 
 ## Write-back
 
-This phase is read-only. DataHub mutation tools remain disabled. Saving an
-approved decision will be implemented separately with explicit user
-confirmation and server-side revalidation.
+Corporate Brain supports the official DataHub MCP `save_document` tool. It is
+disabled by default. To enable it on a dedicated hackathon catalog:
+
+```dotenv
+EVIDENCE_SOURCE=datahub
+DATAHUB_WRITEBACK_ENABLED=true
+```
+
+The MCP server must expose `save_document`. For the official server, document
+tools are enabled by default unless `DATAHUB_MCP_DOCUMENT_TOOLS_DISABLED=true`.
+
+The write route:
+
+1. Requires explicit confirmation in the interface.
+2. Revalidates request size, profile, locale, item type, and alert thresholds.
+3. Recomputes the Decision Card on the server.
+4. Ignores unknown alert identifiers.
+5. Writes a bounded markdown document with fixed audit fields.
+6. Links only authorized `urn:li:` evidence assets.
+
+When the snapshot is active, the same interaction is saved only in browser
+memory and is labeled as such. Never enable public write-back against a catalog
+containing confidential production data while the synthetic persona selector
+is active.

@@ -89,12 +89,17 @@ Implemented:
 - Approved bilingual operational experience
 - Synthetic role and team isolation demonstration
 - Server-side decision request validation
+- Streamed request-size limits, prompt-override rejection, and per-origin API
+  throttling
+- Content Security Policy, anti-clickjacking, MIME-sniffing, referrer, browser
+  capability, and opener-isolation headers
 - Deterministic evidence evaluation and abstention
 - Provider-neutral Decision Card contract
 - Zero-cost demonstration provider
 - Safe provider configuration that rejects unverified or paid fallbacks
 - OpenRouter adapter with strict structured-output validation
-- DataHub MCP read adapter for search and entity metadata
+- DataHub MCP read adapter for search, entity metadata, schema fields, and
+  upstream lineage
 - Default-deny filtering for unknown or unauthorized domains
 - Server-filtered data catalog tailored to each role
 - Separate bilingual data-discovery and decision workflows
@@ -106,6 +111,8 @@ Implemented:
 - Configurable stockout and product-complaint alert plans
 - Browser-persistent Corporate Memory for decisions, actions, knowledge and
   alert plans in the public demonstration
+- Confirmation-gated DataHub `save_document` write-back adapter with
+  server-side decision recomputation and related-asset links
 - Rich DataHub snapshot with datasets, dashboards, pipelines, ownership,
   freshness, quality, sensitivity, and realistic URNs
 - GitHub Actions quality workflow
@@ -118,6 +125,11 @@ an accessible DataHub MCP endpoint and a scope-limited token.
 The public demo intentionally uses the checked-in DataHub snapshot and the
 deterministic provider. The interface labels this state explicitly; it does not
 claim a live connection.
+
+The public API applies defense in depth, but the persona selector remains a
+synthetic identity demonstration. Live DataHub must use a dedicated hackathon
+catalog or an identity-bound DataHub view; it must never expose confidential
+production data through the public persona switcher.
 
 ### Extending Corporate Brain to another area
 

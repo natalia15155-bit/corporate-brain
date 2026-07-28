@@ -222,3 +222,47 @@ requiring the user to choose what becomes durable context.
 The public zero-cost demo persists these items in versioned browser memory.
 Production storage and DataHub write-back require authenticated server-side
 authorization and are not implied by browser persistence.
+
+## ADR-014 — Defense in depth for the public hackathon demo
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+The public application combines bounded request streaming, per-origin
+application throttling, prompt-override rejection, strict LLM output, bounded
+DataHub metadata, and browser security headers.
+
+### Why
+
+- A public judge URL must remain available when scanned or abused.
+- Metadata and user questions are untrusted even when they originate in an
+  enterprise context graph.
+- Security controls must not require a paid service for the hackathon demo.
+
+### Trade-off
+
+The in-process limiter reduces simple abuse but is not globally consistent
+across serverless instances. Vercel Firewall provides the network-level layer.
+
+## ADR-015 — Confirmed decisions become DataHub documents
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+Corporate Brain uses the official MCP `save_document` tool for live write-back.
+The server recomputes the decision and supplies a fixed document structure,
+topics, audit information, and links to authorized evidence assets.
+
+### Why
+
+- The agent should make the organizational context graph more useful after a
+  human confirms a decision.
+- Documents preserve rationale without mutating source datasets.
+- Related asset links make the saved decision discoverable from its evidence.
+
+### Safety boundary
+
+Write-back is disabled by default and must target a dedicated hackathon catalog
+while synthetic personas remain selectable.

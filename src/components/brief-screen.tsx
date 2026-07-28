@@ -17,7 +17,7 @@ interface BriefScreenProps {
   onSave: (
     kind: MemoryItemKind,
     alertRules: readonly AlertRule[],
-  ) => void;
+  ) => Promise<void>;
 }
 
 export function BriefScreen({
@@ -29,6 +29,7 @@ export function BriefScreen({
 }: BriefScreenProps) {
   const t = copy[locale];
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [memoryKind, setMemoryKind] = useState<MemoryItemKind>(
     decision.intent === "readiness"
       ? decision.readiness?.status === "ready"
@@ -353,9 +354,17 @@ export function BriefScreen({
             <button
               className="primary-button"
               type="button"
-              onClick={() => onSave(memoryKind, configuredAlerts)}
+              disabled={saving}
+              onClick={async () => {
+                setSaving(true);
+                await onSave(memoryKind, configuredAlerts);
+              }}
             >
-              {t.confirmSave}
+              {saving
+                ? locale === "es"
+                  ? "Guardando..."
+                  : "Saving..."
+                : t.confirmSave}
               <ArrowIcon />
             </button>
           </div>

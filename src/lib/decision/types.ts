@@ -14,6 +14,7 @@ export type ProviderId = "demo" | "openrouter";
 export type DecisionErrorCode =
   | "INVALID_REQUEST"
   | "UNKNOWN_PERSONA"
+  | "RATE_LIMITED"
   | "PROVIDER_UNAVAILABLE";
 
 export interface DecisionRequest {

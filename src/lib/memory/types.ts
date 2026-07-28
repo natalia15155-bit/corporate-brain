@@ -16,4 +16,6 @@ export interface CorporateMemoryItem {
   createdAt: string;
   evidenceIds: readonly string[];
   alertRules: readonly AlertRule[];
+  syncStatus?: "browser-only" | "datahub-synced" | "datahub-error";
+  dataHubDocumentUrn?: string | null;
 }

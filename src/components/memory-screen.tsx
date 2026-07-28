@@ -22,6 +22,7 @@ export function MemoryScreen({ locale, items, onOpen }: MemoryScreenProps) {
       kind: t.memoryKinds.decision,
       summary: t.memorySampleSummary,
       alertRules: [],
+      syncStatus: "sample",
     },
     {
       id: "sample-churn",
@@ -34,6 +35,7 @@ export function MemoryScreen({ locale, items, onOpen }: MemoryScreenProps) {
       kind: t.memoryKinds.decision,
       summary: t.memoryReviewSummary,
       alertRules: [],
+      syncStatus: "sample",
     },
   ];
   const savedItems = items.map((item) => ({
@@ -50,6 +52,7 @@ export function MemoryScreen({ locale, items, onOpen }: MemoryScreenProps) {
     kind: t.memoryKinds[item.kind],
     summary: item.summary,
     alertRules: item.alertRules,
+    syncStatus: item.syncStatus ?? "browser-only",
   }));
   const entries = [...savedItems, ...sampleDecisions];
 
@@ -122,6 +125,27 @@ export function MemoryScreen({ locale, items, onOpen }: MemoryScreenProps) {
                 <span className={entry.statusTone === "review" ? "signal-warning" : ""}>
                   {entry.statusTone === "review" ? "↗" : "✓"} {entry.signal}
                 </span>
+                {entry.syncStatus !== "sample" && (
+                  <span
+                    className={
+                      entry.syncStatus === "datahub-error"
+                        ? "signal-warning"
+                        : ""
+                    }
+                  >
+                    {entry.syncStatus === "datahub-synced"
+                      ? locale === "es"
+                        ? "✓ Sincronizado con DataHub"
+                        : "✓ Synced to DataHub"
+                      : entry.syncStatus === "datahub-error"
+                        ? locale === "es"
+                          ? "↗ Pendiente de sincronizar"
+                          : "↗ Sync pending"
+                        : locale === "es"
+                          ? "Guardado sólo en este navegador"
+                          : "Saved in this browser only"}
+                  </span>
+                )}
               </div>
             </div>
             <button type="button" className="open-decision" onClick={onOpen}>

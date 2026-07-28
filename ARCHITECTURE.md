@@ -194,11 +194,31 @@ The public demonstration stores confirmed decisions, actions, knowledge and
 alert plans in versioned browser memory so the complete interaction can be
 tested without external infrastructure or cost.
 
-The live hackathon integration writes approved context to DataHub so that the
-next person or agent can inherit it. This path remains confirmation-gated and
-must revalidate identity and permissions before writing.
+The live adapter can write an approved decision through the official DataHub
+MCP `save_document` tool so that the next person or agent can inherit it. The
+server recomputes the decision, accepts only recognized alert identifiers, and
+links the document to the authorized DataHub URNs. This path is disabled unless
+`DATAHUB_WRITEBACK_ENABLED=true` and remains confirmation-gated.
 
 This is deliberately not a general transactional database. A future commercial edition may introduce a dedicated decision event store without changing the DataHub evidence adapter.
+
+### Public-edge defenses
+
+The public demo uses multiple low-cost controls:
+
+- A 4 KiB streamed JSON limit on decisions and an 8 KiB limit on confirmed
+  memory writes
+- Fixed-window application throttles on decision and write routes
+- Unicode normalization and removal of hidden control characters
+- Rejection of common prompt-override attempts
+- Strict structured LLM output and explicit untrusted-data boundaries
+- Bounded DataHub URNs, names, descriptions, owners, platforms, schema fields,
+  and lineage results
+- CSP, frame denial, MIME-sniff prevention, browser permissions restrictions,
+  and opener isolation
+
+Application throttling is a defensive fallback, not a globally consistent
+distributed rate limiter. Vercel Firewall remains the network-level control.
 
 ## 4. Main read flow
 
