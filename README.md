@@ -79,6 +79,8 @@ No paid OpenAI API and no Supabase database are planned for the hackathon MVP.
 - [Design brief](./docs/DESIGN_BRIEF.md)
 - [Stitch prompt](./docs/STITCH_PROMPT.md)
 - [Submission checklist](./docs/SUBMISSION_CHECKLIST.md)
+- [Devpost submission draft](./docs/DEVPOST_SUBMISSION.md)
+- [Demo script](./docs/DEMO_SCRIPT.md)
 
 ## Current status
 
