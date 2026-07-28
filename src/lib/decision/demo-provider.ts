@@ -18,6 +18,92 @@ function visibleWarnings(input: DecisionSynthesisInput): number {
   return input.evidence.filter((asset) => asset.tone === "warning").length;
 }
 
+function synthesizeReadinessEnglish(
+  input: DecisionSynthesisInput,
+): DecisionSynthesis {
+  const assessment = input.readiness;
+  if (!assessment) {
+    return {
+      recommendation:
+        "I found a readiness question, but no matching business capability pack is configured yet.",
+      outcome: null,
+      risks: [
+        "Define the required capabilities before treating the available catalog as complete.",
+      ],
+      roleInsight:
+        "Create a reusable capability pack for this business area instead of inferring requirements from asset count.",
+    };
+  }
+
+  const missing = assessment.requirements
+    .filter((requirement) => requirement.status === "missing")
+    .map((requirement) => requirement.label);
+  const ready = assessment.status === "ready";
+
+  return {
+    recommendation: ready
+      ? `The ${assessment.title} is ready to prototype: ${assessment.readyCount} of ${assessment.totalCount} required capabilities are covered by authorized evidence. The proposed lineage and ${assessment.proposedAlerts.length} alert rules can now be reviewed and saved as an operational plan.`
+      : `The ${assessment.title} is not ready yet: ${assessment.readyCount} of ${assessment.totalCount} capabilities are covered. Missing: ${missing.join(", ")}.`,
+    outcome: `${assessment.readyCount}/${assessment.totalCount} ready`,
+    risks: ready
+      ? [
+          "Alert thresholds are proposed defaults and require owner confirmation before activation.",
+          "The public demo stores the approved plan in browser memory; it does not send live notifications.",
+          "Source freshness remains illustrative while the public demo uses the DataHub snapshot.",
+        ]
+      : [
+          "Missing critical capabilities prevent a trustworthy dashboard recommendation.",
+          "Do not infer restricted or unavailable sources from the visible catalog.",
+        ],
+    roleInsight: ready
+      ? "Validate metric definitions with Ecommerce, Operations, CX and Product before activation."
+      : "Route each missing capability to its accountable data owner before building the dashboard.",
+  };
+}
+
+function synthesizeReadinessSpanish(
+  input: DecisionSynthesisInput,
+): DecisionSynthesis {
+  const assessment = input.readiness;
+  if (!assessment) {
+    return {
+      recommendation:
+        "Detecté una consulta de preparación, pero todavía no existe un pack de capacidades para esta área.",
+      outcome: null,
+      risks: [
+        "Definí las capacidades requeridas antes de considerar completo el catálogo disponible.",
+      ],
+      roleInsight:
+        "Creá un pack reutilizable para esta área en lugar de inferir requisitos por cantidad de activos.",
+    };
+  }
+
+  const missing = assessment.requirements
+    .filter((requirement) => requirement.status === "missing")
+    .map((requirement) => requirement.label);
+  const ready = assessment.status === "ready";
+
+  return {
+    recommendation: ready
+      ? `${assessment.title} está listo para un prototipo: ${assessment.readyCount} de ${assessment.totalCount} capacidades requeridas están cubiertas por evidencia autorizada. Ya podés revisar el linaje propuesto y las ${assessment.proposedAlerts.length} reglas de alerta antes de guardarlas como plan operativo.`
+      : `${assessment.title} todavía no está listo: hay ${assessment.readyCount} de ${assessment.totalCount} capacidades cubiertas. Faltan: ${missing.join(", ")}.`,
+    outcome: `${assessment.readyCount}/${assessment.totalCount} listas`,
+    risks: ready
+      ? [
+          "Los umbrales son valores iniciales y requieren confirmación de los responsables antes de activarse.",
+          "La demo pública guarda el plan aprobado en la memoria del navegador; no envía notificaciones reales.",
+          "La actualización de fuentes es ilustrativa mientras la demo pública usa el snapshot de DataHub.",
+        ]
+      : [
+          "Las capacidades críticas faltantes impiden recomendar el dashboard de forma confiable.",
+          "No se deben inferir fuentes restringidas o inexistentes desde el catálogo visible.",
+        ],
+    roleInsight: ready
+      ? "Validá las definiciones con Ecommerce, Operaciones, CX y Producto antes de activar las alertas."
+      : "Derivá cada capacidad faltante a su responsable antes de construir el dashboard.",
+  };
+}
+
 function synthesizeDiscoveryEnglish(
   input: DecisionSynthesisInput,
 ): DecisionSynthesis {
@@ -79,6 +165,10 @@ function synthesizeDiscoverySpanish(
 function synthesizeEnglish(
   input: DecisionSynthesisInput,
 ): DecisionSynthesis {
+  if (input.intent === "readiness") {
+    return synthesizeReadinessEnglish(input);
+  }
+
   if (input.intent === "data-discovery") {
     return synthesizeDiscoveryEnglish(input);
   }
@@ -122,6 +212,10 @@ function synthesizeEnglish(
 function synthesizeSpanish(
   input: DecisionSynthesisInput,
 ): DecisionSynthesis {
+  if (input.intent === "readiness") {
+    return synthesizeReadinessSpanish(input);
+  }
+
   if (input.intent === "data-discovery") {
     return synthesizeDiscoverySpanish(input);
   }

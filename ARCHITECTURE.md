@@ -164,9 +164,39 @@ After authorization and deterministic evaluation, a presentation adapter shapes 
 
 It receives only the normalized authorized evidence and cannot broaden scope.
 
+### Business capability engine
+
+Corporate Brain separates organizational knowledge from use-case requirements.
+An evidence asset may declare:
+
+- The capabilities it provides
+- Important fields
+- Upstream evidence identifiers
+- Owner, freshness, quality, domain, and sensitivity
+
+A business capability pack declares:
+
+- The requirements for a business outcome
+- Which requirements are critical
+- Optional operational actions or alert templates
+- Trigger language used to select the pack
+
+The deterministic evaluator compares the selected pack with evidence already
+filtered for the active profile. It returns Ready, Missing, or Blocked for every
+requirement and never treats asset count alone as proof of readiness.
+
+The first implementation is the Ecommerce Control Pack. Future Finance, CX,
+Product, Operations, HR, or Legal packs use the same contracts.
+
 ### Decision storage
 
-For the hackathon MVP, approved decision context is written to DataHub so that the next person or agent can inherit it.
+The public demonstration stores confirmed decisions, actions, knowledge and
+alert plans in versioned browser memory so the complete interaction can be
+tested without external infrastructure or cost.
+
+The live hackathon integration writes approved context to DataHub so that the
+next person or agent can inherit it. This path remains confirmation-gated and
+must revalidate identity and permissions before writing.
 
 This is deliberately not a general transactional database. A future commercial edition may introduce a dedicated decision event store without changing the DataHub evidence adapter.
 

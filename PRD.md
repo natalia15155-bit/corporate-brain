@@ -88,16 +88,17 @@ Read operations may be automatic. Publishing, tagging, or modifying shared conte
 1. The application resolves the authenticated organization, teams, role, and allowed domains.
 2. Before asking, the user sees a server-filtered catalog of the assets available to that role.
 3. The catalog explains source type, owner, freshness, quality, domain, and sensitivity.
-4. The user enters a data-discovery question or a concrete business question.
+4. The user enters a data-discovery, capability-readiness, or concrete business question.
 5. Corporate Brain searches DataHub only within the resolved authorization scope.
 6. The system gathers authorized ownership, definitions, lineage, quality, freshness, and related documentation.
 7. A deterministic evidence evaluator classifies the available support.
 8. The AI provider produces a concise, role-appropriate explanation using only the authorized evidence.
 9. A data-discovery question returns the authorized inventory and a next step; it is never presented as an approvable decision.
-10. A decision question returns a Decision Card or an abstention when authorized evidence is insufficient.
-11. The user may confirm and save a supported decision.
-12. Corporate Brain writes approved context back to DataHub after revalidating permission.
-13. A later change to supporting evidence can flag the decision for review.
+10. A readiness question compares a reusable business capability pack with the authorized evidence and returns Ready, Missing, or Blocked for every requirement.
+11. A decision question returns a Decision Card or an abstention when authorized evidence is insufficient.
+12. The user may confirm and save a decision, action, relevant knowledge item, or alert plan.
+13. The public demo persists confirmed items in versioned browser memory; the live integration writes approved context back to DataHub after revalidating permission.
+14. A later change to supporting evidence can flag the saved item for review.
 
 ### Required screens
 
@@ -122,13 +123,17 @@ Read operations may be automatic. Publishing, tagging, or modifying shared conte
 - Owner
 - Next recommended action
 - Save and request-review actions
+- Capability coverage matrix when the question targets operational readiness
+- Authorized lineage connections
+- Configurable proposed actions or alert thresholds
 
 #### Corporate Memory
 
-- Current decisions
+- Decisions, actions, relevant knowledge and alert plans
 - Decisions requiring review
 - Related decisions
 - Decision history
+- Evidence references and saved alert configuration
 - Optional graph exploration
 
 ## 7. Decision Card schema

@@ -105,7 +105,14 @@ test("retrieves and normalizes authorized evidence through DataHub MCP", async (
     "get_entities",
   ]);
   assert.deepEqual(calls[0].arguments_.filters, {
-    domains: ["shared", "growth"],
+    domains: [
+      "shared",
+      "growth",
+      "ecommerce",
+      "product",
+      "cx",
+      "operations",
+    ],
   });
   assert.equal(closed, true);
 });
@@ -137,4 +144,3 @@ test("returns insufficient evidence when DataHub search has no matches", async (
   assert.equal(result.evidence.length, 0);
   assert.equal(result.requiredEvidenceSatisfied, false);
 });
-

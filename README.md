@@ -99,6 +99,13 @@ Implemented:
 - Server-filtered data catalog tailored to each role
 - Separate bilingual data-discovery and decision workflows
 - Role-specific starter questions and next-step guidance
+- Reusable business capability packs that compare required capabilities with
+  authorized evidence
+- Ecommerce Control Pack with products, inventory, sales velocity, complaints,
+  alert routing and explicit lineage
+- Configurable stockout and product-complaint alert plans
+- Browser-persistent Corporate Memory for decisions, actions, knowledge and
+  alert plans in the public demonstration
 - Rich DataHub snapshot with datasets, dashboards, pipelines, ownership,
   freshness, quality, sensitivity, and realistic URNs
 - GitHub Actions quality workflow
@@ -111,6 +118,19 @@ an accessible DataHub MCP endpoint and a scope-limited token.
 The public demo intentionally uses the checked-in DataHub snapshot and the
 deterministic provider. The interface labels this state explicitly; it does not
 claim a live connection.
+
+### Extending Corporate Brain to another area
+
+Corporate Brain does not hardcode a separate workflow for every department.
+Each new area contributes:
+
+1. A role profile and domain allowlist.
+2. DataHub assets with capabilities, fields, owners and lineage.
+3. A capability pack describing the business requirements and optional actions.
+4. Deterministic readiness rules that produce Ready, Missing or Blocked results.
+
+The Ecommerce Control Pack is the first complete example of this extension
+model. Finance, CX, Product or Operations packs can use the same API and UI.
 
 ## Local development
 

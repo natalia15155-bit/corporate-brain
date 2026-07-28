@@ -10,6 +10,8 @@ import { classifyQuestionIntent } from "./question-intent.ts";
 import { demoEvidenceAdapter } from "../evidence/demo-evidence-adapter.ts";
 import { createDataHubEvidenceAdapter } from "../evidence/datahub-evidence-adapter.ts";
 import { dataHubSnapshotEvidenceAdapter } from "../evidence/datahub-snapshot-adapter.ts";
+import { detectCapabilityPack } from "../capabilities/ecommerce-control-pack.ts";
+import { evaluateCapabilityPack } from "../capabilities/evaluate-readiness.ts";
 
 function createDecisionId(question: string, userId: string): string {
   let hash = 2166136261;
@@ -29,6 +31,8 @@ export async function createDecision(
 ): Promise<DecisionCard> {
   const config = getRuntimeConfig(environment);
   const intent = classifyQuestionIntent(request.question);
+  const capabilityPack =
+    intent === "readiness" ? detectCapabilityPack(request.question) : null;
   const user = demoUsers.find((candidate) => candidate.id === request.userId);
 
   if (!user) {
@@ -47,12 +51,23 @@ export async function createDecision(
     user,
   });
   const evidence = retrieval.evidence;
+  const readiness = capabilityPack
+    ? evaluateCapabilityPack({
+        pack: capabilityPack,
+        evidence,
+        locale: request.locale,
+      })
+    : null;
   const evaluation = evaluateEvidence({
     evidence,
-    requiredEvidenceSatisfied: retrieval.requiredEvidenceSatisfied,
+    requiredEvidenceSatisfied: readiness
+      ? readiness.status === "ready"
+      : retrieval.requiredEvidenceSatisfied,
   });
   const provider =
-    !evaluation.sufficient || config.provider === "demo"
+    !evaluation.sufficient ||
+    config.provider === "demo" ||
+    readiness !== null
       ? demoDecisionProvider
       : createOpenRouterDecisionProvider(environment);
 
@@ -63,6 +78,7 @@ export async function createDecision(
     user,
     evidence,
     evaluation,
+    readiness,
   });
 
   return {
@@ -78,6 +94,7 @@ export async function createDecision(
     outcome: synthesis.outcome,
     risks: synthesis.risks,
     roleInsight: synthesis.roleInsight,
+    readiness,
     presentationRole: user.role,
     provider: provider.id,
     evidenceSource: retrieval.source,

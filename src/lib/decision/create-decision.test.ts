@@ -51,3 +51,29 @@ test("answers data discovery questions from the role-authorized snapshot", async
   assert.equal(serialized.includes("Retention Overview Dashboard"), false);
 });
 
+test("evaluates Ecommerce dashboard and alert readiness from capabilities", async () => {
+  const decision = await createDecision(
+    {
+      question:
+        "¿Qué datos necesito para construir un dashboard y configurar alertas de quiebre de stock y reclamos?",
+      userId: "maya-growth",
+      locale: "es",
+    },
+    {
+      EVIDENCE_SOURCE: "snapshot",
+      AI_PROVIDER: "demo",
+      DEMO_MODE: "true",
+    },
+  );
+
+  assert.equal(decision.intent, "readiness");
+  assert.equal(decision.status, "recommendation");
+  assert.equal(decision.readiness?.status, "ready");
+  assert.equal(decision.readiness?.readyCount, 7);
+  assert.equal(decision.readiness?.proposedAlerts.length, 2);
+  assert.equal(
+    decision.readiness?.proposedAlerts.every((alert) => alert.enabled),
+    true,
+  );
+});
+

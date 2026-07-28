@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { AskScreen } from "@/components/ask-screen";
 import { BriefScreen } from "@/components/brief-screen";
 import {
@@ -17,6 +17,15 @@ import type {
   DecisionCard,
 } from "@/lib/decision/types";
 import { copy, type Locale } from "@/lib/i18n";
+import type { AlertRule } from "@/lib/capabilities/types";
+import {
+  getMemorySnapshot,
+  getServerMemorySnapshot,
+  parseMemorySnapshot,
+  saveMemoryItem,
+  subscribeToMemory,
+} from "@/lib/memory/memory-store";
+import type { MemoryItemKind } from "@/lib/memory/types";
 
 type Screen = "ask" | "brief" | "memory";
 
@@ -52,7 +61,6 @@ export function CorporateBrainApp() {
     getServerLocaleSnapshot,
   );
   const [screen, setScreen] = useState<Screen>("ask");
-  const [saved, setSaved] = useState(false);
   const [userId, setUserId] = useState(demoUsers[0].id);
   const [decision, setDecision] = useState<DecisionCard | null>(null);
   const [loadingDecision, setLoadingDecision] = useState(false);
@@ -60,6 +68,15 @@ export function CorporateBrainApp() {
   const [catalog, setCatalog] = useState<RoleCatalog | null>(null);
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [catalogError, setCatalogError] = useState<string | null>(null);
+  const memorySnapshot = useSyncExternalStore(
+    subscribeToMemory,
+    getMemorySnapshot,
+    getServerMemorySnapshot,
+  );
+  const memoryItems = useMemo(
+    () => parseMemorySnapshot(memorySnapshot),
+    [memorySnapshot],
+  );
   const t = copy[locale];
   const activeUser =
     demoUsers.find((candidate) => candidate.id === userId) ?? demoUsers[0];
@@ -106,8 +123,23 @@ export function CorporateBrainApp() {
     };
   }, [activeUser.id, locale]);
 
-  function saveDecision() {
-    setSaved(true);
+  function saveDecision(
+    kind: MemoryItemKind,
+    alertRules: readonly AlertRule[],
+  ) {
+    if (!decision) return;
+
+    saveMemoryItem({
+      id: `${decision.id}:${kind}`,
+      kind,
+      title: decision.readiness?.title ?? decision.question,
+      summary: decision.recommendation,
+      team: activeUser.team,
+      createdBy: activeUser.name,
+      createdAt: new Date().toISOString(),
+      evidenceIds: decision.evidence.map((asset) => asset.id),
+      alertRules,
+    });
     setScreen("memory");
   }
 
@@ -205,7 +237,7 @@ export function CorporateBrainApp() {
             >
               {item.icon}
               <span>{item.label}</span>
-              {item.id === "memory" && saved && (
+              {item.id === "memory" && memoryItems.length > 0 && (
                 <span className="nav-notification" />
               )}
             </button>
@@ -314,7 +346,7 @@ export function CorporateBrainApp() {
         {screen === "memory" && (
           <MemoryScreen
             locale={locale}
-            saved={saved}
+            items={memoryItems}
             onOpen={() => setScreen("brief")}
           />
         )}

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { getCatalogForUser } from "./get-catalog.ts";
 
-test("growth catalog excludes finance assets", () => {
+test("Ecommerce catalog excludes finance assets", () => {
   const catalog = getCatalogForUser("maya-growth");
 
   assert.ok(catalog);

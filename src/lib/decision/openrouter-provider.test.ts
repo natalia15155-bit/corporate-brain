@@ -50,6 +50,7 @@ test("validates a structured response from an explicitly free OpenRouter model",
       evidence,
       requiredEvidenceSatisfied: true,
     }),
+    readiness: null,
   });
 
   assert.equal(requestedUrl, "https://openrouter.ai/api/v1/chat/completions");
@@ -78,6 +79,7 @@ test("rejects models that are not explicitly free", async () => {
           evidence,
           requiredEvidenceSatisfied: true,
         }),
+        readiness: null,
       }),
     /not explicitly free/,
   );

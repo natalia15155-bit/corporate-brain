@@ -178,3 +178,47 @@ The MVP includes three clearly labeled synthetic personas with explicit domain a
 - Judges can see access-sensitive behavior without real employee or company data.
 - The scenario remains deterministic and free to operate.
 - The demo can distinguish a product security design from production authentication.
+
+## ADR-012 — Capability packs instead of area-specific applications
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+Corporate Brain models each business use case as a reusable capability pack.
+The pack defines required capabilities and optional actions; DataHub assets
+declare which capabilities they provide and how they connect.
+
+### Why
+
+- The product must work across company areas and positions.
+- Asset count is not evidence that a specific business outcome is ready.
+- New areas should extend configuration and evidence, not require a new app.
+- Deterministic requirement checks prevent false “complete” answers.
+
+### Trade-off
+
+The public demonstration includes one complete Ecommerce pack. Additional areas
+still require curated capability definitions and synthetic evidence before they
+can be demonstrated responsibly.
+
+## ADR-013 — Typed Corporate Memory items
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+Corporate Memory accepts confirmed decisions, action plans, relevant knowledge,
+and alert plans. Each item retains evidence references and any configured alert
+rules.
+
+### Why
+
+The organizational brain must learn from more than final decisions while still
+requiring the user to choose what becomes durable context.
+
+### Public demo boundary
+
+The public zero-cost demo persists these items in versioned browser memory.
+Production storage and DataHub write-back require authenticated server-side
+authorization and are not implied by browser persistence.

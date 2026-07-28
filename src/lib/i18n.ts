@@ -15,7 +15,7 @@ export const copy = {
     syntheticPersonaNotice: "Synthetic identity · no production data",
     roles: {
       executive: "Executive",
-      analyst: "Growth analyst",
+      analyst: "Data analyst",
       "data-steward": "Data steward",
     },
     demoConnected: "DataHub snapshot connected",
@@ -30,13 +30,15 @@ export const copy = {
     roleWorkspaceTitle: "Data available to",
     roleWorkspaceDescriptions: {
       executive:
-        "Review shared, growth and finance evidence to compare business impact, risk, ownership and unresolved warnings.",
+        "Review authorized evidence across company areas to compare impact, risk, ownership and unresolved warnings.",
       analyst:
-        "Explore shared and growth data for customer, retention and order analysis. Finance-confidential sources remain hidden.",
+        "Turn authorized Ecommerce data into traceable metrics, dashboards and alerts. Finance-confidential sources remain hidden.",
       "data-steward":
-        "Inspect shared and finance data for ownership, freshness, quality and governance. Growth-only sources remain hidden.",
+        "Inspect shared and Finance data for ownership, freshness, quality and governance. Every other unauthorized area remains hidden.",
     },
     roleTeam: "Team",
+    rolePurpose: "Role purpose",
+    roleResponsibilities: "What this profile is responsible for",
     catalogLoading: "Loading the authorized DataHub catalog…",
     catalogError:
       "The authorized data catalog is temporarily unavailable. You can still write a question and try the decision workflow.",
@@ -52,6 +54,10 @@ export const copy = {
     domainLabels: {
       shared: "Shared",
       growth: "Growth",
+      ecommerce: "Ecommerce",
+      product: "Product",
+      cx: "CX",
+      operations: "Operations",
       finance: "Finance",
     },
     roleSuggestionLabel: "Questions recommended for this role",
@@ -62,9 +68,9 @@ export const copy = {
         "Which visible sources create the greatest decision risk?",
       ],
       analyst: [
-        "What datasets are available for retention analysis?",
-        "Which dashboards depend on Customer 360?",
-        "Are the visible order sources fresh enough for churn analysis?",
+        "Do we have everything needed to build an Ecommerce control dashboard and configure stockout and product complaint alerts?",
+        "How do Ecommerce sources connect from orders and inventory to dashboards?",
+        "Which visible products and CX sources require an operational alert?",
       ],
       "data-steward": [
         "What data is available to the Finance team?",
@@ -86,6 +92,8 @@ export const copy = {
     evidenceReady: "Evidence ready",
     evidenceReadyDescription:
       "12 assets, 4 owners and 3 prior decisions are available for this scenario.",
+    evidenceReadySummary: (assets: number, owners: number) =>
+      `${assets} authorized assets and ${owners} accountable owners are visible to this profile.`,
     trustFramework: "Trust framework",
     trustFrameworkDescription:
       "Corporate Brain calculates evidence strength before asking AI to explain it.",
@@ -127,6 +135,39 @@ export const copy = {
       "A projected outcome is withheld until enough authorized evidence is available.",
     riskAssessment: "Risk assessment",
     dataConsiderations: "Access and data considerations",
+    readinessResult: "Capability readiness",
+    operationalConsiderations: "Operational considerations",
+    capabilityCoverage: "Capability coverage",
+    capabilityCoverageDescription:
+      "Corporate Brain checks business requirements against authorized evidence instead of counting sources.",
+    ready: "Ready",
+    missing: "Missing",
+    sourceConnections: "Source connections",
+    noVisibleConnections: "No authorized source connections are visible.",
+    connectedFrom: "Connected from",
+    fieldsAvailable: "Key fields",
+    operationalPlan: "Operational plan",
+    configureAlerts: "Configure proposed alerts",
+    configureAlertsDescription:
+      "Adjust the thresholds and decide which rules should be saved. Live notification delivery remains disabled in the public demo.",
+    enabled: "enabled",
+    disabled: "disabled",
+    critical: "Critical",
+    threshold: "Threshold",
+    notify: "Notify",
+    saveOperationalPlan: "Save operational plan",
+    saveGapPlan: "Save remediation plan",
+    readinessNextStep:
+      "Review the capability coverage and alert thresholds, then save the plan to Corporate Memory.",
+    readinessGapNextStep:
+      "Save the missing-capability list as an action plan and route it to the accountable owners.",
+    memoryKind: "Save as",
+    memoryKinds: {
+      decision: "Decision",
+      action: "Action plan",
+      knowledge: "Relevant knowledge",
+      "alert-plan": "Alert plan",
+    },
     risks: [
       "Diminishing returns if spend exceeds the tested threshold.",
       "Content production remains the primary bottleneck.",
@@ -202,7 +243,7 @@ export const copy = {
     askAnother: "Ask another question",
     confirmationTitle: "Confirm shared write",
     confirmationDescription:
-      "This will attach the approved decision context to Customer 360 in the demonstration workspace. Corporate Brain never writes shared context without confirmation.",
+      "This will save the selected item, its evidence and any configured alerts to Corporate Memory. Corporate Brain never writes shared context without confirmation.",
     cancel: "Cancel",
     confirmSave: "Confirm and save",
     memoryEyebrow: "Durable organizational context",
@@ -210,7 +251,15 @@ export const copy = {
     memoryDescription:
       "Approved decisions stay connected to the evidence that supported them. When that evidence changes, the decision becomes reviewable—not silently obsolete.",
     saved: "Saved",
-    savedNotice: "Decision saved to Corporate Memory",
+    savedNotice: "Item saved to Corporate Memory",
+    memoryItems: "Saved by this browser",
+    memoryItemsDescription:
+      "Decisions, actions, knowledge and alert plans remain available for this demonstration.",
+    memorySampleSummary:
+      "Approved context remains linked to Customer 360 and its supporting evidence.",
+    memoryReviewSummary:
+      "The supporting evidence changed and the original decision needs a new review.",
+    alertRules: "alert rules",
     active: "Active",
     reviewNeeded: "Review needed",
     decided: "Decided",
@@ -246,7 +295,7 @@ export const copy = {
     syntheticPersonaNotice: "Identidad sintética · sin datos reales",
     roles: {
       executive: "Dirección ejecutiva",
-      analyst: "Analista de Growth",
+      analyst: "Analista de datos",
       "data-steward": "Responsable de datos",
     },
     demoConnected: "Snapshot de DataHub conectado",
@@ -261,13 +310,15 @@ export const copy = {
     roleWorkspaceTitle: "Datos disponibles para",
     roleWorkspaceDescriptions: {
       executive:
-        "Revisá evidencia compartida, de Growth y Finanzas para comparar impacto, riesgo, responsables y advertencias pendientes.",
+        "Revisá evidencia autorizada de distintas áreas para comparar impacto, riesgo, responsables y advertencias pendientes.",
       analyst:
-        "Explorá datos compartidos y de Growth para analizar clientes, retención y órdenes. Las fuentes confidenciales de Finanzas permanecen ocultas.",
+        "Convertí datos autorizados de Ecommerce en métricas, tableros y alertas trazables. Las fuentes confidenciales de Finanzas permanecen ocultas.",
       "data-steward":
-        "Inspeccioná datos compartidos y de Finanzas para revisar responsables, actualización, calidad y gobernanza. Las fuentes exclusivas de Growth permanecen ocultas.",
+        "Inspeccioná datos compartidos y de Finanzas para revisar responsables, actualización, calidad y gobernanza. Todas las demás áreas no autorizadas permanecen ocultas.",
     },
     roleTeam: "Equipo",
+    rolePurpose: "Objetivo del rol",
+    roleResponsibilities: "Responsabilidades de este perfil",
     catalogLoading: "Cargando el catálogo autorizado de DataHub…",
     catalogError:
       "El catálogo de datos autorizado no está disponible temporalmente. Podés escribir una pregunta y probar igualmente el flujo de decisión.",
@@ -283,6 +334,10 @@ export const copy = {
     domainLabels: {
       shared: "Compartido",
       growth: "Growth",
+      ecommerce: "Ecommerce",
+      product: "Producto",
+      cx: "CX",
+      operations: "Operaciones",
       finance: "Finanzas",
     },
     roleSuggestionLabel: "Preguntas recomendadas para este rol",
@@ -293,9 +348,9 @@ export const copy = {
         "¿Qué fuentes visibles generan el mayor riesgo para la decisión?",
       ],
       analyst: [
-        "¿Qué datasets tengo disponibles para analizar retención?",
-        "¿Qué paneles dependen de Customer 360?",
-        "¿Las fuentes de órdenes están actualizadas para analizar abandono?",
+        "¿Tenemos todo para construir un dashboard de control de Ecommerce y configurar alertas de quiebre de stock y reclamos?",
+        "¿Cómo se conectan las fuentes de órdenes e inventario con los dashboards?",
+        "¿Qué fuentes visibles de productos y CX requieren una alerta operativa?",
       ],
       "data-steward": [
         "¿Qué datos están disponibles para el equipo de Finanzas?",
@@ -317,6 +372,8 @@ export const copy = {
     evidenceReady: "Evidencia preparada",
     evidenceReadyDescription:
       "Hay 12 activos, 4 responsables y 3 decisiones anteriores disponibles para este escenario.",
+    evidenceReadySummary: (assets: number, owners: number) =>
+      `Este perfil puede ver ${assets} activos autorizados y ${owners} responsables.`,
     trustFramework: "Marco de confianza",
     trustFrameworkDescription:
       "Corporate Brain calcula la solidez de la evidencia antes de pedirle a la IA que la explique.",
@@ -358,6 +415,39 @@ export const copy = {
       "La proyección se oculta hasta contar con suficiente evidencia autorizada.",
     riskAssessment: "Evaluación de riesgos",
     dataConsiderations: "Consideraciones de acceso y datos",
+    readinessResult: "Preparación de capacidades",
+    operationalConsiderations: "Consideraciones operativas",
+    capabilityCoverage: "Cobertura de capacidades",
+    capabilityCoverageDescription:
+      "Corporate Brain compara requisitos de negocio con evidencia autorizada en lugar de contar fuentes.",
+    ready: "Listo",
+    missing: "Faltante",
+    sourceConnections: "Conexiones entre fuentes",
+    noVisibleConnections: "No hay conexiones de fuentes autorizadas visibles.",
+    connectedFrom: "Conectado desde",
+    fieldsAvailable: "Campos principales",
+    operationalPlan: "Plan operativo",
+    configureAlerts: "Configurar alertas propuestas",
+    configureAlertsDescription:
+      "Ajustá los umbrales y elegí qué reglas guardar. El envío real de notificaciones permanece desactivado en la demo pública.",
+    enabled: "activas",
+    disabled: "inactiva",
+    critical: "Crítica",
+    threshold: "Umbral",
+    notify: "Notificar a",
+    saveOperationalPlan: "Guardar plan operativo",
+    saveGapPlan: "Guardar plan de corrección",
+    readinessNextStep:
+      "Revisá la cobertura y los umbrales, y luego guardá el plan en la Memoria Corporativa.",
+    readinessGapNextStep:
+      "Guardá las capacidades faltantes como plan de acción y derivalas a sus responsables.",
+    memoryKind: "Guardar como",
+    memoryKinds: {
+      decision: "Decisión",
+      action: "Plan de acción",
+      knowledge: "Conocimiento relevante",
+      "alert-plan": "Plan de alertas",
+    },
     risks: [
       "Rendimientos decrecientes si la inversión supera el umbral probado.",
       "La producción de contenido sigue siendo el principal cuello de botella.",
@@ -433,7 +523,7 @@ export const copy = {
     askAnother: "Hacer otra pregunta",
     confirmationTitle: "Confirmar escritura compartida",
     confirmationDescription:
-      "Esto adjuntará el contexto aprobado a Customer 360 en el entorno de demostración. Corporate Brain nunca escribe contexto compartido sin confirmación.",
+      "Esto guardará el elemento seleccionado, su evidencia y las alertas configuradas en la Memoria Corporativa. Corporate Brain nunca escribe contexto compartido sin confirmación.",
     cancel: "Cancelar",
     confirmSave: "Confirmar y guardar",
     memoryEyebrow: "Contexto organizacional duradero",
@@ -441,7 +531,15 @@ export const copy = {
     memoryDescription:
       "Las decisiones aprobadas permanecen conectadas con la evidencia que las respaldó. Si esa evidencia cambia, la decisión pasa a revisión; no queda obsoleta en silencio.",
     saved: "Guardado",
-    savedNotice: "Decisión guardada en Memoria Corporativa",
+    savedNotice: "Elemento guardado en Memoria Corporativa",
+    memoryItems: "Guardados en este navegador",
+    memoryItemsDescription:
+      "Las decisiones, acciones, conocimientos y planes de alerta permanecen disponibles en esta demostración.",
+    memorySampleSummary:
+      "El contexto aprobado sigue conectado con Customer 360 y su evidencia de respaldo.",
+    memoryReviewSummary:
+      "La evidencia cambió y la decisión original necesita una nueva revisión.",
+    alertRules: "reglas de alerta",
     active: "Activa",
     reviewNeeded: "Requiere revisión",
     decided: "Decidida",

@@ -2,16 +2,22 @@
 
 import { useState } from "react";
 import { ArrowIcon, CheckIcon, DatabaseIcon } from "@/components/icons";
+import { AlertConfigurator } from "@/components/alert-configurator";
 import type { DemoUser } from "@/lib/access-control";
+import type { AlertRule } from "@/lib/capabilities/types";
 import type { DecisionCard } from "@/lib/decision/types";
 import { copy, type Locale } from "@/lib/i18n";
+import type { MemoryItemKind } from "@/lib/memory/types";
 
 interface BriefScreenProps {
   decision: DecisionCard;
   locale: Locale;
   user: DemoUser;
   onAskAgain: () => void;
-  onSave: () => void;
+  onSave: (
+    kind: MemoryItemKind,
+    alertRules: readonly AlertRule[],
+  ) => void;
 }
 
 export function BriefScreen({
@@ -23,10 +29,30 @@ export function BriefScreen({
 }: BriefScreenProps) {
   const t = copy[locale];
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [memoryKind, setMemoryKind] = useState<MemoryItemKind>(
+    decision.intent === "readiness"
+      ? decision.readiness?.status === "ready"
+        ? "alert-plan"
+        : "action"
+      : "decision",
+  );
+  const [configuredAlerts, setConfiguredAlerts] = useState<readonly AlertRule[]>(
+    decision.readiness?.proposedAlerts ?? [],
+  );
+  const [showAllEvidence, setShowAllEvidence] = useState(false);
   const visibleEvidence = decision.evidence;
+  const displayedEvidence =
+    decision.intent === "readiness" && !showAllEvidence
+      ? visibleEvidence.slice(0, 6)
+      : visibleEvidence;
   const sufficient = decision.status === "recommendation";
   const isDataDiscovery = decision.intent === "data-discovery";
+  const readiness = decision.readiness;
+  const isReadiness = decision.intent === "readiness" && readiness !== null;
   const roleView = t.roleViews[user.role];
+  const evidenceNames = new Map(
+    visibleEvidence.map((asset) => [asset.id, asset.name]),
+  );
 
   return (
     <main className="page-shell brief-shell">
@@ -47,14 +73,103 @@ export function BriefScreen({
         </div>
       </section>
 
+      {isReadiness && (
+        <section className="readiness-panel" aria-labelledby="readiness-title">
+          <header>
+            <div>
+              <p className="section-kicker">{readiness.area}</p>
+              <h2 id="readiness-title">{t.capabilityCoverage}</h2>
+              <p>{t.capabilityCoverageDescription}</p>
+            </div>
+            <strong className={`readiness-score ${readiness.status}`}>
+              {readiness.readyCount}/{readiness.totalCount} {t.ready}
+            </strong>
+          </header>
+
+          <div className="requirement-grid">
+            {readiness.requirements.map((requirement) => (
+              <article
+                className={`requirement-card ${requirement.status}`}
+                key={requirement.id}
+              >
+                <span>
+                  {requirement.status === "ready" ? "✓" : "!"}
+                </span>
+                <div>
+                  <strong>{requirement.label}</strong>
+                  <p>{requirement.description}</p>
+                  <small>
+                    {requirement.status === "ready"
+                      ? requirement.evidenceIds
+                          .map((id) => evidenceNames.get(id))
+                          .filter(Boolean)
+                          .join(" · ")
+                      : t.missing}
+                  </small>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="lineage-panel">
+            <h3>{t.sourceConnections}</h3>
+            {readiness.lineage.length === 0 ? (
+              <p>{t.noVisibleConnections}</p>
+            ) : (
+              <div className="lineage-list">
+                {readiness.lineage.map((connection) => (
+                  <div
+                    className="lineage-edge"
+                    key={`${connection.fromId}-${connection.toId}`}
+                  >
+                    <span>{connection.fromName}</span>
+                    <strong>→</strong>
+                    <span>{connection.toName}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {isReadiness && (
+        <AlertConfigurator
+          alerts={configuredAlerts}
+          locale={locale}
+          onChange={setConfiguredAlerts}
+        />
+      )}
+
       <section className="decision-grid">
         <article className="structured-evidence">
           <header>
             <h2>{t.structuredEvidence}</h2>
-            <span>{visibleEvidence.length} {t.dataPoints}</span>
+            <div className="evidence-header-actions">
+              <span>{visibleEvidence.length} {t.dataPoints}</span>
+              {decision.intent === "readiness" &&
+                visibleEvidence.length > displayedEvidence.length && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllEvidence(true)}
+                  >
+                    {t.showAllData}
+                  </button>
+                )}
+              {decision.intent === "readiness" &&
+                showAllEvidence &&
+                visibleEvidence.length > 6 && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllEvidence(false)}
+                  >
+                    {t.showLessData}
+                  </button>
+                )}
+            </div>
           </header>
           <div className="evidence-rows">
-            {visibleEvidence.map((asset) => (
+            {displayedEvidence.map((asset) => (
               <article className="evidence-row" key={asset.id}>
                 <span className={`asset-icon ${asset.tone}`}>
                   <DatabaseIcon />
@@ -89,13 +204,21 @@ export function BriefScreen({
 
         <aside className="decision-aside">
           <article className="outcome-card">
-            <span>{isDataDiscovery ? t.catalogResult : t.projectedOutcome}</span>
+            <span>
+              {isReadiness
+                ? t.readinessResult
+                : isDataDiscovery
+                  ? t.catalogResult
+                  : t.projectedOutcome}
+            </span>
             <div>
               <strong>{decision.outcome ?? "—"}</strong>
               <p>
                 {sufficient
                   ? isDataDiscovery
                     ? t.authorizedEvidence
+                    : isReadiness
+                      ? t.capabilityCoverage
                     : t.pipelineGrowth
                   : t.outcomeUnavailable}
               </p>
@@ -104,6 +227,8 @@ export function BriefScreen({
               {sufficient
                 ? isDataDiscovery
                   ? t.discoveryOutcomeDescription
+                  : isReadiness
+                    ? t.capabilityCoverageDescription
                   : t.outcomeDescription
                 : t.outcomeLimited}
             </small>
@@ -112,7 +237,11 @@ export function BriefScreen({
           <article className="risk-card">
             <h2>
               <span>◇</span>
-              {isDataDiscovery ? t.dataConsiderations : t.riskAssessment}
+              {isReadiness
+                ? t.operationalConsiderations
+                : isDataDiscovery
+                  ? t.dataConsiderations
+                  : t.riskAssessment}
             </h2>
             <ul>
               {decision.risks.map((risk) => (
@@ -135,6 +264,10 @@ export function BriefScreen({
           <span>
             {isDataDiscovery
               ? t.discoveryNextStep
+              : isReadiness
+                ? readiness.status === "ready"
+                  ? t.readinessNextStep
+                  : t.readinessGapNextStep
               : sufficient
                 ? t.readyToFinalize
                 : t.reviewBeforeDecision}
@@ -148,16 +281,20 @@ export function BriefScreen({
             <button
               className="primary-button"
               type="button"
-              disabled={!sufficient}
+              disabled={!sufficient && !isReadiness}
               onClick={() => setShowConfirmation(true)}
             >
-              {t.approveDecision}
+              {isReadiness
+                ? readiness.status === "ready"
+                  ? t.saveOperationalPlan
+                  : t.saveGapPlan
+                : t.approveDecision}
             </button>
           )}
         </div>
       </section>
 
-      {!isDataDiscovery && (
+      {!isDataDiscovery && !isReadiness && (
         <section className="anchor-section">
           <h2>{t.contextualAnchors}</h2>
           <div className="anchor-grid">
@@ -182,6 +319,28 @@ export function BriefScreen({
           <div>
             <h2>{t.confirmationTitle}</h2>
             <p>{t.confirmationDescription}</p>
+            <label className="memory-kind-picker">
+              <span>{t.memoryKind}</span>
+              <select
+                value={memoryKind}
+                onChange={(event) =>
+                  setMemoryKind(event.target.value as MemoryItemKind)
+                }
+              >
+                {(
+                  [
+                    "decision",
+                    "action",
+                    "knowledge",
+                    "alert-plan",
+                  ] as const
+                ).map((kind) => (
+                  <option key={kind} value={kind}>
+                    {t.memoryKinds[kind]}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
           <div className="confirmation-actions">
             <button
@@ -191,7 +350,11 @@ export function BriefScreen({
             >
               {t.cancel}
             </button>
-            <button className="primary-button" type="button" onClick={onSave}>
+            <button
+              className="primary-button"
+              type="button"
+              onClick={() => onSave(memoryKind, configuredAlerts)}
+            >
               {t.confirmSave}
               <ArrowIcon />
             </button>

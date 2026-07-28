@@ -40,6 +40,9 @@ export function AskScreen({
     0,
     showAllData ? catalog.assets.length : 4,
   );
+  const catalogNames = new Map(
+    (catalog?.assets ?? []).map((asset) => [asset.id, asset.name]),
+  );
 
   return (
     <main className="page-shell">
@@ -70,6 +73,21 @@ export function AskScreen({
             </div>
             <span className="role-team-badge">{user.team}</span>
           </header>
+
+          <div className="role-profile-context">
+            <div>
+              <strong>{t.rolePurpose}</strong>
+              <p>{user.profile.purpose[locale]}</p>
+            </div>
+            <div>
+              <strong>{t.roleResponsibilities}</strong>
+              <ul>
+                {user.profile.responsibilities.map((responsibility) => (
+                  <li key={responsibility.en}>{responsibility[locale]}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
 
           {catalogLoading && !catalog && (
             <p className="catalog-state" role="status">
@@ -134,6 +152,21 @@ export function AskScreen({
                       <span>{asset.freshness}</span>
                       <span>{asset.quality}</span>
                     </div>
+                    {(asset.upstream?.length ?? 0) > 0 && (
+                      <p className="catalog-connection">
+                        <strong>{t.connectedFrom}:</strong>{" "}
+                        {asset.upstream
+                          ?.map((id) => catalogNames.get(id))
+                          .filter(Boolean)
+                          .join(" · ") || t.noVisibleConnections}
+                      </p>
+                    )}
+                    {(asset.fields?.length ?? 0) > 0 && (
+                      <p className="catalog-fields">
+                        <strong>{t.fieldsAvailable}:</strong>{" "}
+                        {asset.fields?.slice(0, 4).join(", ")}
+                      </p>
+                    )}
                     <footer>
                       <span>{t.domainLabels[asset.domain]}</span>
                       <span>{t.sensitivity[asset.sensitivity]}</span>
@@ -200,7 +233,14 @@ export function AskScreen({
           </span>
           <div>
             <h2>{t.evidenceReady}</h2>
-            <p>{t.evidenceReadyDescription}</p>
+            <p>
+              {catalog
+                ? t.evidenceReadySummary(
+                    catalog.stats.assets,
+                    catalog.stats.owners,
+                  )
+                : t.evidenceReadyDescription}
+            </p>
           </div>
         </article>
         <article>

@@ -24,3 +24,12 @@ test("keeps strategic questions in the decision workflow", () => {
     "decision",
   );
 });
+
+test("recognizes dashboard and alert readiness questions", () => {
+  assert.equal(
+    classifyQuestionIntent(
+      "¿Qué datos necesito para construir un dashboard y configurar alertas de quiebre de stock?",
+    ),
+    "readiness",
+  );
+});

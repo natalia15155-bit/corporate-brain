@@ -6,6 +6,7 @@ import type {
 import type { Locale } from "../i18n.ts";
 import type { EvidenceSourceId } from "../evidence/types.ts";
 import type { QuestionIntent } from "./question-intent.ts";
+import type { ReadinessAssessment } from "../capabilities/types.ts";
 
 export type TrustBand = "medium" | "insufficient";
 export type DecisionStatus = "recommendation" | "abstention";
@@ -35,6 +36,7 @@ export interface DecisionSynthesisInput {
   user: DemoUser;
   evidence: readonly EvidenceAsset[];
   evaluation: EvidenceEvaluation;
+  readiness: ReadinessAssessment | null;
 }
 
 export interface DecisionSynthesis {
@@ -57,6 +59,7 @@ export interface DecisionCard {
   outcome: string | null;
   risks: readonly string[];
   roleInsight: string;
+  readiness: ReadinessAssessment | null;
   presentationRole: RoleId;
   provider: ProviderId;
   evidenceSource: EvidenceSourceId;
