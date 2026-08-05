@@ -67,11 +67,15 @@ EVIDENCE_SOURCE=datahub
 DATAHUB_MCP_TRANSPORT=stdio
 DATAHUB_GMS_URL=http://localhost:8080
 DATAHUB_MCP_COMMAND=uvx
-DATAHUB_MCP_ARGS=mcp-server-datahub@latest
+DATAHUB_MCP_ARGS=mcp-server-datahub==0.6.0
 ```
 
 The first run may download the MCP server through `uvx`. This path keeps the
 integration local and read-only; no DataHub write tools are enabled.
+
+For the public hackathon demo, use the pinned and authenticated deployment in
+`infrastructure/datahub-mcp`. It exposes only the MCP route over HTTPS; DataHub
+GMS and the DataHub web interface remain inaccessible from the internet.
 
 ## Access isolation
 

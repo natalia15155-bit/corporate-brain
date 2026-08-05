@@ -76,6 +76,50 @@ function findNestedString(
   return undefined;
 }
 
+function findNestedEntityLabel(
+  value: unknown,
+  relationshipKeys: readonly string[],
+  depth = 0,
+): string | undefined {
+  if (depth > 5) return undefined;
+  if (Array.isArray(value)) {
+    for (const item of value.slice(0, 20)) {
+      const result = findNestedEntityLabel(item, relationshipKeys, depth + 1);
+      if (result) return result;
+    }
+    return undefined;
+  }
+  if (!isRecord(value)) return undefined;
+
+  for (const key of relationshipKeys) {
+    const relationship = value[key];
+    if (typeof relationship === "string" && relationship.trim()) {
+      return relationship.trim();
+    }
+    if (isRecord(relationship)) {
+      const label = firstString(relationship, [
+        "name",
+        "displayName",
+        "display_name",
+        "title",
+        "username",
+        "urn",
+      ]);
+      if (label) return label;
+    }
+  }
+
+  for (const nested of Object.values(value).slice(0, 40)) {
+    const result = findNestedEntityLabel(
+      nested,
+      relationshipKeys,
+      depth + 1,
+    );
+    if (result) return result;
+  }
+  return undefined;
+}
+
 function collectEntities(
   value: unknown,
   entities: Map<string, CandidateEntity>,
@@ -105,17 +149,17 @@ function collectEntities(
         "documentation",
         "summary",
       ]),
-      owner: findNestedString(value, [
+      owner: findNestedEntityLabel(value, [
         "owner",
+        "owners",
         "ownerName",
         "owner_name",
       ]),
-      platform: findNestedString(value, [
+      platform: findNestedEntityLabel(value, [
         "platform",
         "platformName",
-        "type",
       ]),
-      domain: findNestedString(value, ["domain", "domainName"]),
+      domain: findNestedEntityLabel(value, ["domain", "domains", "domainName"]),
     });
   }
 
@@ -208,6 +252,37 @@ function buildSearchArguments(
   }
 
   return arguments_;
+}
+
+const focusedSearchConcepts = [
+  {
+    pattern: /\b(invent\w*|stock\w*|warehouse\w*|quiebre\w*|cover)\b/i,
+    query: "inventory",
+  },
+  {
+    pattern: /\b(product\w*|producto\w*|sku\w*|estrella\w*|star)\b/i,
+    query: "products",
+  },
+  {
+    pattern: /\b(complaint\w*|reclam\w*|queja\w*|quality|calidad|cx)\b/i,
+    query: "complaints",
+  },
+  {
+    pattern: /\b(dashboard\w*|tablero\w*|panel\w*|control)\b/i,
+    query: "dashboard",
+  },
+  {
+    pattern: /\b(order\w*|pedido\w*|venta\w*|sales|gmv)\b/i,
+    query: "orders",
+  },
+] as const;
+
+function buildFocusedSearchQueries(question: string): string[] {
+  return focusedSearchConcepts
+    .filter(({ pattern }) => pattern.test(question))
+    .map(({ query }) => query)
+    .filter((query, index, queries) => queries.indexOf(query) === index)
+    .slice(0, 5);
 }
 
 function normalizeDomain(value: string | undefined): DomainId | null {
@@ -339,13 +414,26 @@ export function createDataHubEvidenceAdapter(
           );
         }
 
-        const searchResult = await client.callTool(
-          "search",
-          buildSearchArguments(searchTool, input.question, input.user),
-        );
         const searchEntities = new Map<string, CandidateEntity>();
-        for (const payload of unwrapToolResult(searchResult)) {
-          collectEntities(payload, searchEntities);
+        const connectedClient = client;
+
+        const collectSearch = async (query: string) => {
+          const result = await connectedClient.callTool(
+            "search",
+            buildSearchArguments(searchTool, query, input.user),
+          );
+          for (const payload of unwrapToolResult(result)) {
+            collectEntities(payload, searchEntities);
+          }
+        };
+
+        await collectSearch(input.question);
+
+        if (searchEntities.size === 0) {
+          for (const query of buildFocusedSearchQueries(input.question)) {
+            await collectSearch(query);
+            if (searchEntities.size >= 8) break;
+          }
         }
 
         const urns = [...searchEntities.keys()].slice(0, 8);

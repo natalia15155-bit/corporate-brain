@@ -53,9 +53,11 @@ test("retrieves and normalizes authorized evidence through DataHub MCP", async (
             urn: "urn:li:dataset:(urn:li:dataPlatform:snowflake,growth.retention,PROD)",
             name: "Retention Metrics",
             description: "Certified retention metrics.",
-            owner: "Growth Analytics",
-            platform: "Snowflake",
-            domain: "Growth",
+            ownership: {
+              owners: [{ owner: { displayName: "Growth Analytics" } }],
+            },
+            platform: { name: "Snowflake" },
+            domain: { name: "Growth" },
           },
           {
             urn: "urn:li:dataset:(urn:li:dataPlatform:snowflake,shared.customer360,PROD)",
@@ -100,6 +102,8 @@ test("retrieves and normalizes authorized evidence through DataHub MCP", async (
     false,
   );
   assert.equal(result.requiredEvidenceSatisfied, true);
+  assert.equal(result.evidence[0].owner, "Growth Analytics");
+  assert.equal(result.evidence[0].type, "DataHub · Snowflake");
   assert.deepEqual(calls.map((call) => call.name), [
     "search",
     "get_entities",
@@ -143,4 +147,60 @@ test("returns insufficient evidence when DataHub search has no matches", async (
 
   assert.equal(result.evidence.length, 0);
   assert.equal(result.requiredEvidenceSatisfied, false);
+});
+
+test("falls back to focused DataHub searches for a multi-concept analyst question", async () => {
+  const searchQueries: string[] = [];
+  const inventoryUrn =
+    "urn:li:dataset:(urn:li:dataPlatform:snowflake,inventory-position,PROD)";
+  const client: McpToolClient = {
+    async listTools() {
+      return [
+        { name: "search", inputSchema: { properties: { query: {} } } },
+        { name: "get_entities", inputSchema: { properties: { urns: {} } } },
+      ];
+    },
+    async callTool(name, arguments_) {
+      if (name === "search") {
+        const query = String(arguments_.query);
+        searchQueries.push(query);
+        return toolText(
+          query === "inventory"
+            ? { results: [{ urn: inventoryUrn, name: "Inventory Position" }] }
+            : { results: [] },
+        );
+      }
+      return toolText({
+        entities: [
+          {
+            urn: inventoryUrn,
+            name: "Inventory Position by Warehouse",
+            description: "Available and inbound stock by SKU.",
+            ownership: { owners: [{ owner: { displayName: "Supply Operations" } }] },
+            platform: { name: "Snowflake" },
+            domain: { name: "Operations" },
+          },
+        ],
+      });
+    },
+    async close() {},
+  };
+  const adapter = createDataHubEvidenceAdapter({
+    environment: { DATAHUB_MCP_URL: "https://datahub.example/mcp" },
+    connect: async () => client,
+  });
+
+  const question =
+    "Can we build an ecommerce dashboard with stockout and complaint alerts for star products?";
+  const result = await adapter.retrieve({
+    question,
+    locale: "en",
+    user: demoUsers[1],
+  });
+
+  assert.equal(searchQueries[0], question);
+  assert.equal(searchQueries.includes("inventory"), true);
+  assert.equal(result.evidence.length, 1);
+  assert.equal(result.evidence[0].id, inventoryUrn);
+  assert.equal(result.evidence[0].domain, "operations");
 });

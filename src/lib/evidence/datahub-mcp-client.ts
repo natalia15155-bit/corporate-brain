@@ -30,7 +30,7 @@ export async function connectDataHubMcp(
   const transport = connection.transport === "stdio"
     ? new StdioClientTransport({
         command: connection.command ?? "uvx",
-        args: connection.args ?? ["mcp-server-datahub@latest"],
+        args: connection.args ?? ["mcp-server-datahub==0.6.0"],
         env: {
           ...process.env,
           ...connection.env,
