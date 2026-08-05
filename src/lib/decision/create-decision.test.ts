@@ -11,6 +11,7 @@ test("creates a structured recommendation for an authorized executive", async ()
 
   assert.equal(decision.status, "recommendation");
   assert.equal(decision.provider, "demo");
+  assert.equal(decision.evidenceFallback, false);
   assert.equal(decision.evidence.length, 3);
   assert.equal(decision.decisionGate.stage, "proposal");
   assert.equal(decision.decisionGate.canSaveDecision, false);
@@ -79,6 +80,7 @@ test("evaluates Ecommerce dashboard and alert readiness from capabilities", asyn
   assert.equal(decision.readiness?.status, "ready");
   assert.equal(decision.readiness?.readyCount, 7);
   assert.equal(decision.readiness?.proposedAlerts.length, 2);
+  assert.equal(decision.evidenceFallback, false);
   assert.equal(
     decision.readiness?.proposedAlerts.every((alert) => alert.enabled),
     true,

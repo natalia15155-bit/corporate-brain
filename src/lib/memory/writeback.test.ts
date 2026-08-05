@@ -52,6 +52,7 @@ const decision: DecisionCard = {
   presentationRole: "analyst",
   provider: "demo",
   evidenceSource: "datahub",
+  evidenceFallback: false,
   generatedAt: "2026-07-28T00:00:00.000Z",
 };
 

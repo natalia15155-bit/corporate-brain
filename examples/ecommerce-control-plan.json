@@ -1,0 +1,29 @@
+{
+  "scenario": "Ecommerce control dashboard and alerts",
+  "persona": "Maya Chen, Data Analyst",
+  "dataClassification": "synthetic",
+  "evidenceSource": "DataHub MCP",
+  "capabilityCoverage": {
+    "ready": 7,
+    "required": 7,
+    "status": "ready"
+  },
+  "proposedAlerts": [
+    {
+      "name": "Star product stockout risk",
+      "condition": "days_of_cover < 3",
+      "notify": ["Ecommerce", "Operations", "Product"],
+      "requiresHumanConfirmation": true
+    },
+    {
+      "name": "Critical product complaint rate",
+      "condition": "complaint_rate_7d > 5%",
+      "notify": ["CX", "Product"],
+      "requiresHumanConfirmation": true
+    }
+  ],
+  "writeback": {
+    "target": "DataHub Corporate Brain Decisions",
+    "status": "pending-human-confirmation"
+  }
+}

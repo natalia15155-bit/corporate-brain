@@ -14,6 +14,39 @@ import { detectCapabilityPack } from "../capabilities/ecommerce-control-pack.ts"
 import { evaluateCapabilityPack } from "../capabilities/evaluate-readiness.ts";
 import { analyzeEcommerceQuestion } from "../analytics/ecommerce-demo-adapter.ts";
 import { evaluateDecisionGate } from "./decision-gate.ts";
+import type {
+  EvidenceAdapter,
+  EvidenceRetrievalInput,
+  EvidenceRetrievalResult,
+} from "../evidence/types.ts";
+import { EvidenceSourceError } from "../evidence/types.ts";
+
+const DEFAULT_LIVE_EVIDENCE_TIMEOUT_MS = 12_000;
+
+class LiveEvidenceTimeoutError extends Error {
+  constructor() {
+    super("Live DataHub evidence retrieval exceeded the demo timeout.");
+    this.name = "LiveEvidenceTimeoutError";
+  }
+}
+
+async function retrieveWithTimeout(
+  adapter: EvidenceAdapter,
+  input: EvidenceRetrievalInput,
+  timeoutMs: number,
+): Promise<EvidenceRetrievalResult> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      adapter.retrieve(input),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new LiveEvidenceTimeoutError()), timeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 function createDecisionId(question: string, userId: string): string {
   let hash = 2166136261;
@@ -41,17 +74,46 @@ export async function createDecision(
     throw new Error("Resolved demonstration persona is unavailable.");
   }
 
+  const configuredSource = environment.EVIDENCE_SOURCE?.trim().toLowerCase();
   const evidenceAdapter =
-    environment.EVIDENCE_SOURCE?.trim().toLowerCase() === "snapshot"
+    configuredSource === "snapshot"
       ? dataHubSnapshotEvidenceAdapter
       : config.evidenceSource === "datahub"
         ? createDataHubEvidenceAdapter({ environment })
         : demoEvidenceAdapter;
-  const retrieval = await evidenceAdapter.retrieve({
+  const retrievalInput = {
     question: request.question,
     locale: request.locale,
     user,
-  });
+  };
+  let evidenceFallback = false;
+  let retrieval: EvidenceRetrievalResult;
+
+  if (configuredSource === "datahub") {
+    const configuredTimeout = Number(environment.DATAHUB_DEMO_TIMEOUT_MS);
+    const timeoutMs =
+      Number.isFinite(configuredTimeout) && configuredTimeout >= 3_000
+        ? Math.min(configuredTimeout, 20_000)
+        : DEFAULT_LIVE_EVIDENCE_TIMEOUT_MS;
+    try {
+      retrieval = await retrieveWithTimeout(
+        evidenceAdapter,
+        retrievalInput,
+        timeoutMs,
+      );
+    } catch (error) {
+      if (
+        !(error instanceof LiveEvidenceTimeoutError) &&
+        !(error instanceof EvidenceSourceError)
+      ) {
+        throw error;
+      }
+      retrieval = await dataHubSnapshotEvidenceAdapter.retrieve(retrievalInput);
+      evidenceFallback = true;
+    }
+  } else {
+    retrieval = await evidenceAdapter.retrieve(retrievalInput);
+  }
   const evidence = retrieval.evidence;
   const readiness = capabilityPack
     ? evaluateCapabilityPack({
@@ -125,6 +187,7 @@ export async function createDecision(
     presentationRole: user.role,
     provider: provider.id,
     evidenceSource: retrieval.source,
+    evidenceFallback,
     generatedAt: new Date().toISOString(),
   };
 }

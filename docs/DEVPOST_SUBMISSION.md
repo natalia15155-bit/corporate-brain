@@ -1,5 +1,9 @@
 # Corporate Brain — Devpost submission draft
 
+## Primary category
+
+**Agents That Do Real Work**
+
 ## Tagline
 
 Turn governed company metadata into decisions people can verify, approve, and
@@ -53,6 +57,13 @@ pack. It does not require a separate hard-coded application per department.
 - A provider-neutral structured Decision Card contract
 - OpenRouter free models as an optional synthesis layer
 - Vercel for the public demonstration
+
+## Eligibility and development disclosure
+
+Corporate Brain was created from scratch during the hackathon submission
+period. Development began on July 23, 2026. Codex was used as an AI coding
+assistant, which the official rules permit. No pre-existing product code was
+incorporated. The public demonstration uses synthetic hackathon data only.
 
 The public deployment uses an authenticated live DataHub MCP connection to a
 dedicated synthetic catalog. A deliberately labeled snapshot mode remains
@@ -134,6 +145,13 @@ allowed to recommend and explain why a human should trust or reject it.
 
 - Live demo: https://corporate-brain-delta.vercel.app
 - Source code: https://github.com/natalia15155-bit/corporate-brain
+- Sample output: https://github.com/natalia15155-bit/corporate-brain/tree/main/examples
+
+## Suggested screenshots
+
+1. Data Analyst role scope and governed catalog (English UI)
+2. Ecommerce readiness result with seven of seven capabilities (English UI)
+3. Human-confirmed operational plan in Corporate Memory (English UI)
 
 ## Testing instructions for judges
 

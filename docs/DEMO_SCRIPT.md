@@ -2,6 +2,10 @@
 
 Target duration: 2 minutes 35 seconds. Maximum allowed recording: 3 minutes.
 
+Record the entire submission in English: English UI, English questions, English
+narration, and English captions. Spanish remains an optional in-product language
+and does not need to appear in the official video.
+
 ## 0:00–0:20 — The problem
 
 **Narration**
@@ -65,13 +69,14 @@ Target duration: 2 minutes 35 seconds. Maximum allowed recording: 3 minutes.
 
 **Narration**
 
-> When I approve the result, the server revalidates the request, recomputes the
-> Decision Card, and writes a bounded decision document back through DataHub MCP.
+> When I confirm the operational plan, the server revalidates the request,
+> recomputes the Decision Card, and writes a bounded decision document back
+> through DataHub MCP.
 > It links the decision to the governed assets by their DataHub URNs.
 
 **Screen**
 
-- Confirm the save action.
+- Confirm the operational-plan save action.
 - Show the successful live DataHub destination.
 - Open DataHub and show the saved decision document with one related asset.
 
@@ -90,6 +95,7 @@ Target duration: 2 minutes 35 seconds. Maximum allowed recording: 3 minutes.
 ## Recording checklist
 
 - [ ] Use the live DataHub runtime, not snapshot mode.
+- [ ] Warm the live connection before recording and rerun once if the fallback notice appears.
 - [ ] Show the live status badge before the first query.
 - [ ] Use only synthetic hackathon data.
 - [ ] Keep browser zoom and text readable.
@@ -97,5 +103,5 @@ Target duration: 2 minutes 35 seconds. Maximum allowed recording: 3 minutes.
       email addresses.
 - [ ] Record one continuous successful path.
 - [ ] Verify final duration is below three minutes.
-- [ ] Upload as a public or unlisted video accepted by Devpost.
+- [ ] Upload as a publicly visible video accepted by Devpost.
 - [ ] Test the video and application links in a private browser window.

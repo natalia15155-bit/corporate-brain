@@ -21,6 +21,11 @@ This project is being created for **Build with DataHub: The Agent Hackathon**.
 - License: Apache 2.0
 - Public demo: https://corporate-brain-delta.vercel.app
 
+Corporate Brain was created from scratch during the submission period;
+development began on July 23, 2026. Codex was used as the rules-permitted AI
+coding assistant. No pre-existing product code was incorporated, and the demo
+catalog contains synthetic data only.
+
 ## Product promise
 
 > Understand, decide, and remember — using evidence you can verify.
@@ -82,6 +87,7 @@ No paid OpenAI API and no Supabase database are planned for the hackathon MVP.
 - [Devpost submission draft](./docs/DEVPOST_SUBMISSION.md)
 - [Demo script](./docs/DEMO_SCRIPT.md)
 - [Hackathon win plan](./docs/HACKATHON_WIN_PLAN.md)
+- [Sample outputs](./examples/README.md)
 
 ## Current status
 

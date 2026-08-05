@@ -469,6 +469,24 @@ p {
   border-radius: 8px;
 }
 
+.evidence-fallback-notice {
+  align-items: flex-start;
+  background: #fff8e8;
+  border: 1px solid #e8c66a;
+  border-radius: 12px;
+  color: #5c4712;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 16px 0;
+  padding: 14px 16px;
+}
+
+.evidence-fallback-notice span {
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
 .conversation-thread header,
 .decision-gate-panel header {
   display: flex;

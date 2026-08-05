@@ -187,6 +187,21 @@ export function BriefScreen({
         </div>
       </section>
 
+      {decision.evidenceFallback && (
+        <aside className="evidence-fallback-notice" role="status">
+          <strong>
+            {locale === "es"
+              ? "DataHub en vivo tardó más de lo esperado"
+              : "Live DataHub took longer than expected"}
+          </strong>
+          <span>
+            {locale === "es"
+              ? "Este resultado usa el snapshot gobernado y etiquetado para mantener la demo disponible. Volvé a intentar para consultar el MCP en vivo."
+              : "This result uses the governed, labeled snapshot to keep the demo available. Retry to query the live MCP connection."}
+          </span>
+        </aside>
+      )}
+
       {conversation.length > 0 && (
         <section
           className="conversation-thread"

@@ -92,6 +92,7 @@ export interface DecisionCard {
   presentationRole: RoleId;
   provider: ProviderId;
   evidenceSource: EvidenceSourceId;
+  evidenceFallback: boolean;
   generatedAt: string;
 }
 

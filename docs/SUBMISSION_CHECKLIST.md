@@ -2,11 +2,14 @@
 
 ## Eligibility and rules
 
-- [ ] Project created during the submission period
+- [x] Project created during the submission period (first commit: July 23, 2026)
 - [x] DataHub Open Source used meaningfully
 - [x] DataHub MCP Server or another accepted DataHub agent tool used
-- [ ] Third-party APIs used under their applicable terms
-- [ ] Submission materials available in English
+- [x] Development tools and third-party services disclosed in the submission
+- [x] English copy prepared for the description, testing instructions, and demo script
+- [ ] Entrant confirms age of majority and absence of an eligibility conflict
+- [ ] Every uploaded screenshot and every frame of the final video is in English
+- [ ] Working app remains free and unrestricted to judges through August 31, 2026
 
 ## Repository
 
@@ -33,7 +36,7 @@
 ## Demo
 
 - [ ] Video under three minutes
-- [ ] Public YouTube, Vimeo, or Youku link
+- [ ] Publicly visible YouTube, Vimeo, or Youku link
 - [ ] Real functioning product footage
 - [ ] No unauthorized music, trademarks, or assets
 - [ ] Clear problem statement
@@ -51,3 +54,11 @@
 - [ ] Testing instructions
 - [ ] Feedback form
 - [ ] Final submission before August 10, 2026 at 17:00 EDT
+
+## Final preflight
+
+- [ ] Use **Agents That Do Real Work** as the primary category
+- [ ] Confirm the GitHub About panel identifies the Apache-2.0 license
+- [ ] Open the demo, repository, and video in a signed-out browser
+- [ ] Keep the submission English-first; Spanish is demonstrated only as an optional product feature
+- [ ] Submit one entrant feedback form for the feedback bonus
