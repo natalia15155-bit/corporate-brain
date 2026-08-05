@@ -5,15 +5,19 @@ import { ArrowIcon, CheckIcon, DatabaseIcon } from "@/components/icons";
 import { AlertConfigurator } from "@/components/alert-configurator";
 import type { DemoUser } from "@/lib/access-control";
 import type { AlertRule } from "@/lib/capabilities/types";
+import type { ConversationTurn } from "@/lib/decision/conversation";
 import type { DecisionCard } from "@/lib/decision/types";
 import { copy, type Locale } from "@/lib/i18n";
 import type { MemoryItemKind } from "@/lib/memory/types";
 
 interface BriefScreenProps {
   decision: DecisionCard;
+  conversation: readonly ConversationTurn[];
+  loadingFollowUp: boolean;
   locale: Locale;
   user: DemoUser;
   onAskAgain: () => void;
+  onFollowUp: (question: string) => Promise<void>;
   onSave: (
     kind: MemoryItemKind,
     alertRules: readonly AlertRule[],
@@ -22,30 +26,40 @@ interface BriefScreenProps {
 
 export function BriefScreen({
   decision,
+  conversation,
+  loadingFollowUp,
   locale,
   user,
   onAskAgain,
+  onFollowUp,
   onSave,
 }: BriefScreenProps) {
   const t = copy[locale];
+  const gate = decision.decisionGate;
+  const defaultMemoryKind: MemoryItemKind = gate.canSaveDecision
+    ? "decision"
+    : gate.canSaveAlertPlan
+      ? "alert-plan"
+      : "knowledge";
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [memoryKind, setMemoryKind] = useState<MemoryItemKind>(
-    decision.intent === "readiness"
-      ? decision.readiness?.status === "ready"
-        ? "alert-plan"
-        : "action"
-      : "decision",
-  );
+  const [memoryKind, setMemoryKind] =
+    useState<MemoryItemKind>(defaultMemoryKind);
   const [configuredAlerts, setConfiguredAlerts] = useState<readonly AlertRule[]>(
     decision.readiness?.proposedAlerts ?? [],
   );
   const [showAllEvidence, setShowAllEvidence] = useState(false);
+  const analysis = decision.analysis ?? null;
+  const isAnalysis = decision.intent === "analysis" && analysis !== null;
   const visibleEvidence = decision.evidence;
+  const analysisEvidenceIds = new Set(analysis?.sourceAssetIds ?? []);
+  const relevantEvidence = isAnalysis
+    ? visibleEvidence.filter((asset) => analysisEvidenceIds.has(asset.id))
+    : visibleEvidence;
   const displayedEvidence =
     decision.intent === "readiness" && !showAllEvidence
-      ? visibleEvidence.slice(0, 6)
-      : visibleEvidence;
+      ? relevantEvidence.slice(0, 6)
+      : relevantEvidence;
   const sufficient = decision.status === "recommendation";
   const isDataDiscovery = decision.intent === "data-discovery";
   const readiness = decision.readiness;
@@ -54,25 +68,213 @@ export function BriefScreen({
   const evidenceNames = new Map(
     visibleEvidence.map((asset) => [asset.id, asset.name]),
   );
+  const analysisMax = isAnalysis
+    ? Math.max(...(analysis?.bars ?? []).map((bar) => bar.value), 1)
+    : 1;
+  const scopeComplete = sufficient && analysis?.status !== "partial";
+  const memoryKindOptions: readonly MemoryItemKind[] = gate.canSaveDecision
+    ? ["decision", "action", "knowledge"]
+    : gate.canSaveAlertPlan
+      ? ["alert-plan", "action", "knowledge"]
+      : gate.canSaveAction
+        ? ["action", "knowledge"]
+        : ["knowledge"];
+  const stageLabels = {
+    "data-discovery": locale === "es" ? "Descubrimiento" : "Discovery",
+    analysis: locale === "es" ? "Análisis" : "Analysis",
+    proposal: locale === "es" ? "Propuesta" : "Proposal",
+    decision: locale === "es" ? "Decisión" : "Decision",
+  } as const;
+  const gateStageLabel = stageLabels[gate.stage];
+  const responseEyebrow = {
+    "data-discovery":
+      locale === "es"
+        ? "Descubrimiento de datos · evidencia autorizada"
+        : "Data discovery · authorized evidence",
+    analysis:
+      locale === "es"
+        ? "Resultado analítico · cálculo trazable"
+        : "Analytical result · traceable calculation",
+    proposal:
+      locale === "es"
+        ? "Propuesta operativa · requiere confirmación"
+        : "Operational proposal · confirmation required",
+    decision: t.briefEyebrow,
+  }[gate.stage];
+  const spanishCriteria: Readonly<Record<string, string>> = {
+    "Authorized catalog filtered by role": "Catálogo autorizado filtrado por rol",
+    "Owners, fields, and lineage are visible": "Responsables, campos y linaje visibles",
+    "A business question, target metric, and decision owner":
+      "Pregunta de negocio, métrica objetivo y responsable de decisión",
+    "Metric definition selected": "Definición de métrica seleccionada",
+    "Relevant sources identified": "Fuentes relevantes identificadas",
+    "Result calculated from authorized data": "Resultado calculado con datos autorizados",
+    "Closest authorized answer produced": "Respuesta autorizada más cercana obtenida",
+    "Restricted source details were not disclosed": "Fuentes restringidas no reveladas",
+    "Decision objective": "Objetivo de la decisión",
+    Alternatives: "Alternativas comparables",
+    "Decision owner and review date": "Responsable y fecha de revisión",
+    "Authorized access to the missing metric inputs":
+      "Acceso autorizado a los datos faltantes de la métrica",
+    "A complete profitability definition for this role":
+      "Definición completa de rentabilidad para este rol",
+    "Business capability checked": "Capacidad de negocio verificada",
+    "Required sources found": "Fuentes requeridas encontradas",
+    "Operational alert rules drafted": "Reglas de alertas operativas preparadas",
+    "Missing sources identified": "Fuentes faltantes identificadas",
+    "Human approval and live notification routing":
+      "Aprobación humana y envío real de notificaciones",
+    "Business objective is explicit": "Objetivo de negocio explícito",
+    "Authorized evidence is sufficient": "Evidencia autorizada suficiente",
+    "Recommendation, outcome, and risks are present":
+      "Recomendación, resultado y riesgos presentes",
+    "Question interpreted": "Pregunta interpretada",
+    "Authorized evidence retrieved": "Evidencia autorizada recuperada",
+    "Risk review started": "Revisión de riesgos iniciada",
+    "Warning review": "Revisión de advertencias",
+    "Final approval criteria": "Criterios finales de aprobación",
+  };
+  const localizeCriterion = (criterion: string) =>
+    locale === "es" ? spanishCriteria[criterion] ?? criterion : criterion;
+  const gateStatusLabel =
+    gate.status === "ready"
+      ? locale === "es"
+        ? "Lista para aprobar"
+        : "Ready to approve"
+      : locale === "es"
+        ? "Aún no es una decisión"
+        : "Not a decision yet";
+  const gateNextActionLabel = {
+    "ask-follow-up":
+      locale === "es" ? "Hacer seguimiento" : "Ask follow-up",
+    "convert-to-proposal":
+      locale === "es" ? "Convertir en propuesta" : "Convert into proposal",
+    "request-access":
+      locale === "es" ? "Solicitar acceso o métrica" : "Request access or metric",
+    "save-alert-plan":
+      locale === "es" ? "Guardar plan de alertas" : "Save alert plan",
+    "approve-decision":
+      locale === "es" ? "Aprobar decisión" : "Approve decision",
+  }[gate.nextAction];
+  const primarySaveLabel = gate.canSaveDecision
+    ? t.approveDecision
+    : gate.canSaveAlertPlan
+      ? t.saveOperationalPlan
+      : gate.canSaveAction && !isAnalysis
+        ? t.saveGapPlan
+        : locale === "es"
+          ? "Guardar insight"
+          : "Save insight";
 
   return (
     <main className="page-shell brief-shell">
       <section className="brief-topline">
         <div>
           <p className="section-kicker">
-            {t.briefEyebrow} · {decision.id}
+            {responseEyebrow} · {decision.id}
           </p>
           <p className="decision-question">{decision.question}</p>
           <h1>{decision.recommendation}</h1>
         </div>
-        <div className={`access-state ${sufficient ? "allowed" : "limited"}`}>
+        <div className={`access-state ${scopeComplete ? "allowed" : "limited"}`}>
           <CheckIcon />
           <span>
-            <strong>{sufficient ? t.scopeComplete : t.scopeLimited}</strong>
+            <strong>{scopeComplete ? t.scopeComplete : t.scopeLimited}</strong>
             <small>{t.scopeFor} {user.name}</small>
           </span>
         </div>
       </section>
+
+      {conversation.length > 0 && (
+        <section
+          className="conversation-thread"
+          aria-label={locale === "es" ? "Hilo de conversación" : "Conversation thread"}
+        >
+          <header>
+            <div>
+              <p className="section-kicker">
+                {locale === "es" ? "Contexto activo" : "Active context"}
+              </p>
+              <h2>{locale === "es" ? "Hilo de análisis" : "Analysis thread"}</h2>
+            </div>
+            <span>
+              {conversation.length}{" "}
+              {locale === "es"
+                ? conversation.length === 1
+                  ? "paso"
+                  : "pasos"
+                : conversation.length === 1
+                  ? "step"
+                  : "steps"}
+            </span>
+          </header>
+          <div className="thread-list">
+            {conversation.map((turn, index) => (
+              <article
+                className={index === conversation.length - 1 ? "current" : ""}
+                key={turn.id}
+              >
+                <span>{index + 1}</span>
+                <div>
+                  <strong>{turn.question}</strong>
+                  <p>{turn.title}</p>
+                </div>
+                <small>{stageLabels[turn.stage]}</small>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {analysis && (
+        <section className={`analysis-result ${analysis.status}`} aria-labelledby="analysis-title">
+          <header>
+            <div>
+              <p className="section-kicker">
+                {analysis.status === "answered"
+                  ? locale === "es" ? "Análisis calculado" : "Calculated analysis"
+                  : locale === "es" ? "Respuesta parcial" : "Partial answer"}
+              </p>
+              <h2 id="analysis-title">{analysis.title}</h2>
+              <p>{analysis.answer}</p>
+            </div>
+            <div className="analysis-primary">
+              <strong>{analysis.primaryValue}</strong>
+              <span>{analysis.primaryLabel}</span>
+              <small>{analysis.period}</small>
+            </div>
+          </header>
+
+          <div className="analysis-chart" aria-label={analysis.title}>
+            {analysis.bars.map((bar) => (
+              <div className="analysis-bar-row" key={bar.label}>
+                <span>{bar.label}</span>
+                <div><i style={{ width: `${Math.max((bar.value / analysisMax) * 100, 4)}%` }} /></div>
+                <strong>{bar.formattedValue}</strong>
+              </div>
+            ))}
+          </div>
+
+          <div className="analysis-method">
+            <span>{locale === "es" ? "Cómo se calcula" : "How it is calculated"}</span>
+            <strong>{analysis.metricDefinition}</strong>
+          </div>
+
+          <div className="follow-up-list" aria-label={locale === "es" ? "Preguntas de seguimiento" : "Follow-up questions"}>
+            {analysis.suggestedFollowUps.map((suggestion) => (
+              <button
+                key={suggestion}
+                type="button"
+                disabled={loadingFollowUp}
+                onClick={() => void onFollowUp(suggestion)}
+              >
+                {suggestion}
+                <ArrowIcon />
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
       {isReadiness && (
         <section className="readiness-panel" aria-labelledby="readiness-title">
@@ -147,9 +349,9 @@ export function BriefScreen({
           <header>
             <h2>{t.structuredEvidence}</h2>
             <div className="evidence-header-actions">
-              <span>{visibleEvidence.length} {t.dataPoints}</span>
+              <span>{relevantEvidence.length} {t.dataPoints}</span>
               {decision.intent === "readiness" &&
-                visibleEvidence.length > displayedEvidence.length && (
+                relevantEvidence.length > displayedEvidence.length && (
                   <button
                     type="button"
                     onClick={() => setShowAllEvidence(true)}
@@ -159,7 +361,7 @@ export function BriefScreen({
                 )}
               {decision.intent === "readiness" &&
                 showAllEvidence &&
-                visibleEvidence.length > 6 && (
+                relevantEvidence.length > 6 && (
                   <button
                     type="button"
                     onClick={() => setShowAllEvidence(false)}
@@ -225,6 +427,8 @@ export function BriefScreen({
                 ? t.readinessResult
                 : isDataDiscovery
                   ? t.catalogResult
+                  : isAnalysis
+                    ? locale === "es" ? "Resultado analítico" : "Analytical result"
                   : t.projectedOutcome}
             </span>
             <div>
@@ -235,7 +439,9 @@ export function BriefScreen({
                     ? t.authorizedEvidence
                     : isReadiness
                       ? t.capabilityCoverage
-                    : t.pipelineGrowth
+                      : isAnalysis
+                        ? analysis?.primaryLabel
+                      : t.pipelineGrowth
                   : t.outcomeUnavailable}
               </p>
             </div>
@@ -245,7 +451,15 @@ export function BriefScreen({
                   ? t.discoveryOutcomeDescription
                   : isReadiness
                     ? t.capabilityCoverageDescription
-                  : t.outcomeDescription
+                    : isAnalysis
+                      ? analysis?.status === "partial"
+                        ? locale === "es"
+                          ? "Es la respuesta válida más cercana; no sustituye la métrica solicitada."
+                          : "This is the closest valid answer; it does not replace the requested metric."
+                        : locale === "es"
+                          ? "Calculado con una definición visible y fuentes trazables."
+                          : "Calculated with a visible definition and traceable sources."
+                    : t.outcomeDescription
                 : t.outcomeLimited}
             </small>
           </article>
@@ -257,6 +471,8 @@ export function BriefScreen({
                 ? t.operationalConsiderations
                 : isDataDiscovery
                   ? t.dataConsiderations
+                  : isAnalysis
+                    ? locale === "es" ? "Límites del análisis" : "Analysis limitations"
                   : t.riskAssessment}
             </h2>
             <ul>
@@ -274,12 +490,52 @@ export function BriefScreen({
         <p>{decision.roleInsight || (sufficient ? roleView.complete : roleView.limited)}</p>
       </section>
 
+      <section className={`decision-gate-panel ${gate.status}`}>
+        <header>
+          <div>
+            <p className="section-kicker">{gateStageLabel}</p>
+            <h2>{gateStatusLabel}</h2>
+          </div>
+          <strong>{gateNextActionLabel}</strong>
+        </header>
+        <div className="gate-columns">
+          <div>
+            <span>{locale === "es" ? "Completo" : "Complete"}</span>
+            <ul>
+              {gate.completed.map((item) => (
+                <li key={item}>{localizeCriterion(item)}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <span>{locale === "es" ? "Falta para decidir" : "Still needed"}</span>
+            {gate.missing.length > 0 ? (
+              <ul>
+                {gate.missing.map((item) => (
+                  <li key={item}>{localizeCriterion(item)}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>
+                {locale === "es"
+                  ? "No faltan criterios críticos."
+                  : "No critical criteria are missing."}
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+
       <section className="approval-bar">
         <div>
           <CheckIcon />
           <span>
             {isDataDiscovery
               ? t.discoveryNextStep
+              : isAnalysis
+                ? locale === "es"
+                  ? "Este resultado todavía no es una decisión. Podés seguir analizando o guardarlo como insight."
+                  : "This result is not a decision yet. Continue the analysis or save it as an insight."
               : isReadiness
                 ? readiness.status === "ready"
                   ? t.readinessNextStep
@@ -297,20 +553,21 @@ export function BriefScreen({
             <button
               className="primary-button"
               type="button"
-              disabled={!sufficient && !isReadiness}
+              disabled={
+                !gate.canSaveDecision &&
+                !gate.canSaveInsight &&
+                !gate.canSaveAction &&
+                !gate.canSaveAlertPlan
+              }
               onClick={() => setShowConfirmation(true)}
             >
-              {isReadiness
-                ? readiness.status === "ready"
-                  ? t.saveOperationalPlan
-                  : t.saveGapPlan
-                : t.approveDecision}
+              {primarySaveLabel}
             </button>
           )}
         </div>
       </section>
 
-      {!isDataDiscovery && !isReadiness && (
+      {!isDataDiscovery && !isReadiness && !isAnalysis && (
         <section className="anchor-section">
           <h2>{t.contextualAnchors}</h2>
           <div className="anchor-grid">
@@ -343,14 +600,7 @@ export function BriefScreen({
                   setMemoryKind(event.target.value as MemoryItemKind)
                 }
               >
-                {(
-                  [
-                    "decision",
-                    "action",
-                    "knowledge",
-                    "alert-plan",
-                  ] as const
-                ).map((kind) => (
+                {memoryKindOptions.map((kind) => (
                   <option key={kind} value={kind}>
                     {t.memoryKinds[kind]}
                   </option>

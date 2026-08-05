@@ -1,4 +1,8 @@
-export type QuestionIntent = "decision" | "data-discovery" | "readiness";
+export type QuestionIntent =
+  | "decision"
+  | "data-discovery"
+  | "analysis"
+  | "readiness";
 
 function normalizeQuestion(question: string): string {
   return question
@@ -41,6 +45,19 @@ const readinessPatterns = [
   /\b(quiebre|inventario|reclamo).*(dashboard|tablero|alerta)/i,
 ] as const;
 
+const analysisPatterns = [
+  /\b(compare|show|rank|top).*(units? sold|sales volume|product|sku)\b/i,
+  /\b(units? sold|sales volume).*(product|sku|category)\b/i,
+  /\b(most|least|highest|lowest|top|best|worst).*(profitable|profit|margin|sales|revenue|selling)\b/i,
+  /\b(profitable|profit|margin|sales|revenue).*(product|sku|category)\b/i,
+  /\b(product|sku|category).*(profitable|profit|margin|sales|revenue)\b/i,
+  /\b(mas|menos|mayor|menor).*(rentable|rentabilidad|margen|ventas|ingresos)\b/i,
+  /\b(rentable|rentabilidad|margen|ventas|ingresos).*(producto|sku|categoria)\b/i,
+  /\b(producto|sku|categoria).*(rentable|rentabilidad|margen|ventas|ingresos)\b/i,
+  /\b(comparar?|mostrar|ordenar).*(unidades? vendidas?|volumen de ventas|producto|sku)\b/i,
+  /\b(unidades? vendidas?|volumen de ventas).*(producto|sku|categoria)\b/i,
+] as const;
+
 export function classifyQuestionIntent(question: string): QuestionIntent {
   const normalized = normalizeQuestion(question);
   const isDiscovery = discoveryPatterns.some((pattern) =>
@@ -59,6 +76,10 @@ export function classifyQuestionIntent(question: string): QuestionIntent {
     readinessPatterns.some((pattern) => pattern.test(normalized))
   ) {
     return "readiness";
+  }
+
+  if (analysisPatterns.some((pattern) => pattern.test(normalized))) {
+    return "analysis";
   }
 
   return isDiscovery ? "data-discovery" : "decision";

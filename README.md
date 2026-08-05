@@ -85,8 +85,8 @@ No paid OpenAI API and no Supabase database are planned for the hackathon MVP.
 
 ## Current status
 
-Phase 3 is in progress. The public demonstration is deployed and verified
-against the live DataHub MCP runtime.
+The product workflow is implemented through Phase 4. Phase 5–7 verification,
+production revalidation, and submission assets are in progress.
 
 Implemented:
 
@@ -107,6 +107,13 @@ Implemented:
 - Default-deny filtering for unknown or unauthorized domains
 - Server-filtered data catalog tailored to each role
 - Separate bilingual data-discovery and decision workflows
+- Visually distinct discovery, analysis, proposal, and decision stages
+- Multi-turn analysis thread with explicit follow-up actions
+- Decision gate that prevents analytical results from being saved as approved
+  decisions before objectives, alternatives, ownership, and review criteria
+  are present
+- Deterministic Ecommerce product analysis for sales, units, and authorized
+  profitability inputs
 - Role-specific starter questions and next-step guidance
 - Reusable business capability packs that compare required capabilities with
   authorized evidence

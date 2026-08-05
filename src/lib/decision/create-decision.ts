@@ -12,6 +12,8 @@ import { createDataHubEvidenceAdapter } from "../evidence/datahub-evidence-adapt
 import { dataHubSnapshotEvidenceAdapter } from "../evidence/datahub-snapshot-adapter.ts";
 import { detectCapabilityPack } from "../capabilities/ecommerce-control-pack.ts";
 import { evaluateCapabilityPack } from "../capabilities/evaluate-readiness.ts";
+import { analyzeEcommerceQuestion } from "../analytics/ecommerce-demo-adapter.ts";
+import { evaluateDecisionGate } from "./decision-gate.ts";
 
 function createDecisionId(question: string, userId: string): string {
   let hash = 2166136261;
@@ -58,6 +60,14 @@ export async function createDecision(
         locale: request.locale,
       })
     : null;
+  const analysis =
+    intent === "analysis"
+      ? analyzeEcommerceQuestion({
+          question: request.question,
+          locale: request.locale,
+          user,
+        })
+      : null;
   const evaluation = evaluateEvidence({
     evidence,
     requiredEvidenceSatisfied: readiness
@@ -79,13 +89,28 @@ export async function createDecision(
     evidence,
     evaluation,
     readiness,
+    analysis,
+  });
+
+  const decisionStatus = evaluation.sufficient ? "recommendation" : "abstention";
+  const decisionGate = evaluateDecisionGate({
+    intent,
+    status: decisionStatus,
+    trustBand: evaluation.trustBand,
+    evidenceCount: evidence.length,
+    warnings: evaluation.warnings,
+    gaps: evaluation.gaps,
+    analysis,
+    readiness,
+    outcome: synthesis.outcome,
+    risks: synthesis.risks,
   });
 
   return {
     id: createDecisionId(request.question, request.userId),
     question: request.question,
     intent,
-    status: evaluation.sufficient ? "recommendation" : "abstention",
+    status: decisionStatus,
     trustBand: evaluation.trustBand,
     evidence,
     warnings: evaluation.warnings,
@@ -95,6 +120,8 @@ export async function createDecision(
     risks: synthesis.risks,
     roleInsight: synthesis.roleInsight,
     readiness,
+    analysis,
+    decisionGate,
     presentationRole: user.role,
     provider: provider.id,
     evidenceSource: retrieval.source,

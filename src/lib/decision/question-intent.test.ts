@@ -60,3 +60,19 @@ test("recognizes English schema and lineage exploration", () => {
     "data-discovery",
   );
 });
+
+test("recognizes product profitability as an analytical question", () => {
+  assert.equal(
+    classifyQuestionIntent("¿Qué producto es el más rentable?"),
+    "analysis",
+  );
+  assert.equal(
+    classifyQuestionIntent("Which product has the highest margin?"),
+    "analysis",
+  );
+});
+
+test("keeps product unit comparisons in the analytical workflow", () => {
+  assert.equal(classifyQuestionIntent("Comparar unidades vendidas"), "analysis");
+  assert.equal(classifyQuestionIntent("Compare units sold by product"), "analysis");
+});

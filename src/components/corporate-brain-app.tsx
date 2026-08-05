@@ -16,6 +16,7 @@ import type {
   DecisionApiResult,
   DecisionCard,
 } from "@/lib/decision/types";
+import type { ConversationTurn } from "@/lib/decision/conversation";
 import { copy, type Locale } from "@/lib/i18n";
 import type { AlertRule } from "@/lib/capabilities/types";
 import {
@@ -64,6 +65,9 @@ export function CorporateBrainApp() {
   const [screen, setScreen] = useState<Screen>("ask");
   const [userId, setUserId] = useState(demoUsers[0].id);
   const [decision, setDecision] = useState<DecisionCard | null>(null);
+  const [conversation, setConversation] = useState<readonly ConversationTurn[]>(
+    [],
+  );
   const [loadingDecision, setLoadingDecision] = useState(false);
   const [decisionError, setDecisionError] = useState<string | null>(null);
   const [catalog, setCatalog] = useState<RoleCatalog | null>(null);
@@ -150,6 +154,24 @@ export function CorporateBrainApp() {
     };
   }, [activeUser.id, locale]);
 
+  function createConversationTurn(
+    nextDecision: DecisionCard,
+    turnIndex: number,
+  ): ConversationTurn {
+    return {
+      id: `${nextDecision.id}:${turnIndex}`,
+      question: nextDecision.question,
+      title:
+        nextDecision.analysis?.title ??
+        nextDecision.readiness?.title ??
+        nextDecision.recommendation,
+      summary: nextDecision.analysis?.answer ?? nextDecision.recommendation,
+      stage: nextDecision.decisionGate.stage,
+      status: nextDecision.decisionGate.status,
+      generatedAt: nextDecision.generatedAt,
+    };
+  }
+
   async function saveDecision(
     kind: MemoryItemKind,
     alertRules: readonly AlertRule[],
@@ -214,6 +236,7 @@ export function CorporateBrainApp() {
   function changePersona(nextUserId: string) {
     setUserId(nextUserId);
     setDecision(null);
+    setConversation([]);
     setDecisionError(null);
     setScreen("ask");
   }
@@ -221,6 +244,14 @@ export function CorporateBrainApp() {
   function changeLocale(nextLocale: Locale) {
     persistLocale(nextLocale);
     setDecision(null);
+    setConversation([]);
+    setDecisionError(null);
+    setScreen("ask");
+  }
+
+  function startNewInquiry() {
+    setDecision(null);
+    setConversation([]);
     setDecisionError(null);
     setScreen("ask");
   }
@@ -252,6 +283,10 @@ export function CorporateBrainApp() {
       }
 
       setDecision(result.decision);
+      setConversation((current) => [
+        ...current,
+        createConversationTurn(result.decision, current.length),
+      ]);
       setScreen("brief");
     } catch (error) {
       setDecisionError(
@@ -264,7 +299,14 @@ export function CorporateBrainApp() {
 
   const navItems = [
     { id: "ask" as const, label: t.navAsk, icon: <SparkIcon /> },
-    { id: "brief" as const, label: t.navBrief, icon: <CheckIcon /> },
+    {
+      id: "brief" as const,
+      label:
+        decision && decision.decisionGate.stage !== "decision"
+          ? t.navAnalysis
+          : t.navBrief,
+      icon: <CheckIcon />,
+    },
     { id: "memory" as const, label: t.navMemory, icon: <DatabaseIcon /> },
   ];
 
@@ -289,7 +331,7 @@ export function CorporateBrainApp() {
         <button
           className="new-inquiry"
           type="button"
-          onClick={() => setScreen("ask")}
+          onClick={startNewInquiry}
         >
           <span>+</span>
           {t.newInquiry}
@@ -410,10 +452,14 @@ export function CorporateBrainApp() {
         )}
         {screen === "brief" && decision && (
           <BriefScreen
+            key={`${decision.id}:${decision.generatedAt}`}
             decision={decision}
+            conversation={conversation}
+            loadingFollowUp={loadingDecision}
             locale={locale}
             user={activeUser}
             onAskAgain={() => setScreen("ask")}
+            onFollowUp={generateDecision}
             onSave={saveDecision}
           />
         )}

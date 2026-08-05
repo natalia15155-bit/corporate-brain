@@ -37,7 +37,7 @@ Exit criteria:
 
 **July 26–27**
 
-**Status: In progress**
+**Status: Complete**
 
 - Bootstrap Next.js and TypeScript
 - Configure linting, formatting, tests, and CI
@@ -56,7 +56,7 @@ Completed foundation:
 - Safe provider configuration with paid and unverified providers disabled
 - Unit tests for access, validation, evaluation, and provider policy
 
-Remaining:
+Deferred beyond the deterministic hackathon path:
 
 - Verified Groq Free Tier adapter
 - Provider failure and rate-limit states
@@ -72,6 +72,8 @@ Exit criteria:
 
 ## Phase 3 — DataHub evidence
 
+**Status: Complete; production revalidation required before submission**
+
 **July 28–31**
 
 - Run DataHub Open Source locally
@@ -86,6 +88,8 @@ Exit criteria:
 - A real question returns visible evidence from DataHub
 
 ## Phase 4 — Decision workflow
+
+**Status: Complete**
 
 **August 1–4**
 
@@ -103,6 +107,8 @@ Exit criteria:
 
 ## Phase 5 — Revalidation and polish
 
+**Status: In progress**
+
 **August 4–5**
 
 - Detect or simulate a supporting evidence change
@@ -116,6 +122,8 @@ Exit criteria:
 - The complete differentiation story is demonstrable
 
 ## Phase 6 — Verification
+
+**Status: In progress**
 
 **August 5–7**
 
@@ -134,6 +142,8 @@ Exit criteria:
 - Verified additional cost remains USD 0
 
 ## Phase 7 — Submission
+
+**Status: In progress**
 
 **August 8–10**
 

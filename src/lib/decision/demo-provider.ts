@@ -177,6 +177,17 @@ function synthesizeDiscoverySpanish(
 function synthesizeEnglish(
   input: DecisionSynthesisInput,
 ): DecisionSynthesis {
+  if (input.intent === "analysis" && input.analysis) {
+    return {
+      recommendation: input.analysis.answer,
+      outcome: input.analysis.primaryValue,
+      risks: input.analysis.limitations,
+      roleInsight:
+        input.analysis.status === "partial"
+          ? "Use the closest authorized metric without treating it as the requested profitability result."
+          : "The result is calculated deterministically; use the evidence trail to validate its business definition.",
+    };
+  }
   if (input.intent === "readiness") {
     return synthesizeReadinessEnglish(input);
   }
@@ -224,6 +235,17 @@ function synthesizeEnglish(
 function synthesizeSpanish(
   input: DecisionSynthesisInput,
 ): DecisionSynthesis {
+  if (input.intent === "analysis" && input.analysis) {
+    return {
+      recommendation: input.analysis.answer,
+      outcome: input.analysis.primaryValue,
+      risks: input.analysis.limitations,
+      roleInsight:
+        input.analysis.status === "partial"
+          ? "Usá la métrica autorizada más cercana sin presentarla como el resultado de rentabilidad solicitado."
+          : "El resultado se calcula de forma determinística; validá su definición de negocio en el rastro de evidencia.",
+    };
+  }
   if (input.intent === "readiness") {
     return synthesizeReadinessSpanish(input);
   }
