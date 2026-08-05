@@ -133,6 +133,8 @@ export function BriefScreen({
     "Risk review started": "Revisión de riesgos iniciada",
     "Warning review": "Revisión de advertencias",
     "Final approval criteria": "Criterios finales de aprobación",
+    "Additional authorized evidence is required.":
+      "Se requiere evidencia autorizada adicional",
   };
   const localizeCriterion = (criterion: string) =>
     locale === "es" ? spanishCriteria[criterion] ?? criterion : criterion;

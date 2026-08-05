@@ -20,6 +20,8 @@ const promptOverridePatterns = [
   /ignore\s+(?:all\s+|any\s+|the\s+)?(?:previous|prior|above)\s+(?:instructions?|prompts?)/i,
   /(?:reveal|show|print|return)\s+(?:the\s+)?(?:system\s+prompt|api\s+key|secret|hidden\s+instructions?)/i,
   /(?:act|behave)\s+as\s+(?:the\s+)?system/i,
+  /(?:ignora|ignorá|omiti|omití|olvida|olvidá)\s+(?:todas?\s+)?(?:las\s+)?(?:instrucciones|indicaciones)\s+(?:anteriores|previas)/i,
+  /(?:revela|revelá|mostra|mostrá|imprimi|imprimí|devuelve)\b.*\b(?:datos\s+confidenciales|clave\s+de\s+api|secretos?|prompt\s+del\s+sistema|instrucciones\s+ocultas)/i,
 ];
 
 export function parseDecisionRequest(input: unknown): DecisionRequest {
