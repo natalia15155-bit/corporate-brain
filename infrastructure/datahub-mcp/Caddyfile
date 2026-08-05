@@ -1,10 +1,12 @@
 {$MCP_HOST} {
-  @unauthorized {
-    path /mcp*
-    not header Authorization "Bearer {$MCP_ACCESS_TOKEN}"
-  }
+  route {
+    @unauthorized {
+      path /mcp*
+      not header Authorization "Bearer {$MCP_ACCESS_TOKEN}"
+    }
 
-  respond @unauthorized "Unauthorized" 401
-  reverse_proxy /mcp* 127.0.0.1:8000
-  respond 404
+    respond @unauthorized "Unauthorized" 401
+    reverse_proxy /mcp* 127.0.0.1:8000
+    respond 404
+  }
 }

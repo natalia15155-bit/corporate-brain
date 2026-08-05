@@ -36,6 +36,12 @@ function isValidDataHubUrn(value: string): boolean {
   );
 }
 
+function isEvidenceEntityUrn(value: string): boolean {
+  return /^urn:li:(dataset|dataFlow|dataJob|chart|dashboard|container|mlModel|glossaryTerm):/.test(
+    value,
+  );
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
@@ -125,7 +131,7 @@ function collectEntities(
   entities: Map<string, CandidateEntity>,
   depth = 0,
 ) {
-  if (depth > 6 || entities.size >= 12) return;
+  if (depth > 6 || entities.size >= 30) return;
   if (Array.isArray(value)) {
     for (const item of value.slice(0, 50)) {
       collectEntities(item, entities, depth + 1);
@@ -135,7 +141,7 @@ function collectEntities(
   if (!isRecord(value)) return;
 
   const urn = firstString(value, ["urn", "entityUrn", "entity_urn"]);
-  if (urn && isValidDataHubUrn(urn)) {
+  if (urn && isValidDataHubUrn(urn) && isEvidenceEntityUrn(urn)) {
     entities.set(urn, {
       urn,
       name: findNestedString(value, [
@@ -322,6 +328,47 @@ function nameFromUrn(urn: string): string {
   return entityName.replace(/[._-]+/g, " ").trim();
 }
 
+function inferCapabilities(entity: CandidateEntity): readonly string[] {
+  const searchable = [
+    entity.urn,
+    entity.name,
+    entity.description,
+    entity.platform,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  const capabilities = new Set<string>();
+
+  if (/\b(order|orders|pedido|pedidos|gmv|fulfillment|payment)\b/.test(searchable)) {
+    capabilities.add("commerce.orders");
+  }
+  if (/\b(product|products|producto|productos|sku|catalog|master)\b/.test(searchable)) {
+    capabilities.add("commerce.products");
+  }
+  if (/\b(star product|star products|priority product|priority products|is_star_product)\b/.test(searchable)) {
+    capabilities.add("commerce.product-priority");
+  }
+  if (/\b(inventory|stock|warehouse|available_units|reserved|inbound)\b/.test(searchable)) {
+    capabilities.add("commerce.inventory");
+  }
+  if (/\b(sales velocity|sell-through|days of cover|days_of_cover|demand model)\b/.test(searchable)) {
+    capabilities.add("commerce.sales-velocity");
+  }
+  if (/\b(complaint|complaints|reclamo|reclamos|queja|quejas|complaint_rate|product quality)\b/.test(searchable)) {
+    capabilities.add("cx.product-complaints");
+  }
+  if (/\b(alert routing|notification routing|recipients|escalation route|workflow)\b/.test(searchable)) {
+    capabilities.add("workflow.alert-routing");
+  }
+  if (/\b(dashboard|tablero|business intelligence|bi model)\b/.test(searchable)) {
+    capabilities.add("analytics.dashboard");
+    capabilities.add("commerce.control-dashboard");
+  }
+
+  return [...capabilities];
+}
+
 function normalizeEvidence(
   entity: CandidateEntity,
   index: number,
@@ -356,6 +403,7 @@ function normalizeEvidence(
     sensitivity: domain === "finance" ? "confidential" : "internal",
     required: index < 2,
     source: "datahub",
+    capabilities: inferCapabilities(entity),
   };
 }
 
@@ -429,14 +477,11 @@ export function createDataHubEvidenceAdapter(
 
         await collectSearch(input.question);
 
-        if (searchEntities.size === 0) {
-          for (const query of buildFocusedSearchQueries(input.question)) {
-            await collectSearch(query);
-            if (searchEntities.size >= 8) break;
-          }
+        for (const query of buildFocusedSearchQueries(input.question)) {
+          await collectSearch(query);
         }
 
-        const urns = [...searchEntities.keys()].slice(0, 8);
+        const urns = [...searchEntities.keys()].slice(0, 12);
         if (!urns.length) {
           return {
             source: "datahub",
@@ -445,14 +490,28 @@ export function createDataHubEvidenceAdapter(
           };
         }
 
-        const entityResult = await client.callTool("get_entities", { urns });
         const detailedEntities = new Map<string, CandidateEntity>();
-        for (const payload of unwrapToolResult(entityResult)) {
-          collectEntities(payload, detailedEntities);
+        for (let index = 0; index < urns.length; index += 3) {
+          const entityResult = await client.callTool("get_entities", {
+            urns: urns.slice(index, index + 3),
+          });
+          for (const payload of unwrapToolResult(entityResult)) {
+            collectEntities(payload, detailedEntities);
+          }
         }
 
-        const sourceEntities =
-          detailedEntities.size > 0 ? detailedEntities : searchEntities;
+        const sourceEntities = new Map(searchEntities);
+        for (const [urn, detailed] of detailedEntities) {
+          const existing = sourceEntities.get(urn);
+          sourceEntities.set(urn, {
+            urn,
+            name: detailed.name ?? existing?.name,
+            description: detailed.description ?? existing?.description,
+            owner: detailed.owner ?? existing?.owner,
+            platform: detailed.platform ?? existing?.platform,
+            domain: detailed.domain ?? existing?.domain,
+          });
+        }
         let evidence = [...sourceEntities.values()]
           .map(normalizeEvidence)
           .filter(

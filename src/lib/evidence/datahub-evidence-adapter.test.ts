@@ -203,4 +203,79 @@ test("falls back to focused DataHub searches for a multi-concept analyst questio
   assert.equal(result.evidence.length, 1);
   assert.equal(result.evidence[0].id, inventoryUrn);
   assert.equal(result.evidence[0].domain, "operations");
+  assert.deepEqual(result.evidence[0].capabilities, [
+    "commerce.products",
+    "commerce.inventory",
+  ]);
+});
+
+test("supplements broad results and infers live business capabilities", async () => {
+  const searchQueries: string[] = [];
+  const productUrn =
+    "urn:li:dataset:(urn:li:dataPlatform:postgres,product-master,PROD)";
+  const complaintUrn =
+    "urn:li:dataset:(urn:li:dataPlatform:snowflake,product-complaints,PROD)";
+  const client: McpToolClient = {
+    async listTools() {
+      return [
+        { name: "search", inputSchema: { properties: { query: {} } } },
+        { name: "get_entities", inputSchema: { properties: { urns: {} } } },
+      ];
+    },
+    async callTool(name, arguments_) {
+      if (name === "search") {
+        const query = String(arguments_.query);
+        searchQueries.push(query);
+        if (query === "products") {
+          return toolText({ results: [{ urn: productUrn }] });
+        }
+        if (query === "complaints") {
+          return toolText({ results: [{ urn: complaintUrn }] });
+        }
+        return toolText({ results: [{ urn: productUrn }] });
+      }
+      return toolText({
+        entities: [
+          {
+            urn: productUrn,
+            name: "Product Master and Star Products",
+            description: "Governed SKU catalog with is_star_product.",
+            owner: "Product Operations",
+            platform: "Postgres",
+            domain: "Product",
+          },
+          {
+            urn: complaintUrn,
+            name: "Product Complaints",
+            description: "Complaint rate and severity linked to SKU.",
+            owner: "CX Analytics",
+            platform: "Snowflake",
+            domain: "CX",
+          },
+        ],
+      });
+    },
+    async close() {},
+  };
+  const adapter = createDataHubEvidenceAdapter({
+    environment: { DATAHUB_MCP_URL: "https://datahub.example/mcp" },
+    connect: async () => client,
+  });
+
+  const result = await adapter.retrieve({
+    question: "Can we alert on complaints for star products?",
+    locale: "en",
+    user: demoUsers[1],
+  });
+
+  assert.equal(searchQueries.includes("products"), true);
+  assert.equal(searchQueries.includes("complaints"), true);
+  assert.deepEqual(result.evidence[0].capabilities, [
+    "commerce.products",
+    "commerce.product-priority",
+  ]);
+  assert.deepEqual(result.evidence[1].capabilities, [
+    "commerce.products",
+    "cx.product-complaints",
+  ]);
 });

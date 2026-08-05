@@ -8,8 +8,11 @@ published, behind HTTPS and a bearer token.
 
 - The official `mcp-server-datahub` package is pinned to `0.6.0`.
 - Supergateway is pinned to `3.4.3` and only bridges stdio to Streamable HTTP.
-- General DataHub mutation tools are disabled.
-- The bounded `save_document` tool remains available for explicit Decision Card write-back.
+- DataHub mutations are enabled at the MCP process because the official server
+  requires that flag before it exposes `save_document`.
+- The public application only invokes the bounded `save_document` flow after
+  explicit confirmation; user-management tools stay disabled and document
+  updates are restricted.
 - Requests without the configured bearer token receive `401`.
 - No token or credential is stored in Git.
 
