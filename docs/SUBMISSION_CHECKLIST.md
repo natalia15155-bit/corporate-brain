@@ -3,32 +3,32 @@
 ## Eligibility and rules
 
 - [ ] Project created during the submission period
-- [ ] DataHub Open Source used meaningfully
-- [ ] DataHub MCP Server or another accepted DataHub agent tool used
+- [x] DataHub Open Source used meaningfully
+- [x] DataHub MCP Server or another accepted DataHub agent tool used
 - [ ] Third-party APIs used under their applicable terms
 - [ ] Submission materials available in English
 
 ## Repository
 
-- [ ] Public GitHub repository
-- [ ] Apache 2.0 license visible
-- [ ] Complete source code
-- [ ] `.env.example` without secrets
-- [ ] Installation instructions
-- [ ] DataHub setup instructions
-- [ ] Sample outputs
-- [ ] Architecture documentation
-- [ ] Tests and verification instructions
+- [x] Public GitHub repository
+- [x] Apache 2.0 license visible
+- [x] Complete source code
+- [x] `.env.example` without secrets
+- [x] Installation instructions
+- [x] DataHub setup instructions
+- [x] Sample outputs
+- [x] Architecture documentation
+- [x] Tests and verification instructions
 
 ## Application
 
-- [ ] Publicly accessible web experience
-- [ ] Clear DataHub integration
-- [ ] Read and write-back workflow
-- [ ] Human confirmation before writes
-- [ ] Synthetic data only
-- [ ] No paid fallback
-- [ ] Error and rate-limit states
+- [x] Publicly accessible web experience
+- [x] Clear DataHub integration
+- [x] Read and write-back workflow
+- [x] Human confirmation before writes
+- [x] Synthetic data only
+- [x] No paid fallback
+- [x] Error and rate-limit states
 
 ## Demo
 

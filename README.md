@@ -81,10 +81,12 @@ No paid OpenAI API and no Supabase database are planned for the hackathon MVP.
 - [Submission checklist](./docs/SUBMISSION_CHECKLIST.md)
 - [Devpost submission draft](./docs/DEVPOST_SUBMISSION.md)
 - [Demo script](./docs/DEMO_SCRIPT.md)
+- [Hackathon win plan](./docs/HACKATHON_WIN_PLAN.md)
 
 ## Current status
 
-Phase 3 is in progress. The public demonstration is deployed and verified.
+Phase 3 is in progress. The public demonstration is deployed and verified
+against the live DataHub MCP runtime.
 
 Implemented:
 
@@ -120,13 +122,11 @@ Implemented:
 - GitHub Actions quality workflow
 - Verified Vercel production deployment and decision API
 
-The adapters are implemented and independently tested. Live OpenRouter can be
-enabled with server-side environment variables. Live DataHub validation requires
-an accessible DataHub MCP endpoint and a scope-limited token.
-
-The public demo intentionally uses the checked-in DataHub snapshot and the
-deterministic provider. The interface labels this state explicitly; it does not
-claim a live connection.
+The adapters are implemented and independently tested. Production uses the
+authenticated live DataHub MCP path with a dedicated synthetic catalog. The
+checked-in DataHub snapshot remains a deterministic local fallback, and the UI
+labels the active evidence mode explicitly. Live OpenRouter remains optional;
+the deterministic synthesis provider avoids paid model usage.
 
 The public API applies defense in depth, but the persona selector remains a
 synthetic identity demonstration. Live DataHub must use a dedicated hackathon

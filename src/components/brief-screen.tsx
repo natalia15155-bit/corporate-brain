@@ -188,6 +188,21 @@ export function BriefScreen({
                     <span>{asset.quality}</span>
                     <span>{t.sensitivity[asset.sensitivity]}</span>
                   </div>
+                  {isDataDiscovery && (asset.fields?.length ?? 0) > 0 && (
+                    <p className="catalog-fields">
+                      <strong>{t.fieldsAvailable}:</strong>{" "}
+                      {asset.fields?.slice(0, 8).join(", ")}
+                    </p>
+                  )}
+                  {isDataDiscovery && (asset.upstream?.length ?? 0) > 0 && (
+                    <p className="catalog-fields">
+                      <strong>{t.sourceConnections}:</strong>{" "}
+                      {asset.upstream
+                        ?.slice(0, 5)
+                        .map((id) => evidenceNames.get(id) ?? id)
+                        .join(" → ")}
+                    </p>
+                  )}
                 </div>
               </article>
             ))}

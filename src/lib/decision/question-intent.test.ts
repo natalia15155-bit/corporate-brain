@@ -33,3 +33,30 @@ test("recognizes dashboard and alert readiness questions", () => {
     "readiness",
   );
 });
+
+test("keeps catalog exploration as discovery when a future dashboard is context", () => {
+  assert.equal(
+    classifyQuestionIntent(
+      "¿Qué datasets tengo disponibles para construir un dashboard de Ecommerce, cuáles son sus campos principales, responsables y cómo se conectan entre sí?",
+    ),
+    "data-discovery",
+  );
+});
+
+test("keeps an explicit coverage assessment in readiness", () => {
+  assert.equal(
+    classifyQuestionIntent(
+      "¿Tenemos todo lo necesario para construir un dashboard de Ecommerce con alertas?",
+    ),
+    "readiness",
+  );
+});
+
+test("recognizes English schema and lineage exploration", () => {
+  assert.equal(
+    classifyQuestionIntent(
+      "Which datasets, fields, owners and lineage are available for an Ecommerce dashboard?",
+    ),
+    "data-discovery",
+  );
+});

@@ -18,6 +18,10 @@ function visibleWarnings(input: DecisionSynthesisInput): number {
   return input.evidence.filter((asset) => asset.tone === "warning").length;
 }
 
+function usesLiveDataHub(input: DecisionSynthesisInput): boolean {
+  return input.evidence.some((asset) => asset.freshness === "From DataHub");
+}
+
 function synthesizeReadinessEnglish(
   input: DecisionSynthesisInput,
 ): DecisionSynthesis {
@@ -49,7 +53,9 @@ function synthesizeReadinessEnglish(
       ? [
           "Alert thresholds are proposed defaults and require owner confirmation before activation.",
           "The public demo stores the approved plan in browser memory; it does not send live notifications.",
-          "Source freshness remains illustrative while the public demo uses the DataHub snapshot.",
+          usesLiveDataHub(input)
+            ? "Capability coverage was evaluated against the live read-only DataHub MCP connection."
+            : "Source freshness remains illustrative while the public demo uses the DataHub snapshot.",
         ]
       : [
           "Missing critical capabilities prevent a trustworthy dashboard recommendation.",
@@ -92,7 +98,9 @@ function synthesizeReadinessSpanish(
       ? [
           "Los umbrales son valores iniciales y requieren confirmación de los responsables antes de activarse.",
           "La demo pública guarda el plan aprobado en la memoria del navegador; no envía notificaciones reales.",
-          "La actualización de fuentes es ilustrativa mientras la demo pública usa el snapshot de DataHub.",
+          usesLiveDataHub(input)
+            ? "La cobertura se evaluó contra la conexión MCP de DataHub en vivo y de solo lectura."
+            : "La actualización de fuentes es ilustrativa mientras la demo pública usa el snapshot de DataHub.",
         ]
       : [
           "Las capacidades críticas faltantes impiden recomendar el dashboard de forma confiable.",
@@ -124,7 +132,9 @@ function synthesizeDiscoveryEnglish(
       warnings > 0
         ? `${warnings} visible asset requires quality review before use.`
         : "No visible asset currently carries a quality warning.",
-      "The public demo uses a read-only DataHub snapshot; freshness values are illustrative.",
+      usesLiveDataHub(input)
+        ? "Results were retrieved from the live read-only DataHub MCP connection."
+        : "The public demo uses a read-only DataHub snapshot; freshness values are illustrative.",
     ],
     roleInsight:
       input.user.role === "data-steward"
@@ -153,7 +163,9 @@ function synthesizeDiscoverySpanish(
       warnings > 0
         ? `${warnings} activo visible requiere una revisión de calidad antes de usarlo.`
         : "Ningún activo visible tiene actualmente una advertencia de calidad.",
-      "La demo pública usa un snapshot de DataHub de solo lectura; la actualización es ilustrativa.",
+      usesLiveDataHub(input)
+        ? "Los resultados se recuperaron desde la conexión MCP de DataHub en vivo y de solo lectura."
+        : "La demo pública usa un snapshot de DataHub de solo lectura; la actualización es ilustrativa.",
     ],
     roleInsight:
       input.user.role === "data-steward"

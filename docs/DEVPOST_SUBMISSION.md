@@ -54,9 +54,10 @@ pack. It does not require a separate hard-coded application per department.
 - OpenRouter free models as an optional synthesis layer
 - Vercel for the public demonstration
 
-The public snapshot mode is deliberately labeled. It preserves a realistic
-DataHub-shaped experience when the live catalog is unavailable, but it never
-pretends that cached evidence is live.
+The public deployment uses an authenticated live DataHub MCP connection to a
+dedicated synthetic catalog. A deliberately labeled snapshot mode remains
+available for deterministic local development; cached evidence is never
+presented as live.
 
 ## How DataHub is essential
 

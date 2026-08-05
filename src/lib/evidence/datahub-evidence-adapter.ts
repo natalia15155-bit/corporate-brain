@@ -281,14 +281,45 @@ const focusedSearchConcepts = [
     pattern: /\b(order\w*|pedido\w*|venta\w*|sales|gmv)\b/i,
     query: "orders",
   },
+  {
+    pattern: /\b(alert\w*|alerta\w*|routing|route|recipient\w*|destinatar\w*|escalat\w*)\b/i,
+    query: "alert routing",
+  },
 ] as const;
 
 function buildFocusedSearchQueries(question: string): string[] {
+  const normalized = question
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  const exploresCatalog =
+    /\b(fields?|campos?|columns?|columnas?|schema|esquema|owners?|responsables?|lineage|linaje|connections?|conexiones?)\b/i.test(
+      normalized,
+    ) ||
+    /\b(what|which|que|cuales|available|disponibles?|tengo|tenemos).*(datasets?|data|datos|fuentes|sources)\b/i.test(
+      normalized,
+    );
+  const evaluatesDashboardAlerts =
+    /\b(dashboard|tablero|panel)\b.*\b(alert\w*|alerta\w*)\b/i.test(
+      normalized,
+    );
+
+  if (exploresCatalog || evaluatesDashboardAlerts) {
+    return [
+      "orders",
+      "products",
+      "inventory",
+      "complaints",
+      "dashboard",
+      "alert routing",
+    ];
+  }
+
   return focusedSearchConcepts
     .filter(({ pattern }) => pattern.test(question))
     .map(({ query }) => query)
     .filter((query, index, queries) => queries.indexOf(query) === index)
-    .slice(0, 5);
+    .slice(0, 6);
 }
 
 function normalizeDomain(value: string | undefined): DomainId | null {
@@ -326,6 +357,16 @@ function normalizeDomain(value: string | undefined): DomainId | null {
 function nameFromUrn(urn: string): string {
   const entityName = urn.split(",")[1] ?? urn.split(":").at(-1) ?? urn;
   return entityName.replace(/[._-]+/g, " ").trim();
+}
+
+function humanizeEntityLabel(value: string): string {
+  const label = value.startsWith("urn:li:")
+    ? value.split(":").at(-1) ?? value
+    : value;
+  return label
+    .replace(/[._-]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase())
+    .trim();
 }
 
 function inferCapabilities(entity: CandidateEntity): readonly string[] {
@@ -384,7 +425,9 @@ function normalizeEvidence(
       "DataHub returned this asset as relevant organizational evidence.",
     1_200,
   );
-  const owner = normalizeUntrustedText(entity.owner ?? "Unassigned", 160);
+  const owner = humanizeEntityLabel(
+    normalizeUntrustedText(entity.owner ?? "Unassigned", 160),
+  );
   const platform = normalizeUntrustedText(
     entity.platform ?? "Data asset",
     80,
@@ -465,20 +508,40 @@ export function createDataHubEvidenceAdapter(
         const searchEntities = new Map<string, CandidateEntity>();
         const connectedClient = client;
 
-        const collectSearch = async (query: string) => {
+        const search = async (query: string) => {
+          const entities = new Map<string, CandidateEntity>();
           const result = await connectedClient.callTool(
             "search",
             buildSearchArguments(searchTool, query, input.user),
           );
           for (const payload of unwrapToolResult(result)) {
-            collectEntities(payload, searchEntities);
+            collectEntities(payload, entities);
           }
+          return entities;
         };
 
-        await collectSearch(input.question);
+        const focusedQueries = buildFocusedSearchQueries(input.question);
+        const [broadResults, ...focusedResults] = await Promise.all([
+          search(input.question),
+          ...focusedQueries.map(search),
+        ]);
 
-        for (const query of buildFocusedSearchQueries(input.question)) {
-          await collectSearch(query);
+        // Interleave focused results so one broad business area cannot crowd
+        // another requested area out of the detail/enrichment budget.
+        const orderedResults = [...focusedResults, broadResults].map((result) =>
+          [...result.entries()],
+        );
+        const widestResult = Math.max(
+          0,
+          ...orderedResults.map((result) => result.length),
+        );
+        for (let index = 0; index < widestResult; index += 1) {
+          for (const result of orderedResults) {
+            const entry = result[index];
+            if (!entry) continue;
+            const [urn, entity] = entry;
+            if (!searchEntities.has(urn)) searchEntities.set(urn, entity);
+          }
         }
 
         const urns = [...searchEntities.keys()].slice(0, 12);
@@ -490,11 +553,15 @@ export function createDataHubEvidenceAdapter(
           };
         }
 
+        const detailBatches = await Promise.all(
+          Array.from({ length: Math.ceil(urns.length / 3) }, (_, batch) =>
+            connectedClient.callTool("get_entities", {
+              urns: urns.slice(batch * 3, batch * 3 + 3),
+            }),
+          ),
+        );
         const detailedEntities = new Map<string, CandidateEntity>();
-        for (let index = 0; index < urns.length; index += 3) {
-          const entityResult = await client.callTool("get_entities", {
-            urns: urns.slice(index, index + 3),
-          });
+        for (const entityResult of detailBatches) {
           for (const payload of unwrapToolResult(entityResult)) {
             collectEntities(payload, detailedEntities);
           }
@@ -521,51 +588,54 @@ export function createDataHubEvidenceAdapter(
           )
           .slice(0, 8);
 
-        const enrichedEvidence = [];
-        for (const asset of evidence) {
-          if (
-            enrichedEvidence.length >= 4 ||
-            !asset.id.startsWith("urn:li:dataset:")
-          ) {
-            enrichedEvidence.push(asset);
-            continue;
-          }
-
-          let fields: readonly string[] | undefined;
-          let upstream: readonly string[] | undefined;
-
-          if (listSchemaFieldsTool) {
-            const schemaResult = await client.callTool(
-              "list_schema_fields",
-              buildEntityToolArguments(listSchemaFieldsTool, asset.id),
-            );
-            const collectedFields = new Set<string>();
-            for (const payload of unwrapToolResult(schemaResult)) {
-              collectSchemaFields(payload, collectedFields);
+        const needsSchemaFields =
+          /\b(fields?|campos?|columns?|columnas?|schema|esquema)\b/i.test(
+            input.question
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, ""),
+          );
+        const enrichedEvidence = await Promise.all(
+          evidence.map(async (asset, index) => {
+            if (index >= 4 || !asset.id.startsWith("urn:li:dataset:")) {
+              return asset;
             }
-            fields = [...collectedFields].filter(Boolean).slice(0, 20);
-          }
 
-          if (getLineageTool) {
-            const lineageResult = await client.callTool(
-              "get_lineage",
-              buildEntityToolArguments(getLineageTool, asset.id),
-            );
-            const lineageEntities = new Map<string, CandidateEntity>();
-            for (const payload of unwrapToolResult(lineageResult)) {
-              collectEntities(payload, lineageEntities);
+            let fields: readonly string[] | undefined;
+            let upstream: readonly string[] | undefined;
+
+            if (listSchemaFieldsTool && needsSchemaFields) {
+              const schemaResult = await connectedClient.callTool(
+                "list_schema_fields",
+                buildEntityToolArguments(listSchemaFieldsTool, asset.id),
+              );
+              const collectedFields = new Set<string>();
+              for (const payload of unwrapToolResult(schemaResult)) {
+                collectSchemaFields(payload, collectedFields);
+              }
+              fields = [...collectedFields].filter(Boolean).slice(0, 20);
             }
-            upstream = [...lineageEntities.keys()]
-              .filter((urn) => urn !== asset.id)
-              .slice(0, 20);
-          }
 
-          enrichedEvidence.push({
-            ...asset,
-            ...(fields?.length ? { fields } : {}),
-            ...(upstream?.length ? { upstream } : {}),
-          });
-        }
+            if (getLineageTool) {
+              const lineageResult = await connectedClient.callTool(
+                "get_lineage",
+                buildEntityToolArguments(getLineageTool, asset.id),
+              );
+              const lineageEntities = new Map<string, CandidateEntity>();
+              for (const payload of unwrapToolResult(lineageResult)) {
+                collectEntities(payload, lineageEntities);
+              }
+              upstream = [...lineageEntities.keys()]
+                .filter((urn) => urn !== asset.id)
+                .slice(0, 20);
+            }
+
+            return {
+              ...asset,
+              ...(fields?.length ? { fields } : {}),
+              ...(upstream?.length ? { upstream } : {}),
+            };
+          }),
+        );
         evidence = enrichedEvidence;
 
         return {

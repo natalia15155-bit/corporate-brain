@@ -48,7 +48,7 @@ export const copy = {
     warningsLabel: "warnings",
     availableData: "Available data",
     availableDataDescription:
-      "These are the sources this profile can use. Restricted domains are filtered on the server.",
+      "This curated baseline shows what the profile can use. Each question then queries the live DataHub catalog and filters restricted domains on the server.",
     showAllData: "Show all data",
     showLessData: "Show less",
     domainLabels: {
@@ -86,7 +86,7 @@ export const copy = {
     suggestionTwo: "Can the executive team rely on the churn dashboard?",
     suggestionThree: "What changed since the last retention decision?",
     generate: "Build decision brief",
-    generating: "Evaluating authorized evidence…",
+    generating: "Querying authorized DataHub evidence…",
     decisionError:
       "Corporate Brain could not build the decision brief. Your question is still here so you can try again.",
     evidenceReady: "Evidence ready",
@@ -328,7 +328,7 @@ export const copy = {
     warningsLabel: "advertencias",
     availableData: "Datos disponibles",
     availableDataDescription:
-      "Estas son las fuentes que puede utilizar este perfil. Los dominios restringidos se filtran en el servidor.",
+      "Esta base curada muestra qué puede utilizar el perfil. Cada consulta busca luego en el catálogo en vivo de DataHub y filtra los dominios restringidos en el servidor.",
     showAllData: "Ver todos los datos",
     showLessData: "Ver menos",
     domainLabels: {
@@ -366,7 +366,7 @@ export const copy = {
     suggestionTwo: "¿El equipo ejecutivo puede confiar en el panel de abandono?",
     suggestionThree: "¿Qué cambió desde la última decisión de retención?",
     generate: "Crear informe de decisión",
-    generating: "Evaluando evidencia autorizada…",
+    generating: "Consultando evidencia autorizada en DataHub…",
     decisionError:
       "Corporate Brain no pudo crear el informe. Tu pregunta sigue disponible para que vuelvas a intentar.",
     evidenceReady: "Evidencia preparada",

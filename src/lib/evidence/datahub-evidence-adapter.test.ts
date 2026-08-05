@@ -279,3 +279,83 @@ test("supplements broad results and infers live business capabilities", async ()
     "cx.product-complaints",
   ]);
 });
+
+test("expands analyst catalog exploration across the governed Ecommerce chain", async () => {
+  const searchQueries: string[] = [];
+  const client: McpToolClient = {
+    async listTools() {
+      return [
+        { name: "search", inputSchema: { properties: { query: {} } } },
+        { name: "get_entities", inputSchema: { properties: { urns: {} } } },
+      ];
+    },
+    async callTool(name, arguments_) {
+      if (name === "search") {
+        searchQueries.push(String(arguments_.query));
+        return toolText({ results: [] });
+      }
+      return toolText({ entities: [] });
+    },
+    async close() {},
+  };
+  const adapter = createDataHubEvidenceAdapter({
+    environment: { DATAHUB_MCP_URL: "https://datahub.example/mcp" },
+    connect: async () => client,
+  });
+
+  await adapter.retrieve({
+    question:
+      "¿Qué datasets tengo disponibles, cuáles son sus campos, responsables y cómo se conectan?",
+    locale: "es",
+    user: demoUsers[1],
+  });
+
+  assert.deepEqual(searchQueries.slice(1), [
+    "orders",
+    "products",
+    "inventory",
+    "complaints",
+    "dashboard",
+    "alert routing",
+  ]);
+});
+
+test("checks every capability area for dashboard and alert readiness", async () => {
+  const searchQueries: string[] = [];
+  const client: McpToolClient = {
+    async listTools() {
+      return [
+        { name: "search", inputSchema: { properties: { query: {} } } },
+        { name: "get_entities", inputSchema: { properties: { urns: {} } } },
+      ];
+    },
+    async callTool(name, arguments_) {
+      if (name === "search") {
+        searchQueries.push(String(arguments_.query));
+        return toolText({ results: [] });
+      }
+      return toolText({ entities: [] });
+    },
+    async close() {},
+  };
+  const adapter = createDataHubEvidenceAdapter({
+    environment: { DATAHUB_MCP_URL: "https://datahub.example/mcp" },
+    connect: async () => client,
+  });
+
+  await adapter.retrieve({
+    question:
+      "¿Tenemos todo para construir un dashboard de Ecommerce con alertas de quiebre de stock y reclamos?",
+    locale: "es",
+    user: demoUsers[1],
+  });
+
+  assert.deepEqual(searchQueries.slice(1), [
+    "orders",
+    "products",
+    "inventory",
+    "complaints",
+    "dashboard",
+    "alert routing",
+  ]);
+});
