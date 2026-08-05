@@ -149,9 +149,9 @@ allowed to recommend and explain why a human should trust or reject it.
 
 ## Suggested screenshots
 
-1. Data Analyst role scope and governed catalog (English UI)
-2. Ecommerce readiness result with seven of seven capabilities (English UI)
-3. Human-confirmed operational plan in Corporate Memory (English UI)
+1. [`01-data-analyst-scope.jpg`](../assets/submission/01-data-analyst-scope.jpg): Data Analyst role scope and governed catalog (English UI)
+2. [`02-ecommerce-readiness-7-of-7.jpg`](../assets/submission/02-ecommerce-readiness-7-of-7.jpg): Ecommerce readiness result with seven of seven capabilities (English UI)
+3. [`03-confirmed-corporate-memory.jpg`](../assets/submission/03-confirmed-corporate-memory.jpg): Human-confirmed operational plan in Corporate Memory (English UI)
 
 ## Testing instructions for judges
 
