@@ -17,7 +17,7 @@ flowchart LR
     DH --> GRAPH["DataHub Context Graph"]
     SERVER --> RULES["Evidence Evaluator"]
     SERVER --> AI["AI Provider"]
-    AI --> GROQ["Groq Free Tier"]
+    AI --> OR["OpenRouter explicitly free model"]
     AI -. "Disabled fallback" .-> GEMINI["Gemini Free Tier"]
     SERVER --> OUTPUT["Validated Decision Card"]
     OUTPUT --> USER
@@ -127,9 +127,9 @@ The provider contract is intentionally replaceable.
 
 Primary:
 
-- Groq Free Tier
-- Model: `openai/gpt-oss-120b`
+- OpenRouter using `openrouter/free` or a model ID ending in `:free`
 - Structured output required
+- Paid-model fallback rejected by server configuration
 
 Fallback:
 
@@ -164,11 +164,61 @@ After authorization and deterministic evaluation, a presentation adapter shapes 
 
 It receives only the normalized authorized evidence and cannot broaden scope.
 
+### Business capability engine
+
+Corporate Brain separates organizational knowledge from use-case requirements.
+An evidence asset may declare:
+
+- The capabilities it provides
+- Important fields
+- Upstream evidence identifiers
+- Owner, freshness, quality, domain, and sensitivity
+
+A business capability pack declares:
+
+- The requirements for a business outcome
+- Which requirements are critical
+- Optional operational actions or alert templates
+- Trigger language used to select the pack
+
+The deterministic evaluator compares the selected pack with evidence already
+filtered for the active profile. It returns Ready, Missing, or Blocked for every
+requirement and never treats asset count alone as proof of readiness.
+
+The first implementation is the Ecommerce Control Pack. Future Finance, CX,
+Product, Operations, HR, or Legal packs use the same contracts.
+
 ### Decision storage
 
-For the hackathon MVP, approved decision context is written to DataHub so that the next person or agent can inherit it.
+The public demonstration stores confirmed decisions, actions, knowledge and
+alert plans in versioned browser memory so the complete interaction can be
+tested without external infrastructure or cost.
+
+The live adapter can write an approved decision through the official DataHub
+MCP `save_document` tool so that the next person or agent can inherit it. The
+server recomputes the decision, accepts only recognized alert identifiers, and
+links the document to the authorized DataHub URNs. This path is disabled unless
+`DATAHUB_WRITEBACK_ENABLED=true` and remains confirmation-gated.
 
 This is deliberately not a general transactional database. A future commercial edition may introduce a dedicated decision event store without changing the DataHub evidence adapter.
+
+### Public-edge defenses
+
+The public demo uses multiple low-cost controls:
+
+- A 4 KiB streamed JSON limit on decisions and an 8 KiB limit on confirmed
+  memory writes
+- Fixed-window application throttles on decision and write routes
+- Unicode normalization and removal of hidden control characters
+- Rejection of common prompt-override attempts
+- Strict structured LLM output and explicit untrusted-data boundaries
+- Bounded DataHub URNs, names, descriptions, owners, platforms, schema fields,
+  and lineage results
+- CSP, frame denial, MIME-sniff prevention, browser permissions restrictions,
+  and opener isolation
+
+Application throttling is a defensive fallback, not a globally consistent
+distributed rate limiter. Vercel Firewall remains the network-level control.
 
 ## 4. Main read flow
 
@@ -267,7 +317,7 @@ Controls:
 
 - Hackathon data is synthetic.
 - No personal, confidential, or production company data is allowed.
-- Groq data controls should use the strongest free retention setting available.
+- Only synthetic evidence may be sent through the free OpenRouter route.
 - Gemini free tier is a last resort for synthetic data only.
 
 ## 8. Deployment
@@ -276,7 +326,7 @@ Controls:
 
 - Next.js runs locally.
 - DataHub Open Source runs locally with a sample dataset.
-- Groq Free Tier provides live synthesis.
+- OpenRouter provides live synthesis through an explicitly free model.
 
 ### Public demo
 

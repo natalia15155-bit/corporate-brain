@@ -9,12 +9,14 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/lib/access-control.test.ts src/lib/decision/evidence-evaluator.test.ts src/lib/decision/request-validation.test.ts src/lib/decision/runtime-config.test.ts src/lib/decision/create-decision.test.ts"
+    "test": "node --experimental-strip-types --test src/lib/access-control.test.ts src/lib/catalog/get-catalog.test.ts src/lib/capabilities/evaluate-readiness.test.ts src/lib/decision/evidence-evaluator.test.ts src/lib/decision/request-validation.test.ts src/lib/decision/runtime-config.test.ts src/lib/decision/question-intent.test.ts src/lib/decision/create-decision.test.ts src/lib/decision/openrouter-provider.test.ts src/lib/evidence/datahub-evidence-adapter.test.ts src/lib/http/request-security.test.ts src/lib/memory/writeback.test.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "next": "16.2.11",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "26.1.1",
@@ -25,6 +27,7 @@
     "typescript": "5.9.3"
   },
   "overrides": {
+    "@hono/node-server": "2.0.5",
     "postcss": "8.5.22",
     "sharp": "0.35.3"
   }

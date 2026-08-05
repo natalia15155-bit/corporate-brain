@@ -1,47 +1,60 @@
 import { copy, type Locale } from "@/lib/i18n";
-import {
-  ArrowIcon,
-  CheckIcon,
-  DatabaseIcon,
-} from "@/components/icons";
+import { ArrowIcon, CheckIcon, DatabaseIcon } from "@/components/icons";
+import type { CorporateMemoryItem } from "@/lib/memory/types";
 
 interface MemoryScreenProps {
   locale: Locale;
-  saved: boolean;
+  items: readonly CorporateMemoryItem[];
   onOpen: () => void;
 }
 
-export function MemoryScreen({ locale, saved, onOpen }: MemoryScreenProps) {
+export function MemoryScreen({ locale, items, onOpen }: MemoryScreenProps) {
   const t = copy[locale];
-  const decisions = [
+  const sampleDecisions = [
     {
+      id: "sample-retention",
       title: t.memoryDecisionOne,
       date: t.decisionOneDate,
       status: t.active,
       statusTone: "active",
       evidenceCount: 12,
       signal: t.stableEvidence,
-      saved,
+      kind: t.memoryKinds.decision,
+      summary: t.memorySampleSummary,
+      alertRules: [],
+      syncStatus: "sample",
     },
     {
+      id: "sample-churn",
       title: t.memoryDecisionTwo,
       date: t.decisionTwoDate,
       status: t.reviewNeeded,
       statusTone: "review",
       evidenceCount: 8,
       signal: t.changedEvidence,
-      saved: false,
-    },
-    {
-      title: t.memoryDecisionThree,
-      date: t.decisionThreeDate,
-      status: t.decided,
-      statusTone: "decided",
-      evidenceCount: 5,
-      signal: t.stableEvidence,
-      saved: false,
+      kind: t.memoryKinds.decision,
+      summary: t.memoryReviewSummary,
+      alertRules: [],
+      syncStatus: "sample",
     },
   ];
+  const savedItems = items.map((item) => ({
+    id: item.id,
+    title: item.title,
+    date: t.decisionOneDate,
+    status: t.saved,
+    statusTone: "active",
+    evidenceCount: item.evidenceIds.length,
+    signal:
+      item.alertRules.length > 0
+        ? `${item.alertRules.filter((alert) => alert.enabled).length} ${t.alertRules}`
+        : t.stableEvidence,
+    kind: t.memoryKinds[item.kind],
+    summary: item.summary,
+    alertRules: item.alertRules,
+    syncStatus: item.syncStatus ?? "browser-only",
+  }));
+  const entries = [...savedItems, ...sampleDecisions];
 
   return (
     <main className="page-shell memory-shell">
@@ -57,15 +70,15 @@ export function MemoryScreen({ locale, saved, onOpen }: MemoryScreenProps) {
           <p>{t.memoryDescription}</p>
         </div>
         <aside className="integrity-card">
-          <span className="integrity-number">01</span>
+          <span className="integrity-number">{String(items.length).padStart(2, "0")}</span>
           <div>
-            <h2>{t.integrityTitle}</h2>
-            <p>{t.integrityDescription}</p>
+            <h2>{t.memoryItems}</h2>
+            <p>{t.memoryItemsDescription}</p>
           </div>
         </aside>
       </section>
 
-      {saved && (
+      {items.length > 0 && (
         <div className="saved-notice" role="status">
           <span>
             <CheckIcon />
@@ -75,40 +88,67 @@ export function MemoryScreen({ locale, saved, onOpen }: MemoryScreenProps) {
       )}
 
       <section className="decision-list">
-        {decisions.map((decision, index) => (
-          <article className="decision-row" key={decision.title}>
-            <div className="decision-index">0{index + 1}</div>
+        {entries.map((entry, index) => (
+          <article className="decision-row" key={entry.id}>
+            <div className="decision-index">
+              {String(index + 1).padStart(2, "0")}
+            </div>
             <div className="decision-summary">
               <div className="decision-meta">
-                <span>{decision.date}</span>
-                <span className={`decision-status ${decision.statusTone}`}>
-                  {decision.status}
+                <span>{entry.date}</span>
+                <span className={`decision-status ${entry.statusTone}`}>
+                  {entry.status}
                 </span>
-                {decision.saved && (
-                  <span className="new-memory">{t.saved}</span>
-                )}
+                <span className="new-memory">{entry.kind}</span>
               </div>
-              <h2>{decision.title}</h2>
+              <h2>{entry.title}</h2>
+              <p className="memory-summary">{entry.summary}</p>
+              {entry.alertRules.length > 0 && (
+                <div className="memory-alert-rules">
+                  {entry.alertRules.map((alert) => (
+                    <span key={alert.id}>
+                      <strong>{alert.name}</strong>
+                      <code>
+                        {alert.metric} {alert.operator} {alert.threshold}
+                        {alert.unit}
+                      </code>
+                      <small>{alert.recipients.join(" · ")}</small>
+                    </span>
+                  ))}
+                </div>
+              )}
               <div className="decision-signals">
                 <span>
                   <DatabaseIcon />
-                  {decision.evidenceCount} {t.evidence}
+                  {entry.evidenceCount} {t.evidence}
                 </span>
-                <span
-                  className={
-                    decision.statusTone === "review" ? "signal-warning" : ""
-                  }
-                >
-                  {decision.statusTone === "review" ? "↗" : "✓"}{" "}
-                  {decision.signal}
+                <span className={entry.statusTone === "review" ? "signal-warning" : ""}>
+                  {entry.statusTone === "review" ? "↗" : "✓"} {entry.signal}
                 </span>
+                {entry.syncStatus !== "sample" && (
+                  <span
+                    className={
+                      entry.syncStatus === "datahub-error"
+                        ? "signal-warning"
+                        : ""
+                    }
+                  >
+                    {entry.syncStatus === "datahub-synced"
+                      ? locale === "es"
+                        ? "✓ Sincronizado con DataHub"
+                        : "✓ Synced to DataHub"
+                      : entry.syncStatus === "datahub-error"
+                        ? locale === "es"
+                          ? "↗ Pendiente de sincronizar"
+                          : "↗ Sync pending"
+                        : locale === "es"
+                          ? "Guardado sólo en este navegador"
+                          : "Saved in this browser only"}
+                  </span>
+                )}
               </div>
             </div>
-            <button
-              type="button"
-              className="open-decision"
-              onClick={index === 0 ? onOpen : undefined}
-            >
+            <button type="button" className="open-decision" onClick={onOpen}>
               <span>{t.openDecision}</span>
               <ArrowIcon />
             </button>

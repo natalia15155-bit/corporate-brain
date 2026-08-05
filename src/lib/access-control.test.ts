@@ -13,7 +13,7 @@ test("executive receives all explicitly authorized evidence", () => {
   assert.equal(hasSufficientEvidence(executive), true);
 });
 
-test("growth analyst never receives finance evidence", () => {
+test("Ecommerce analyst never receives finance evidence", () => {
   const analyst = demoUsers[1];
   const visible = getAuthorizedEvidence(analyst);
 

@@ -1,0 +1,45 @@
+services:
+  seed:
+    profiles: ["seed"]
+    build:
+      context: .
+      dockerfile: seed.Dockerfile
+    network_mode: host
+    command: ["--gms-url", "http://127.0.0.1:8080"]
+
+  datahub-mcp:
+    build:
+      context: .
+      args:
+        SUPERGATEWAY_VERSION: "3.4.3"
+        DATAHUB_MCP_VERSION: "0.6.0"
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      DATAHUB_GMS_URL: http://127.0.0.1:8080
+      TOOLS_IS_MUTATION_ENABLED: "true"
+      TOOLS_IS_USER_ENABLED: "false"
+      SAVE_DOCUMENT_TOOL_ENABLED: "true"
+      SAVE_DOCUMENT_PARENT_TITLE: Corporate Brain Decisions
+      SAVE_DOCUMENT_ORGANIZE_BY_USER: "false"
+      SAVE_DOCUMENT_RESTRICT_UPDATES: "true"
+      TOOL_RESPONSE_TOKEN_LIMIT: "12000"
+      ENTITY_SCHEMA_TOKEN_BUDGET: "4000"
+
+  edge:
+    image: caddy:2.10.2-alpine
+    network_mode: host
+    restart: unless-stopped
+    depends_on:
+      - datahub-mcp
+    environment:
+      MCP_HOST: ${MCP_HOST:?Set MCP_HOST in .env}
+      MCP_ACCESS_TOKEN: ${MCP_ACCESS_TOKEN:?Set MCP_ACCESS_TOKEN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

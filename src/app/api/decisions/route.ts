@@ -6,10 +6,20 @@ import {
   UnknownPersonaError,
 } from "@/lib/decision/request-validation";
 import { UnsafeProviderConfigurationError } from "@/lib/decision/runtime-config";
+import { OpenRouterProviderError } from "@/lib/decision/openrouter-provider";
+import { EvidenceSourceError } from "@/lib/evidence/types";
 import type {
   DecisionApiResult,
   DecisionErrorCode,
 } from "@/lib/decision/types";
+import {
+  HttpRequestError,
+  readLimitedJson,
+} from "@/lib/http/request-security";
+import {
+  consumeRateLimit,
+  getRequestClientKey,
+} from "@/lib/http/rate-limit";
 
 function errorResponse(
   code: DecisionErrorCode,
@@ -24,7 +34,30 @@ function errorResponse(
 
 export async function POST(request: Request) {
   try {
-    const body: unknown = await request.json();
+    const rateLimit = consumeRateLimit(getRequestClientKey(request), {
+      limit: 30,
+      windowMs: 60_000,
+    });
+    if (!rateLimit.allowed) {
+      return NextResponse.json<DecisionApiResult>(
+        {
+          ok: false,
+          error: {
+            code: "RATE_LIMITED",
+            message: "Too many requests. Please wait a moment and try again.",
+          },
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.retryAfterSeconds),
+            "Cache-Control": "private, no-store",
+          },
+        },
+      );
+    }
+
+    const body = await readLimitedJson(request);
     const input = parseDecisionRequest(body);
     const decision = await createDecision(input);
 
@@ -37,6 +70,10 @@ export async function POST(request: Request) {
       },
     );
   } catch (error) {
+    if (error instanceof HttpRequestError) {
+      return errorResponse("INVALID_REQUEST", error.message, error.status);
+    }
+
     if (error instanceof UnknownPersonaError) {
       return errorResponse("UNKNOWN_PERSONA", error.message, 403);
     }
@@ -53,6 +90,14 @@ export async function POST(request: Request) {
     }
 
     if (error instanceof UnsafeProviderConfigurationError) {
+      return errorResponse("PROVIDER_UNAVAILABLE", error.message, 503);
+    }
+
+    if (error instanceof OpenRouterProviderError) {
+      return errorResponse("PROVIDER_UNAVAILABLE", error.message, 503);
+    }
+
+    if (error instanceof EvidenceSourceError) {
       return errorResponse("PROVIDER_UNAVAILABLE", error.message, 503);
     }
 

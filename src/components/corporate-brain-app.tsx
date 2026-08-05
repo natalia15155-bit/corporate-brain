@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { AskScreen } from "@/components/ask-screen";
 import { BriefScreen } from "@/components/brief-screen";
 import {
@@ -11,13 +11,24 @@ import {
 } from "@/components/icons";
 import { MemoryScreen } from "@/components/memory-screen";
 import { demoUsers } from "@/lib/access-control";
+import type { CatalogApiResult, RoleCatalog } from "@/lib/catalog/types";
 import type {
   DecisionApiResult,
   DecisionCard,
 } from "@/lib/decision/types";
 import { copy, type Locale } from "@/lib/i18n";
+import type { AlertRule } from "@/lib/capabilities/types";
+import {
+  getMemorySnapshot,
+  getServerMemorySnapshot,
+  parseMemorySnapshot,
+  saveMemoryItem,
+  subscribeToMemory,
+} from "@/lib/memory/memory-store";
+import type { MemoryItemKind } from "@/lib/memory/types";
 
 type Screen = "ask" | "brief" | "memory";
+type EvidenceMode = "unknown" | "demo" | "snapshot" | "live-datahub";
 
 const localeStorageKey = "corporate-brain-locale";
 const localeChangeEvent = "corporate-brain-locale-change";
@@ -51,11 +62,24 @@ export function CorporateBrainApp() {
     getServerLocaleSnapshot,
   );
   const [screen, setScreen] = useState<Screen>("ask");
-  const [saved, setSaved] = useState(false);
   const [userId, setUserId] = useState(demoUsers[0].id);
   const [decision, setDecision] = useState<DecisionCard | null>(null);
   const [loadingDecision, setLoadingDecision] = useState(false);
   const [decisionError, setDecisionError] = useState<string | null>(null);
+  const [catalog, setCatalog] = useState<RoleCatalog | null>(null);
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
+  const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("unknown");
+  const [writebackEnabled, setWritebackEnabled] = useState(false);
+  const memorySnapshot = useSyncExternalStore(
+    subscribeToMemory,
+    getMemorySnapshot,
+    getServerMemorySnapshot,
+  );
+  const memoryItems = useMemo(
+    () => parseMemorySnapshot(memorySnapshot),
+    [memorySnapshot],
+  );
   const t = copy[locale];
   const activeUser =
     demoUsers.find((candidate) => candidate.id === userId) ?? demoUsers[0];
@@ -64,8 +88,126 @@ export function CorporateBrainApp() {
     document.documentElement.lang = locale;
   }, [locale]);
 
-  function saveDecision() {
-    setSaved(true);
+  useEffect(() => {
+    let cancelled = false;
+    void fetch("/api/status")
+      .then((response) => response.json())
+      .then(
+        (payload: {
+          status?: {
+            evidenceMode?: EvidenceMode;
+            writebackEnabled?: boolean;
+          };
+        }) => {
+          if (cancelled || !payload.status) return;
+          if (payload.status.evidenceMode) {
+            setEvidenceMode(payload.status.evidenceMode);
+          }
+          setWritebackEnabled(Boolean(payload.status.writebackEnabled));
+        },
+      )
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCatalog() {
+      setCatalogLoading(true);
+      setCatalogError(null);
+
+      try {
+        const response = await fetch(
+          `/api/catalog?userId=${encodeURIComponent(activeUser.id)}`,
+          { cache: "no-store" },
+        );
+        const result = (await response.json()) as CatalogApiResult;
+
+        if (!response.ok || !result.ok) {
+          throw new Error(
+            result.ok ? copy[locale].catalogError : result.error.message,
+          );
+        }
+
+        if (!cancelled) setCatalog(result.catalog);
+      } catch {
+        if (!cancelled) {
+          setCatalog(null);
+          setCatalogError(copy[locale].catalogError);
+        }
+      } finally {
+        if (!cancelled) setCatalogLoading(false);
+      }
+    }
+
+    void loadCatalog();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeUser.id, locale]);
+
+  async function saveDecision(
+    kind: MemoryItemKind,
+    alertRules: readonly AlertRule[],
+  ) {
+    if (!decision) return;
+
+    let syncStatus:
+      | "browser-only"
+      | "datahub-synced"
+      | "datahub-error" = "browser-only";
+    let dataHubDocumentUrn: string | null = null;
+
+    try {
+      const response = await fetch("/api/memory", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: decision.question,
+          userId: activeUser.id,
+          locale,
+          kind,
+          alertRules: alertRules.map((alert) => ({
+            id: alert.id,
+            enabled: alert.enabled,
+            threshold: alert.threshold,
+          })),
+        }),
+      });
+      const payload = (await response.json()) as {
+        ok?: boolean;
+        result?: {
+          destination?: "browser" | "datahub";
+          documentUrn?: string | null;
+        };
+      };
+      if (!response.ok || !payload.ok) {
+        syncStatus = "datahub-error";
+      } else if (payload.result?.destination === "datahub") {
+        syncStatus = "datahub-synced";
+        dataHubDocumentUrn = payload.result.documentUrn ?? null;
+      }
+    } catch {
+      syncStatus = "datahub-error";
+    }
+
+    saveMemoryItem({
+      id: `${decision.id}:${kind}`,
+      kind,
+      title: decision.readiness?.title ?? decision.question,
+      summary: decision.recommendation,
+      team: activeUser.team,
+      createdBy: activeUser.name,
+      createdAt: new Date().toISOString(),
+      evidenceIds: decision.evidence.map((asset) => asset.id),
+      alertRules,
+      syncStatus,
+      dataHubDocumentUrn,
+    });
     setScreen("memory");
   }
 
@@ -93,6 +235,14 @@ export function CorporateBrainApp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, userId: activeUser.id, locale }),
       });
+      const contentType = response.headers.get("content-type") ?? "";
+      if (!contentType.includes("application/json")) {
+        throw new Error(
+          response.status === 404
+            ? "The decision service is not running. Restart Corporate Brain and try again."
+            : "The decision service returned an unexpected response. Try again in a moment.",
+        );
+      }
       const result = (await response.json()) as DecisionApiResult;
 
       if (!response.ok || !result.ok) {
@@ -155,7 +305,7 @@ export function CorporateBrainApp() {
             >
               {item.icon}
               <span>{item.label}</span>
-              {item.id === "memory" && saved && (
+              {item.id === "memory" && memoryItems.length > 0 && (
                 <span className="nav-notification" />
               )}
             </button>
@@ -221,14 +371,38 @@ export function CorporateBrainApp() {
         <header className="workspace-header">
           <div>
             <span className="status-dot" />
-            {t.demoConnected}
+            {evidenceMode === "live-datahub"
+              ? locale === "es"
+                ? "DataHub MCP en vivo conectado"
+                : "Live DataHub MCP connected"
+              : evidenceMode === "snapshot"
+                ? t.demoConnected
+                : evidenceMode === "demo"
+                  ? locale === "es"
+                    ? "Evidencia demo conectada"
+                    : "Demo evidence connected"
+                  : locale === "es"
+                    ? "Verificando fuente de evidencia"
+                    : "Verifying evidence source"}
           </div>
-          <span>{t.syntheticPersonaNotice}</span>
+          <span>
+            {t.syntheticPersonaNotice}
+            {writebackEnabled
+              ? locale === "es"
+                ? " · escritura confirmada habilitada"
+                : " · confirmed write-back enabled"
+              : ""}
+          </span>
         </header>
 
         {screen === "ask" && (
           <AskScreen
+            key={activeUser.id}
             locale={locale}
+            user={activeUser}
+            catalog={catalog}
+            catalogLoading={catalogLoading}
+            catalogError={catalogError}
             loading={loadingDecision}
             error={decisionError}
             onGenerate={generateDecision}
@@ -245,7 +419,12 @@ export function CorporateBrainApp() {
         )}
         {screen === "brief" && !decision && (
           <AskScreen
+            key={activeUser.id}
             locale={locale}
+            user={activeUser}
+            catalog={catalog}
+            catalogLoading={catalogLoading}
+            catalogError={catalogError}
             loading={loadingDecision}
             error={decisionError}
             onGenerate={generateDecision}
@@ -254,14 +433,22 @@ export function CorporateBrainApp() {
         {screen === "memory" && (
           <MemoryScreen
             locale={locale}
-            saved={saved}
+            items={memoryItems}
             onOpen={() => setScreen("brief")}
           />
         )}
 
         <footer className="app-footer">
           <span>{t.footer}</span>
-          <span>{t.demoMode}</span>
+          <span>
+            {evidenceMode === "live-datahub"
+              ? "DataHub MCP"
+              : evidenceMode === "snapshot"
+                ? t.demoMode
+                : locale === "es"
+                  ? "Modo seguro"
+                  : "Secure mode"}
+          </span>
         </footer>
       </div>
     </div>

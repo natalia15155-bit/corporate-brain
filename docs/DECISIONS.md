@@ -55,25 +55,29 @@ Trust bands and evidence warnings are calculated by code. The LLM explains the r
 
 Evidence rules require explicit design and tests instead of relying on a single prompt.
 
-## ADR-004 — Groq primary, Gemini disabled fallback
+## ADR-004 — OpenRouter primary, Gemini disabled fallback
 
 **Status:** Accepted
 
 **Date:** 2026-07-23
 
-The primary provider is Groq Free Tier using `openai/gpt-oss-120b`. Gemini API Free Tier is an optional disabled fallback.
+The primary provider is OpenRouter using only `openrouter/free` or a model ID
+explicitly marked with `:free`. Gemini API Free Tier remains an optional disabled
+fallback.
 
 ### Why
 
 - Zero additional cost
 - Structured output support
-- Suitable free rate limits
-- Fast inference
+- Reuses the already available project credential
+- Can route only to explicitly free models
 - Provider can be replaced through a small contract
 
 ### Trade-off
 
-Free tiers have no production SLA. The MVP needs safe failure and deterministic demonstration scenarios.
+Free models have no production SLA and may change availability. The MVP therefore
+has safe failure, a deterministic demonstration provider, and no automatic paid
+fallback.
 
 ## ADR-005 — Zero additional spending
 
@@ -174,3 +178,91 @@ The MVP includes three clearly labeled synthetic personas with explicit domain a
 - Judges can see access-sensitive behavior without real employee or company data.
 - The scenario remains deterministic and free to operate.
 - The demo can distinguish a product security design from production authentication.
+
+## ADR-012 — Capability packs instead of area-specific applications
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+Corporate Brain models each business use case as a reusable capability pack.
+The pack defines required capabilities and optional actions; DataHub assets
+declare which capabilities they provide and how they connect.
+
+### Why
+
+- The product must work across company areas and positions.
+- Asset count is not evidence that a specific business outcome is ready.
+- New areas should extend configuration and evidence, not require a new app.
+- Deterministic requirement checks prevent false “complete” answers.
+
+### Trade-off
+
+The public demonstration includes one complete Ecommerce pack. Additional areas
+still require curated capability definitions and synthetic evidence before they
+can be demonstrated responsibly.
+
+## ADR-013 — Typed Corporate Memory items
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+Corporate Memory accepts confirmed decisions, action plans, relevant knowledge,
+and alert plans. Each item retains evidence references and any configured alert
+rules.
+
+### Why
+
+The organizational brain must learn from more than final decisions while still
+requiring the user to choose what becomes durable context.
+
+### Public demo boundary
+
+The public zero-cost demo persists these items in versioned browser memory.
+Production storage and DataHub write-back require authenticated server-side
+authorization and are not implied by browser persistence.
+
+## ADR-014 — Defense in depth for the public hackathon demo
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+The public application combines bounded request streaming, per-origin
+application throttling, prompt-override rejection, strict LLM output, bounded
+DataHub metadata, and browser security headers.
+
+### Why
+
+- A public judge URL must remain available when scanned or abused.
+- Metadata and user questions are untrusted even when they originate in an
+  enterprise context graph.
+- Security controls must not require a paid service for the hackathon demo.
+
+### Trade-off
+
+The in-process limiter reduces simple abuse but is not globally consistent
+across serverless instances. Vercel Firewall provides the network-level layer.
+
+## ADR-015 — Confirmed decisions become DataHub documents
+
+**Status:** Accepted
+
+**Date:** 2026-07-28
+
+Corporate Brain uses the official MCP `save_document` tool for live write-back.
+The server recomputes the decision and supplies a fixed document structure,
+topics, audit information, and links to authorized evidence assets.
+
+### Why
+
+- The agent should make the organizational context graph more useful after a
+  human confirms a decision.
+- Documents preserve rationale without mutating source datasets.
+- Related asset links make the saved decision discoverable from its evidence.
+
+### Safety boundary
+
+Write-back is disabled by default and must target a dedicated hackathon catalog
+while synthetic personas remain selectable.

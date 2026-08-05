@@ -58,9 +58,12 @@ Completed foundation:
 
 Remaining:
 
-- CI workflow
 - Verified Groq Free Tier adapter
 - Provider failure and rate-limit states
+
+Added:
+
+- GitHub Actions CI workflow running lint, typecheck, tests, and production build
 
 Exit criteria:
 

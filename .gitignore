@@ -34,3 +34,5 @@ out/
 # Tooling
 *.tsbuildinfo
 next-env.d.ts
+.vercel
+.env*

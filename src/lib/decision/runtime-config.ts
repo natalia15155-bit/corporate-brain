@@ -6,8 +6,9 @@ interface RuntimeEnvironment {
 }
 
 export interface RuntimeConfig {
-  provider: "demo";
-  demoMode: true;
+  provider: "demo" | "openrouter";
+  evidenceSource: "demo" | "datahub";
+  demoMode: boolean;
 }
 
 export class UnsafeProviderConfigurationError extends Error {
@@ -21,9 +22,46 @@ export function getRuntimeConfig(
   environment: RuntimeEnvironment = process.env,
 ): RuntimeConfig {
   const requestedProvider = environment.AI_PROVIDER?.trim().toLowerCase();
+  const requestedEvidence =
+    environment.EVIDENCE_SOURCE?.trim().toLowerCase() ?? "demo";
+
+  if (
+    requestedEvidence !== "demo" &&
+    requestedEvidence !== "datahub" &&
+    requestedEvidence !== "snapshot"
+  ) {
+    throw new UnsafeProviderConfigurationError(
+      "EVIDENCE_SOURCE must be demo, snapshot or datahub.",
+    );
+  }
 
   if (!requestedProvider || requestedProvider === "demo") {
-    return { provider: "demo", demoMode: true };
+    return {
+      provider: "demo",
+      evidenceSource: requestedEvidence === "snapshot" ? "datahub" : requestedEvidence,
+      demoMode: requestedEvidence === "demo",
+    };
+  }
+
+  if (requestedProvider === "openrouter") {
+    const model = environment.OPENROUTER_MODEL ?? "openrouter/free";
+    const explicitlyFree =
+      model === "openrouter/free" || model.endsWith(":free");
+    if (!environment.OPENROUTER_API_KEY) {
+      throw new UnsafeProviderConfigurationError(
+        "OPENROUTER_API_KEY is required when AI_PROVIDER=openrouter.",
+      );
+    }
+    if (!explicitlyFree || environment.ALLOW_PAID_MODELS === "true") {
+      throw new UnsafeProviderConfigurationError(
+        "OpenRouter must use an explicitly free model and paid models must remain disabled.",
+      );
+    }
+    return {
+      provider: "openrouter",
+      evidenceSource: requestedEvidence === "snapshot" ? "datahub" : requestedEvidence,
+      demoMode: requestedEvidence === "demo",
+    };
   }
 
   if (requestedProvider === "openai") {
@@ -39,6 +77,6 @@ export function getRuntimeConfig(
   }
 
   throw new UnsafeProviderConfigurationError(
-    "AI_PROVIDER must remain demo in the current phase.",
+    "AI_PROVIDER must be demo or openrouter.",
   );
 }

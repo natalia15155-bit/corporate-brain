@@ -4,13 +4,17 @@ import type {
   RoleId,
 } from "../access-control.ts";
 import type { Locale } from "../i18n.ts";
+import type { EvidenceSourceId } from "../evidence/types.ts";
+import type { QuestionIntent } from "./question-intent.ts";
+import type { ReadinessAssessment } from "../capabilities/types.ts";
 
 export type TrustBand = "medium" | "insufficient";
 export type DecisionStatus = "recommendation" | "abstention";
-export type ProviderId = "demo";
+export type ProviderId = "demo" | "openrouter";
 export type DecisionErrorCode =
   | "INVALID_REQUEST"
   | "UNKNOWN_PERSONA"
+  | "RATE_LIMITED"
   | "PROVIDER_UNAVAILABLE";
 
 export interface DecisionRequest {
@@ -28,10 +32,12 @@ export interface EvidenceEvaluation {
 
 export interface DecisionSynthesisInput {
   question: string;
+  intent: QuestionIntent;
   locale: Locale;
   user: DemoUser;
   evidence: readonly EvidenceAsset[];
   evaluation: EvidenceEvaluation;
+  readiness: ReadinessAssessment | null;
 }
 
 export interface DecisionSynthesis {
@@ -44,6 +50,7 @@ export interface DecisionSynthesis {
 export interface DecisionCard {
   id: string;
   question: string;
+  intent: QuestionIntent;
   status: DecisionStatus;
   trustBand: TrustBand;
   evidence: readonly EvidenceAsset[];
@@ -53,8 +60,10 @@ export interface DecisionCard {
   outcome: string | null;
   risks: readonly string[];
   roleInsight: string;
+  readiness: ReadinessAssessment | null;
   presentationRole: RoleId;
   provider: ProviderId;
+  evidenceSource: EvidenceSourceId;
   generatedAt: string;
 }
 
