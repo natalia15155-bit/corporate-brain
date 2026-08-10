@@ -1,0 +1,13 @@
+Companies do not just forget decisions. They lose the connection between a decision, the evidence behind it, the people responsible, and the changes that can make it unsafe. Corporate Brain turns governed DataHub context into decisions people can verify, approve, and remember.
+
+Here, the live DataHub MCP connection is active and all identities and records are synthetic. We select Maya, an Ecommerce data analyst. Her profile can use Ecommerce, Product, Customer Experience, Operations, Growth, and shared context, while confidential Finance sources remain hidden.
+
+Before asking anything, Corporate Brain shows the assets her role may use, with accountable owners, freshness, quality, sensitivity, key fields, and lineage. This makes the available company context understandable without requiring the user to learn a technical catalog.
+
+Maya needs an Ecommerce control dashboard with stockout and product complaint alerts. Corporate Brain does not return a generic chat answer. It checks seven explicit business capabilities against live, authorized DataHub evidence: orders, product identity, star products, inventory position, sales velocity, complaints, and approved alert routing.
+
+All seven requirements are ready. The brief explains which governed assets support each capability and how the sources connect. It then proposes two operational controls: an early stockout warning for star products, and a critical complaint-rate alert routed to Customer Experience and Product. Thresholds, recipients, and evidence remain visible and editable.
+
+Nothing is saved silently. A human must review the plan and confirm the shared write. After confirmation, the server revalidates the request, recomputes the decision card, and writes a bounded plan to Corporate Memory through DataHub, preserving its evidence and DataHub U R Ns.
+
+Corporate Brain is not another chatbot over company data. DataHub provides the ownership, lineage, quality, and access context that lets the agent know when it can help, explain why, and abstain when evidence is insufficient.
