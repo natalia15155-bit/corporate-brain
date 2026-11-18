@@ -4,14 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Curso de velas y jabones artesanales: 3 cursos en 1</title>
-<meta name="description" content="Aprendé más de 30 tipos de velas y 20 jabones artesanales desde cero. 3 cursos en 1, más de 120 clases, acceso de por vida y 7 días de garantía en Hotmart.">
+<meta name="description" content="Más de 30 velas y 20 jabones artesanales, desde cero. 3 cursos en 1, más de 120 clases, acceso de por vida y 7 días de garantía en Hotmart.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#15100c">
+<meta name="theme-color" content="#140f0b">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Velas y jabones artesanales: 3 cursos en 1">
 <meta property="og:description" content="Más de 120 clases, a tu ritmo y sin experiencia previa. 7 días de garantía.">
 <meta property="og:image" content="https://velas-y-jabones-3en1.netlify.app/img/velas-decorativas.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='34' y='44' width='32' height='50' rx='4' fill='%23f5eee4'/%3E%3Cpath d='M50 8c10 14 12 22 0 32C38 30 40 22 50 8z' fill='%23f4a93c'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='34' y='44' width='32' height='50' rx='4' fill='%23f7f0e6'/%3E%3Cpath d='M50 8c10 14 12 22 0 32C38 30 40 22 50 8z' fill='%23f5a83a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..800,100;1,9..144,400..800,100&family=Manrope:wght@400;600;700;800&display=swap">
 
 <!-- Meta Pixel Code (mismo ID que la landing original) -->
 <script>
@@ -28,360 +31,511 @@ fbq('track', 'ViewContent', {content_name: 'Velas y Jabones 3x1', currency: 'USD
 <!-- End Meta Pixel Code -->
 
 <style>
-/* Concepto: "taller de noche a la luz de una vela". Fondo oscuro cálido con el resplandor
-   ámbar de la llama; las secciones claras son "cera"; cada curso tiene el color de un tinte
-   de jabón (lavanda, salvia, durazno, rosa). Móvil primero; en escritorio el hero va en 2 columnas. */
+/* Concepto: "el taller de noche". Ébano cálido con la luz ámbar de una llama; papel de etiqueta
+   color cera; cada curso con el color de un tinte de jabón. La página imita objetos del oficio:
+   fotos sueltas sobre la mesa, la etiqueta de un frasco, el ticket del pedido, un sello de garantía. */
 :root{
-  --noche:#15100c; --noche2:#211912; --linea-osc:#3a2d22;
-  --cera:#f6efe5;  --cera2:#ece2d4;  --tinta:#2a211a;
-  --brasa:#f4a93c; --brasa-osc:#b97310;
-  --lav:#c7b5e6; --sal:#a8c6ab; --dur:#f5c3a3; --ros:#efb0ba;
-  --gris-c:#bcae9f; --gris-o:#6a5c50;
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
-  --sans:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --ebano:#140f0b; --ebano2:#1d1610; --ebano3:#271d15; --linea:#3a2c20;
+  --cera:#f7f0e6; --cera2:#ede2d2; --papel:#fbf6ee; --tinta:#2a2018; --tinta2:#6b5a4b;
+  --brasa:#f5a83a; --brasa2:#ffd28a; --brasa-osc:#a9640a;
+  --lav:#c9b6ea; --sal:#a9c9ad; --dur:#f6c4a2; --ros:#f0aebb;
+  --humo:#bfb0a0;
+  --display:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --body:"Manrope",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--noche);color:var(--cera);font:16px/1.55 var(--sans);padding-bottom:88px;-webkit-font-smoothing:antialiased}
-img{max-width:100%}
-.wrap{width:100%;max-width:1060px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--serif);font-weight:700;text-wrap:balance;margin:0}
-h2{font-size:clamp(28px,6.4vw,44px);line-height:1.08;letter-spacing:-.01em}
-.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--brasa);outline-offset:3px}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--ebano);color:var(--cera);font:16px/1.6 var(--body);padding-bottom:90px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;text-wrap:balance;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(32px,7.6vw,58px);line-height:1.02}
+h2 em,h1 em{font-style:italic;font-weight:500;color:var(--brasa)}
+.eyebrow{font:800 11.5px/1.2 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--brasa);display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.eyebrow::before{content:"";width:22px;height:1.5px;background:currentColor}
+.claro .eyebrow{color:var(--brasa-osc)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--brasa);outline-offset:3px;border-radius:6px}
+/* grano de papel/cera sobre toda la página */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* Franjas superiores */
-.top{background:#000;color:var(--gris-c);text-align:center;font-size:13px;font-weight:600;padding:8px 14px;letter-spacing:.02em}
+/* ===== Franja superior ===== */
+.top{background:#000;color:var(--humo);font-size:12.5px;font-weight:700;letter-spacing:.04em;text-align:center;padding:8px 12px}
 .top b{color:var(--cera)}
-.navidad{background:var(--brasa);color:var(--noche);text-align:center;font-size:14px;font-weight:700;padding:8px 14px}
+.top .sep{opacity:.4;margin:0 6px}
+.navidad{background:linear-gradient(90deg,var(--brasa),var(--brasa2),var(--brasa));color:var(--ebano);text-align:center;font-size:13.5px;font-weight:800;padding:7px 12px}
 
-/* HERO */
-.hero{position:relative;overflow:hidden}
-.hero-img{position:relative;aspect-ratio:16/11;max-height:58vh;width:100%}
-.hero-img img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.04)}
-.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,16,12,.05) 30%,rgba(21,16,12,.75) 72%,var(--noche) 100%)}
-.glow{position:absolute;inset:-10%;background:radial-gradient(circle at 52% 40%,rgba(244,169,60,.42),rgba(244,169,60,0) 46%);mix-blend-mode:screen;animation:llama 3.4s ease-in-out infinite alternate;pointer-events:none;z-index:1}
-@keyframes llama{0%{opacity:.55;transform:scale(1)}35%{opacity:.85;transform:scale(1.03)}60%{opacity:.7;transform:scale(.99)}100%{opacity:1;transform:scale(1.04)}}
-.hero-copy{position:relative;z-index:2;margin-top:-104px;padding-bottom:28px}
-.hero .eyebrow{color:var(--brasa);margin-bottom:10px}
-.hero h1{font-size:clamp(34px,9.2vw,62px);line-height:1.02;letter-spacing:-.015em}
-.hero h1 em{font-style:italic;color:var(--brasa)}
-.hero .sub{color:var(--gris-c);margin:12px 0 0;font-size:16px;max-width:46ch}
-.rating{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:15px;color:var(--gris-c)}
-.rating .stars{color:var(--brasa);letter-spacing:2px;font-size:16px}
-.rating b{color:var(--cera)}
+/* ===== HERO ===== */
+.hero{position:relative;padding:20px 0 30px;overflow:hidden}
+.hero::before{content:"";position:absolute;left:50%;top:150px;width:760px;height:760px;transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(245,168,58,.30),rgba(245,168,58,.08) 38%,rgba(245,168,58,0) 62%);animation:respira 4s ease-in-out infinite alternate;pointer-events:none}
+@keyframes respira{from{opacity:.65;transform:translateX(-50%) scale(.96)}to{opacity:1;transform:translateX(-50%) scale(1.04)}}
+.hero .wrap{position:relative;display:grid;gap:18px}
+.hero h1{font-size:clamp(40px,11.4vw,84px);line-height:.98}
+.hero h1 .sub-l{display:block}
+.subr{position:relative;display:inline-block;white-space:nowrap}
+.subr svg{position:absolute;left:-2%;bottom:-.12em;width:104%;height:.38em;overflow:visible}
+.subr path{fill:none;stroke:var(--brasa);stroke-width:5;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:trazo 1.1s .5s cubic-bezier(.6,.1,.3,1) forwards}
+@keyframes trazo{to{stroke-dashoffset:0}}
+.lead{color:var(--humo);font-size:16.5px;max-width:40ch;margin:0}
+.lead b{color:var(--cera)}
 
-/* Precio + CTA */
-.compra{margin-top:18px}
-.precio{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
-.precio s{color:var(--gris-c);font-size:18px}
-.precio .nuevo{font-family:var(--serif);font-size:44px;line-height:1;font-weight:700;color:var(--cera)}
-.ahorro{display:inline-block;background:var(--brasa);color:var(--noche);font-weight:800;font-size:13px;padding:4px 10px;border-radius:999px;letter-spacing:.02em}
-.precio small{flex-basis:100%;font-size:13px;color:var(--gris-c)}
-.cta{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--brasa);color:var(--noche);text-decoration:none;font-weight:800;font-size:19px;letter-spacing:.01em;padding:16px 18px;border-radius:14px;margin:14px 0 10px;box-shadow:0 5px 0 var(--brasa-osc),0 16px 34px rgba(244,169,60,.28);transition:transform .08s}
-.cta small{font-weight:600;font-size:13px;opacity:.85;margin-top:2px}
-.cta:active{transform:translateY(3px);box-shadow:0 2px 0 var(--brasa-osc)}
-.seguro{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--gris-c)}
-.seguro span{white-space:nowrap}
-.afil{font-size:12.5px;color:var(--gris-c);opacity:.85;margin:8px 0 0}
+/* mesa de fotos */
+.mesa{position:relative;height:222px;margin:2px 0 4px}
+.foto{position:absolute;background:var(--papel);padding:6px 6px 22px;border-radius:4px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 2px 0 rgba(255,255,255,.06) inset}
+.foto img{width:100%;height:100%;object-fit:cover;border-radius:2px}
+.foto span{position:absolute;left:0;right:0;bottom:4px;text-align:center;font:italic 500 12px/1 var(--display);color:var(--tinta2)}
+.f1{width:46%;height:176px;left:0;top:24px;transform:rotate(-7deg)}
+.f2{width:50%;height:198px;left:25%;top:0;transform:rotate(2.5deg);z-index:2}
+.f3{width:42%;height:164px;right:0;top:38px;transform:rotate(8deg)}
+.cinta{position:absolute;width:64px;height:20px;background:rgba(245,168,58,.55);top:-9px;left:50%;transform:translateX(-50%) rotate(-4deg);border-radius:2px}
+.badge-rating{position:absolute;z-index:3;left:4%;bottom:-6px;background:var(--cera);color:var(--tinta);border-radius:999px;padding:7px 13px 7px 10px;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.badge-rating .st{color:var(--brasa-osc);letter-spacing:1px}
+.sello-giro{position:absolute;z-index:3;right:2%;bottom:-14px;width:92px;height:92px}
+.sello-giro svg{width:100%;height:100%;animation:gira 18s linear infinite}
+.sello-giro .centro{position:absolute;inset:22px;border-radius:50%;background:var(--brasa);color:var(--ebano);display:grid;place-items:center;text-align:center;font:800 10px/1 var(--body);letter-spacing:.06em}
+.sello-giro .centro b{display:block;font:700 22px/1 var(--display)}
+@keyframes gira{to{transform:rotate(360deg)}}
 
-/* Banda de cifras */
-.cifras{background:var(--noche2);border-block:1px solid var(--linea-osc)}
-.cifras ul{list-style:none;margin:0 auto;padding-block:22px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px 12px}
-.cifras li{display:flex;flex-direction:column}
-.cifras b{font-family:var(--serif);font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
-.cifras li:nth-child(1) b{color:var(--lav)} .cifras li:nth-child(2) b{color:var(--sal)}
-.cifras li:nth-child(3) b{color:var(--dur)} .cifras li:nth-child(4) b{color:var(--ros)}
-.cifras span{font-size:13px;color:var(--gris-c);margin-top:4px}
+/* compra */
+.compra{position:relative;z-index:2}
+.precio{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px}
+.precio s{color:var(--humo);font-size:17px}
+.precio .nuevo{font:700 46px/1 var(--display);color:var(--cera);font-variation-settings:"SOFT" 100}
+.ahorro{background:var(--brasa);color:var(--ebano);font-weight:800;font-size:12.5px;letter-spacing:.03em;padding:5px 10px;border-radius:999px}
+.precio small{flex-basis:100%;font-size:13px;color:var(--humo)}
+.cta{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;
+  background:linear-gradient(180deg,var(--brasa2),var(--brasa) 55%);color:var(--ebano);text-decoration:none;
+  font:800 19px/1.2 var(--body);letter-spacing:.01em;padding:17px 18px 15px;border-radius:16px;margin:14px 0 12px;
+  box-shadow:0 6px 0 var(--brasa-osc),0 18px 40px rgba(245,168,58,.35);transition:transform .08s,box-shadow .08s}
+.cta small{font-weight:700;font-size:12.5px;opacity:.78;margin-top:3px}
+.cta::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:brillo 3.8s 1.5s ease-in-out infinite}
+@keyframes brillo{0%,70%{left:-60%}100%{left:130%}}
+.cta:active{transform:translateY(4px);box-shadow:0 2px 0 var(--brasa-osc),0 8px 20px rgba(245,168,58,.3)}
+.confianza-fila{display:flex;flex-wrap:wrap;gap:8px}
+.confianza-fila span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--cera);background:var(--ebano3);border:1px solid var(--linea);padding:6px 10px;border-radius:999px}
+.confianza-fila svg{width:14px;height:14px;flex:0 0 14px}
+.afil{font-size:12px;color:var(--humo);opacity:.8;margin:10px 0 0}
 
-/* Galería deslizable */
-.galeria{padding:28px 0 8px}
-.tira{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 max(20px,env(safe-area-inset-left,0px)) 8px;scrollbar-width:none}
-.tira::-webkit-scrollbar{display:none}
-.tira figure{margin:0;flex:0 0 72%;max-width:340px;scroll-snap-align:center}
-.tira img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:16px;display:block}
-.tira figcaption{font-size:13px;color:var(--gris-c);margin-top:6px}
-.nota-img{font-size:12.5px;color:var(--gris-c);opacity:.8;margin:6px 0 0}
+/* ===== Cinta de técnicas ===== */
+.marquesina{background:var(--brasa);color:var(--ebano);overflow:hidden;transform:rotate(-1.6deg);margin:14px -10px 8px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.marquesina .pista{display:flex;width:max-content;animation:corre 34s linear infinite}
+.marquesina span{font:italic 600 21px/1 var(--display);padding:13px 0;white-space:nowrap}
+.marquesina span::after{content:"✦";font-style:normal;font-size:13px;margin:0 18px;vertical-align:3px}
+@keyframes corre{to{transform:translateX(-50%)}}
 
-/* Secciones claras ("cera") */
+/* ===== Secciones ===== */
+.sec{padding-block:64px}
 .claro{background:var(--cera);color:var(--tinta)}
-.sec{padding-block:56px}
-.claro .eyebrow{color:var(--gris-o)}
-.sec h2{margin:8px 0 22px}
+.claro .lead{color:var(--tinta2)}
+.head{margin-bottom:28px;max-width:640px}
+.head p{margin:14px 0 0}
+
+/* Etiqueta del curso (como la etiqueta de un frasco) */
+.etiqueta{position:relative;background:var(--papel);color:var(--tinta);border-radius:6px;padding:8px;box-shadow:0 30px 60px rgba(42,32,24,.18),0 2px 0 #fff inset;max-width:520px;margin:0 auto;transform:rotate(-.6deg)}
+.etiqueta .marco{border:1.5px solid var(--tinta);outline:1px solid var(--tinta);outline-offset:-6px;padding:22px 20px 18px;text-align:center}
+.et-sup{font:800 10.5px/1 var(--body);letter-spacing:.28em;text-transform:uppercase;color:var(--tinta2)}
+.etiqueta h3{font-size:30px;line-height:1.05;margin:10px 0 2px}
+.etiqueta h3 em{font-style:italic;color:var(--brasa-osc);font-weight:500}
+.et-orn{display:flex;align-items:center;gap:10px;justify-content:center;color:var(--brasa-osc);margin:10px 0 12px;font-size:12px}
+.et-orn::before,.et-orn::after{content:"";height:1px;flex:1;background:currentColor;opacity:.5}
+.etiqueta dl{margin:0;text-align:left;display:grid;grid-template-columns:1fr auto;font-size:15px}
+.etiqueta dt,.etiqueta dd{padding:7px 0;border-bottom:1px dotted #bfae98;margin:0}
+.etiqueta dd{font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.et-inf{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font:800 10.5px/1.2 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--tinta2)}
+
+/* Errores comunes */
+.errores{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
+.error{background:var(--ebano2);border:1px solid var(--linea);border-radius:18px;padding:14px 10px 12px;text-align:center}
+.error svg{width:66px;height:84px;margin:0 auto 6px}
+.error b{display:block;font:600 17px/1.15 var(--display);font-variation-settings:"SOFT" 100}
+.error span{font-size:12.5px;color:var(--humo)}
+.solucion{margin-top:16px;background:linear-gradient(135deg,rgba(245,168,58,.16),rgba(245,168,58,.04));border:1px solid rgba(245,168,58,.35);border-radius:18px;padding:18px;display:flex;gap:14px;align-items:flex-start}
+.solucion .ic{flex:0 0 40px;height:40px;border-radius:50%;background:var(--brasa);color:var(--ebano);display:grid;place-items:center;font:700 22px var(--display)}
+.solucion p{margin:0;color:var(--humo)}
+.solucion b{color:var(--cera)}
 
 /* Para vos si */
-.dolores{display:grid;gap:10px}
-.dolor{background:#fff;border-radius:14px;padding:14px 16px 14px 18px;border-left:6px solid var(--ac);font-size:16px}
-.dolor b{font-weight:700}
+.paravos{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.paravos li{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:14px;padding:14px 16px;font-size:16px;box-shadow:0 1px 0 rgba(42,32,24,.06)}
+.paravos li i{flex:0 0 26px;height:26px;border-radius:50%;background:var(--ac);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:14px;color:var(--tinta)}
 
-/* Pestañas de cursos */
-.tabs{display:flex;gap:6px;background:var(--cera2);padding:5px;border-radius:999px;margin-bottom:16px}
-.tabs button{flex:1;border:0;background:transparent;color:var(--tinta);font:700 15px var(--sans);padding:11px 8px;border-radius:999px;cursor:pointer}
-.tabs button[aria-selected="true"]{background:var(--tinta);color:var(--cera)}
-.panel{background:#fff;border-radius:18px;padding:20px;border-top:8px solid var(--ac)}
-.panel h3{font-size:26px;margin-bottom:6px}
-.panel p{margin:0 0 14px;color:var(--gris-o)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
-.chips li{background:color-mix(in srgb,var(--ac) 38%,#fff);color:var(--tinta);font-weight:600;font-size:14px;padding:7px 12px;border-radius:999px}
-.extra{margin:14px 0 0;font-size:15px;color:var(--tinta)}
+/* Elegí por dónde empezar */
+.opciones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opcion{position:relative;border:0;padding:0;border-radius:16px;overflow:hidden;cursor:pointer;aspect-ratio:3/4;background:var(--ebano2);color:var(--cera);text-align:left;font:inherit;box-shadow:0 0 0 2px transparent;transition:box-shadow .2s,transform .2s}
+.opcion img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.opcion::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,15,11,0) 35%,rgba(20,15,11,.88))}
+.opcion span{position:absolute;z-index:1;left:10px;right:10px;bottom:10px;font:600 17px/1.1 var(--display);font-variation-settings:"SOFT" 100}
+.opcion span small{display:block;font:700 10.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--brasa);margin-bottom:5px}
+.opcion[aria-pressed="true"]{box-shadow:0 0 0 3px var(--brasa);transform:translateY(-3px)}
+.opcion[aria-pressed="true"] img{transform:scale(1.06)}
+.resultado{margin-top:14px;background:var(--ebano2);border:1px solid var(--linea);border-top:6px solid var(--ac,var(--brasa));border-radius:18px;padding:20px}
+.resultado h3{font-size:28px;line-height:1.05}
+.resultado p{color:var(--humo);margin:8px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0 0 4px;padding:0}
+.chips li{font-size:13.5px;font-weight:700;padding:6px 11px;border-radius:999px;background:color-mix(in srgb,var(--ac,var(--brasa)) 22%,var(--ebano2));color:var(--cera);border:1px solid color-mix(in srgb,var(--ac,var(--brasa)) 45%,transparent)}
+.resultado .cta{margin-bottom:0}
+.extra{font-size:14.5px;color:var(--humo);margin:12px 0 0}
+.extra b{color:var(--cera)}
 
 /* Cómo funciona */
-.pasos{list-style:none;padding:0;margin:0;display:grid;gap:0;counter-reset:p}
-.pasos li{counter-increment:p;position:relative;padding:0 0 22px 56px}
-.pasos li:last-child{padding-bottom:0}
-.pasos li::before{content:counter(p);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;background:var(--brasa);color:var(--noche);font:700 18px var(--serif);display:grid;place-items:center}
-.pasos li::after{content:"";position:absolute;left:18px;top:42px;bottom:4px;width:2px;background:var(--linea-osc)}
-.pasos li:last-child::after{display:none}
-.pasos b{display:block;font-size:17px;color:var(--cera)}
-.pasos span{color:var(--gris-c);font-size:15px}
+.pasos{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:p}
+.pasos li{counter-increment:p;display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:16px;padding:16px}
+.pasos li::before{content:counter(p);flex:0 0 42px;height:42px;border-radius:12px;background:var(--tinta);color:var(--brasa2);font:700 22px/42px var(--display);text-align:center}
+.pasos b{display:block;font-size:17px}
+.pasos span{color:var(--tinta2);font-size:15px}
 
 /* Navidad */
-.xmas{text-align:center;position:relative;overflow:hidden}
-.xmas .num{font-family:var(--serif);font-size:clamp(84px,24vw,150px);line-height:.9;color:var(--brasa);font-weight:700;font-variant-numeric:tabular-nums;text-shadow:0 0 40px rgba(244,169,60,.35)}
-.xmas .lbl{font-size:18px;font-weight:700;margin-top:6px}
-.xmas p{color:var(--gris-c);max-width:40ch;margin:10px auto 0}
+.xmas{position:relative;overflow:hidden;text-align:center}
+.xmas::before{content:"";position:absolute;left:50%;top:50%;width:640px;height:640px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(245,168,58,.25),rgba(245,168,58,0) 60%);pointer-events:none}
+.xmas .wrap{position:relative}
+.xmas .num{font:700 clamp(110px,34vw,220px)/.85 var(--display);font-variation-settings:"SOFT" 100;color:var(--brasa);text-shadow:0 0 60px rgba(245,168,58,.45);font-variant-numeric:tabular-nums}
+.xmas .lbl{font:italic 500 26px/1.1 var(--display);margin-top:6px}
+.xmas p{color:var(--humo);max-width:38ch;margin:14px auto 22px}
+.xmas .cta{max-width:440px;margin-inline:auto}
 
-/* Bonos */
-.bonos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.bono{background:#fff;border-radius:14px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;min-height:96px;border-bottom:4px solid var(--ac)}
-.bono span{font-weight:700;font-size:15px;line-height:1.25}
-.bono em{font-style:normal;font-size:13px;color:var(--gris-o);margin-top:8px}
-.bono em s{margin-right:6px}
-.bono em b{color:#2e6b45}
-.total{margin-top:14px;background:var(--tinta);color:var(--cera);border-radius:14px;padding:14px 16px;font-size:15px}
-.total b{color:var(--brasa)}
-.total small{display:block;color:var(--gris-c);font-size:12.5px;margin-top:4px}
+/* Ticket del pedido */
+.ticket{position:relative;max-width:460px;margin:0 auto;background:var(--papel);color:var(--tinta);padding:26px 22px 22px;font-family:var(--mono);font-size:14px;box-shadow:0 30px 60px rgba(0,0,0,.45);
+  -webkit-mask:radial-gradient(circle 8px at 50% 0,#0000 98%,#000) 50% 0/22px 51% repeat-x,radial-gradient(circle 8px at 50% 100%,#0000 98%,#000) 50% 100%/22px 51% repeat-x;
+  mask:radial-gradient(circle 8px at 50% 0,#0000 98%,#000) 50% 0/22px 51% repeat-x,radial-gradient(circle 8px at 50% 100%,#0000 98%,#000) 50% 100%/22px 51% repeat-x}
+.ticket h3{font-family:var(--display);font-size:24px;text-align:center;margin-bottom:2px}
+.ticket .tsub{text-align:center;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta2);margin-bottom:14px}
+.trow{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed #cdbca5}
+.trow span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+.trow.grupo{font-weight:800;border-bottom:0;padding-top:12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta2)}
+.trow s{color:#9a8a7a}
+.trow .inc{color:#2e6b45;font-weight:800}
+.ttotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:12px;border-top:2px solid var(--tinta)}
+.ttotal b{font:700 40px/1 var(--display);color:var(--tinta)}
+.tnota{font-size:11.5px;color:var(--tinta2);margin-top:10px;line-height:1.45}
 
-/* Garantía + prueba social */
-.confianza{display:grid;gap:14px}
-.sello{display:flex;gap:16px;align-items:center;background:var(--noche2);border:1px solid var(--linea-osc);border-radius:18px;padding:18px}
-.sello .disco{flex:0 0 84px;height:84px;border-radius:50%;border:2px dashed var(--brasa);display:grid;place-items:center;text-align:center;color:var(--brasa);font:700 13px/1.1 var(--sans);text-transform:uppercase;letter-spacing:.06em}
-.sello .disco b{display:block;font:700 30px/1 var(--serif);letter-spacing:0}
-.sello p{margin:0;color:var(--gris-c);font-size:15px}
-.sello p b{color:var(--cera)}
-.nota-social{background:var(--noche2);border:1px solid var(--linea-osc);border-radius:18px;padding:18px;display:flex;align-items:center;gap:16px}
-.nota-social .big{font:700 52px/1 var(--serif);color:var(--cera)}
-.nota-social .stars{color:var(--brasa);letter-spacing:2px}
-.nota-social p{margin:2px 0 0;color:var(--gris-c);font-size:15px}
-.testi{display:grid;gap:10px}
-.testi blockquote{margin:0;background:var(--noche2);border:1px solid var(--linea-osc);border-radius:14px;padding:14px;font-size:15px}
-.testi cite{display:block;margin-top:6px;font-style:normal;font-weight:700;color:var(--brasa);font-size:14px}
+/* Garantía */
+.garantia{display:grid;gap:22px;align-items:center}
+.sello-grande{position:relative;width:200px;height:200px;margin:0 auto}
+.sello-grande svg{width:100%;height:100%;animation:gira 30s linear infinite}
+.sello-grande .centro{position:absolute;inset:40px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--brasa2),var(--brasa) 55%,var(--brasa-osc));color:var(--ebano);display:grid;place-items:center;text-align:center;box-shadow:0 0 50px rgba(245,168,58,.35)}
+.sello-grande .centro b{display:block;font:700 54px/.9 var(--display)}
+.sello-grande .centro small{font:800 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.garantia h2{font-size:clamp(30px,6.6vw,48px)}
+.garantia p{color:var(--humo);margin:12px 0 0}
+.garantia p b{color:var(--cera)}
+.rating-grande{display:flex;gap:16px;align-items:center;margin-top:20px;padding-top:20px;border-top:1px solid var(--linea)}
+.rating-grande .n{font:700 60px/1 var(--display);color:var(--cera)}
+.rating-grande .st{color:var(--brasa);font-size:18px;letter-spacing:2px}
+.rating-grande p{margin:2px 0 0;font-size:14.5px}
+.testi{display:grid;gap:10px;margin-top:16px}
+.testi blockquote{margin:0;background:var(--ebano2);border:1px solid var(--linea);border-radius:16px;padding:16px;font:italic 500 17px/1.4 var(--display)}
+.testi cite{display:block;margin-top:8px;font:800 12px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--brasa);font-style:normal}
 
 /* FAQ */
-.faq details{border-bottom:1px solid #ddd0bf;padding:14px 0}
-.faq summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;font-size:16px}
+.faq details{border-bottom:1px solid #d9cab6}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0;font:600 18px/1.25 var(--display);font-variation-settings:"SOFT" 100}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font:700 22px/1 var(--serif);color:var(--brasa-osc);transition:transform .2s}
+.faq summary::after{content:"";flex:0 0 28px;height:28px;border-radius:50%;background:var(--tinta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 6v12M6 12h12' stroke='%23f7f0e6' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center/16px no-repeat;transition:transform .25s}
 .faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{margin:8px 0 0;color:var(--gris-o)}
+.faq details p{margin:0 0 18px;color:var(--tinta2)}
 
 /* Cierre */
-.cierre{text-align:center;position:relative;overflow:hidden}
-.cierre::before{content:"";position:absolute;left:50%;top:-80px;width:520px;height:520px;transform:translateX(-50%);background:radial-gradient(circle,rgba(244,169,60,.28),rgba(244,169,60,0) 62%);pointer-events:none}
-.cierre .inner{position:relative;max-width:520px;margin:0 auto}
-.cierre .precio{justify-content:center}
-.cierre .seguro{justify-content:center}
-footer{background:#000;color:var(--gris-c);font-size:12.5px;text-align:center;padding:22px 20px 28px}
-footer p{max-width:620px;margin:0 auto}
+.cierre{position:relative;overflow:hidden;text-align:center}
+.cierre::before{content:"";position:absolute;left:50%;top:-120px;width:820px;height:820px;transform:translateX(-50%);background:radial-gradient(circle,rgba(245,168,58,.30),rgba(245,168,58,0) 58%);pointer-events:none}
+.cierre .wrap{position:relative;max-width:620px}
+.cierre .eyebrow{justify-content:center}
+.cierre .eyebrow::after{content:"";width:22px;height:1.5px;background:currentColor}
+.cierre .mini{display:flex;justify-content:center;gap:0;margin:0 auto 26px}
+.cierre .mini img{width:92px;height:116px;object-fit:cover;border:5px solid var(--papel);border-radius:3px;box-shadow:0 12px 26px rgba(0,0,0,.5)}
+.cierre .mini img:nth-child(1){transform:rotate(-8deg) translateX(10px)}
+.cierre .mini img:nth-child(2){transform:translateY(-8px);z-index:1}
+.cierre .mini img:nth-child(3){transform:rotate(7deg) translateX(-10px)}
+.cierre .precio,.cierre .confianza-fila{justify-content:center}
+footer{background:#000;color:var(--humo);font-size:12px;text-align:center;padding:24px 20px 30px}
+footer p{max-width:640px;margin:0 auto}
 
 /* Barra fija */
-.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(21,16,12,.96);backdrop-filter:blur(8px);border-top:1px solid var(--linea-osc);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;gap:12px;align-items:center;justify-content:space-between;transform:translateY(110%);transition:transform .25s}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(20,15,11,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--linea);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;gap:12px;align-items:center;justify-content:space-between;transform:translateY(110%);transition:transform .3s}
 .sticky.on{transform:none}
 .sticky .p{line-height:1.1}
-.sticky .p b{font:700 22px var(--serif);color:var(--cera)}
-.sticky .p small{display:block;font-size:12px;color:var(--gris-c)}
-.sticky a{background:var(--brasa);color:var(--noche);text-decoration:none;font-weight:800;padding:13px 18px;border-radius:12px;white-space:nowrap}
+.sticky .p b{font:700 23px var(--display);color:var(--cera)}
+.sticky .p small{display:block;font-size:11.5px;color:var(--humo);font-weight:700}
+.sticky a{background:linear-gradient(180deg,var(--brasa2),var(--brasa));color:var(--ebano);text-decoration:none;font-weight:800;padding:13px 18px;border-radius:12px;white-space:nowrap;box-shadow:0 4px 0 var(--brasa-osc)}
+
+/* Aparición al hacer scroll (solo si hay JS; sin JS todo queda visible) */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
 
 /* Escritorio */
 @media (min-width:900px){
-  .hero{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;min-height:620px;max-width:1060px;margin:0 auto;gap:32px;padding:36px max(20px,env(safe-area-inset-left,0px))}
-  .hero-img{order:2;aspect-ratio:4/5;max-height:640px;border-radius:24px;overflow:hidden}
-  .hero-img::after{background:linear-gradient(180deg,rgba(21,16,12,0) 60%,rgba(21,16,12,.35))}
-  .hero-copy{order:1;margin:0;padding:0}
-  .cifras ul{grid-template-columns:repeat(4,1fr)}
-  .dolores{grid-template-columns:1fr 1fr}
-  .bonos{grid-template-columns:repeat(3,1fr)}
-  .confianza{grid-template-columns:1fr 1fr}
-  .dos{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
-  .tira{justify-content:center}
-  .tira figure{flex-basis:200px}
-  .sticky{justify-content:center;gap:24px}
+  .hero{padding:56px 0 64px}
+  .hero::before{top:20%;left:72%}
+  .hero .wrap{grid-template-columns:1.05fr .95fr;column-gap:56px;align-items:center}
+  .hero .txt{grid-column:1;grid-row:1}
+  .hero .mesa{grid-column:2;grid-row:1 / span 2;height:480px}
+  .hero .compra{grid-column:1;grid-row:2;max-width:520px}
+  .f1{height:330px;top:70px}
+  .f2{height:380px;top:10px}
+  .f3{height:300px;top:120px}
+  .sello-giro{width:120px;height:120px;right:-2%;bottom:6px}
+  .sello-giro .centro{inset:28px}
+  .badge-rating{bottom:24px;left:2%;font-size:14px}
+  .dos{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+  .dos .head{position:sticky;top:32px}
+  .opcion span{font-size:22px;left:16px;bottom:16px}
+  .garantia{grid-template-columns:240px 1fr;gap:48px}
+  .sello-grande{width:240px;height:240px}
+  .sello-grande .centro{inset:48px}
+  .error svg{width:84px;height:106px}
+  .error b{font-size:20px}
+  .sticky{justify-content:center;gap:28px}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.glow{animation:none;opacity:.8}.sticky,.cta,.faq summary::after{transition:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero::before,.sello-giro svg,.sello-grande svg,.marquesina .pista,.cta::after{animation:none}
+  .subr path{animation:none;stroke-dashoffset:0}
+  .js .rv{opacity:1;transform:none;transition:none}
+  .sticky,.opcion,.opcion img{transition:none}
+}
 </style>
 </head>
 <body>
+<script>document.body.classList.add('js')</script>
 
-<div class="top"><b>Pago único</b> · acceso inmediato · <b>7 días de garantía</b></div>
+<div class="top"><b>Pago único</b><span class="sep">·</span>Acceso inmediato<span class="sep">·</span><b>7 días de garantía</b></div>
 <div class="navidad" id="navidad" hidden></div>
 
-<!-- 1. HERO: promesa, prueba social, precio y botón en la primera pantalla -->
+<!-- ========== 1. HERO ========== -->
 <header class="hero">
-  <div class="hero-img">
-    <img src="img/velas-decorativas.jpg" alt="Velas decorativas encendidas sobre una bandeja" width="600" height="600" fetchpriority="high">
-    <div class="glow" aria-hidden="true"></div>
-  </div>
-  <div class="hero-copy wrap">
-    <p class="eyebrow">Curso online · 3 cursos en 1</p>
-    <h1>Aprendé a hacer <em>30+ velas</em> y <em>20 jabones</em> artesanales, desde cero</h1>
-    <p class="sub">Velas, velas navideñas y jabones. A tu ritmo, sin experiencia previa.</p>
-    <p class="rating"><span class="stars" aria-hidden="true">★★★★★</span><span><b>4,9 de 5</b> · 283 evaluaciones en Hotmart</span></p>
+  <div class="wrap">
+    <div class="txt">
+      <p class="eyebrow">Curso online · 3 cursos en 1</p>
+      <h1>Más de 30 velas y 20 jabones artesanales. <span class="sub-l"><em class="subr">Desde cero.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 40 4, 90 4, 120 10 S 180 16, 197 6"/></svg></em></span></h1>
+      <p class="lead" style="margin-top:12px">Velas, velas navideñas y jabones en un solo curso online. <b>A tu ritmo y sin experiencia previa.</b></p>
+    </div>
+
+    <div class="mesa" aria-label="Velas y jabones de referencia">
+      <figure class="foto f1"><img src="img/jabones-lavanda.jpg" alt="Jabones de lavanda atados con cuerda" width="600" height="600"><span>lavanda</span></figure>
+      <figure class="foto f2"><i class="cinta" aria-hidden="true"></i><img src="img/velas-decorativas.jpg" alt="Velas decorativas encendidas sobre una bandeja" width="600" height="600" fetchpriority="high"><span>velas esculpidas</span></figure>
+      <figure class="foto f3"><img src="img/jabones-colores.jpg" alt="Jabones artesanales de colores con pétalos" width="600" height="600"><span>jabones naturales</span></figure>
+      <div class="badge-rating"><span class="st" aria-hidden="true">★★★★★</span>4,9 · 283 evaluaciones</div>
+      <div class="sello-giro" aria-label="Garantía de 7 días">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="circ" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0"/></defs><text font-family="Manrope,Arial,sans-serif" font-size="8.6" font-weight="800" fill="#f7f0e6"><textPath href="#circ" textLength="236" lengthAdjust="spacing">GARANTÍA · 7 DÍAS · REEMBOLSO · </textPath></text></svg>
+        <div class="centro"><span><b>7</b>DÍAS</span></div>
+      </div>
+    </div>
 
     <div class="compra">
       <div class="precio"><s data-p="old">USD 70</s><span class="nuevo" data-p="new">USD 35</span><span class="ahorro" data-p="save">Te ahorrás USD 35</span></div>
       <a class="cta" id="cta1" href="#" data-go>QUIERO EMPEZAR AHORA<small>Pago seguro en Hotmart · acceso inmediato</small></a>
-      <div class="seguro"><span>🛡️ 7 días de garantía</span><span>♾️ Acceso de por vida</span><span>📱 Desde el celular</span></div>
+      <div class="confianza-fila">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#f5a83a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>7 días de garantía</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#f5a83a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#f5a83a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0 0 8M6 8a6 6 0 1 1 0 8"/></svg>Acceso de por vida</span>
+      </div>
       <p class="afil">Soy afiliada: la compra se hace en Hotmart y puedo recibir una comisión.</p>
     </div>
   </div>
 </header>
 
-<!-- 2. Cifras reales del curso -->
-<section class="cifras" aria-label="El curso en números">
-  <ul class="wrap">
-    <li><b>120+</b><span>clases en video</span></li>
-    <li><b>21+</b><span>horas de contenido</span></li>
-    <li><b>30+</b><span>tipos de velas</span></li>
-    <li><b>20</b><span>jabones artesanales</span></li>
-  </ul>
-</section>
+<!-- ========== 2. Cinta de técnicas ========== -->
+<div class="marquesina" aria-hidden="true"><div class="pista">
+  <span>Velas en vaso</span><span>Velas en gel</span><span>Marmoladas</span><span>Suculentas</span><span>Tipo repostería</span><span>Capuchino</span><span>En cuarzo</span><span>Árbol navideño</span><span>Bubble navideña</span><span>Avena y miel</span><span>Lavanda</span><span>Café</span><span>Cacao</span><span>Moldes de silicona</span>
+  <span>Velas en vaso</span><span>Velas en gel</span><span>Marmoladas</span><span>Suculentas</span><span>Tipo repostería</span><span>Capuchino</span><span>En cuarzo</span><span>Árbol navideño</span><span>Bubble navideña</span><span>Avena y miel</span><span>Lavanda</span><span>Café</span><span>Cacao</span><span>Moldes de silicona</span>
+</div></div>
 
-<!-- 3. Galería -->
-<section class="galeria" aria-label="Lo que vas a poder crear">
-  <div class="wrap"><p class="eyebrow" style="color:var(--brasa);margin:0 0 12px">Lo que vas a poder crear</p></div>
-  <div class="tira">
-    <figure><img src="img/velas-bao.jpg" alt="Vela blanca hecha con molde" width="600" height="600" loading="lazy"><figcaption>Velas con molde</figcaption></figure>
-    <figure><img src="img/jabones-lavanda.jpg" alt="Jabones de lavanda atados con cuerda" width="600" height="600" loading="lazy"><figcaption>Jabones de lavanda</figcaption></figure>
-    <figure><img src="img/jabones-estrella.jpg" alt="Jabones artesanales apilados, uno con forma de estrella" width="600" height="600" loading="lazy"><figcaption>Jabones con formas</figcaption></figure>
-    <figure><img src="img/jabones-colores.jpg" alt="Jabones de colores con pétalos secos" width="600" height="600" loading="lazy"><figcaption>Jabones de colores</figcaption></figure>
+<!-- ========== 3. El problema ========== -->
+<section class="sec" style="padding-top:56px">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Si ya lo intentaste sola</p>
+      <h2>Seguro te pasó <em>alguna de estas</em></h2>
+    </div>
+    <div class="errores rv">
+      <div class="error">
+        <svg viewBox="0 0 80 100" aria-hidden="true"><rect x="12" y="30" width="56" height="64" rx="6" fill="#f7f0e6"/><path d="M12 36 Q40 62 68 36 L68 30 L12 30Z" fill="#140f0b"/><path d="M12 36 Q40 62 68 36" fill="none" stroke="#bfb0a0" stroke-width="2"/><line x1="40" y1="47" x2="40" y2="36" stroke="#2a2018" stroke-width="2.4"/></svg>
+        <b>Se hundió</b><span>en el centro</span>
+      </div>
+      <div class="error">
+        <svg viewBox="0 0 80 100" aria-hidden="true"><rect x="12" y="30" width="56" height="64" rx="6" fill="#f7f0e6"/><path d="M28 30 L34 46 L27 58 L33 72 M52 30 L47 44 L54 55 M40 64 L46 80 L41 92" fill="none" stroke="#6b5a4b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><line x1="40" y1="30" x2="40" y2="20" stroke="#2a2018" stroke-width="2.4"/></svg>
+        <b>Se agrietó</b><span>al enfriar</span>
+      </div>
+      <div class="error">
+        <svg viewBox="0 0 80 100" aria-hidden="true"><rect x="12" y="30" width="56" height="64" rx="6" fill="#f7f0e6"/><line x1="40" y1="30" x2="40" y2="20" stroke="#2a2018" stroke-width="2.4"/><path d="M40 18c5-6 5-10 0-16-5 6-5 10 0 16z" fill="#f5a83a"/><path d="M58 22c4-4-4-8 0-12M66 26c4-4-4-8 0-12" fill="none" stroke="#bfb0a0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 4"/><text x="61" y="9" font-family="Georgia,serif" font-size="11" font-weight="700" fill="#f5a83a">?</text></svg>
+        <b>Sin aroma</b><span>al encenderla</span>
+      </div>
+    </div>
+    <div class="solucion rv">
+      <div class="ic" aria-hidden="true">✓</div>
+      <p><b>Por eso este curso empieza desde cero:</b> qué materiales comprar, los términos básicos y tu primera vela paso a paso. Y con 6 meses de acompañamiento para resolver tus dudas.</p>
+    </div>
   </div>
-  <div class="wrap"><p class="nota-img">Imágenes de referencia.</p></div>
 </section>
 
-<!-- 4. Para quién es -->
+<!-- ========== 4. La etiqueta del curso ========== -->
 <section class="claro sec">
   <div class="wrap dos">
-    <div>
-      <p class="eyebrow">Para quién es</p>
-      <h2>Este curso es para vos si…</h2>
+    <div class="head rv">
+      <p class="eyebrow">Qué incluye</p>
+      <h2>Todo el oficio, <em>en un solo frasco</em></h2>
+      <p class="lead">Tres cursos completos con su propio recorrido, más bonos para seguir creando. Así se ve todo junto.</p>
     </div>
-    <div class="dolores">
-      <div class="dolor" style="--ac:var(--lav)">Te encantan las velas y los jabones, pero <b>no sabés por dónde empezar</b> ni qué materiales comprar.</div>
-      <div class="dolor" style="--ac:var(--sal)">Ya probaste y tu vela <b>se hundió, se agrietó o no tenía aroma</b>, y no sabés por qué.</div>
-      <div class="dolor" style="--ac:var(--dur)">Querés <b>hacer tus propios regalos</b> esta Navidad en lugar de comprarlos.</div>
-      <div class="dolor" style="--ac:var(--ros)">Buscás una actividad creativa que te <b>relaje</b> y que puedas hacer desde casa.</div>
-      <div class="dolor" style="--ac:var(--lav)">Te gustaría aprender algo que también <b>puedas ofrecer</b> a familia y amigos.</div>
+    <div class="etiqueta rv">
+      <div class="marco">
+        <div class="et-sup">Curso artesanal · online</div>
+        <h3>Velas, velas navideñas <em>&amp;</em> jabones</h3>
+        <div class="et-orn">✦</div>
+        <dl>
+          <dt>Cursos completos</dt><dd>3 en 1</dd>
+          <dt>Clases en video</dt><dd>120+</dd>
+          <dt>Horas de contenido</dt><dd>21+</dd>
+          <dt>Técnicas de velas</dt><dd>30+</dd>
+          <dt>Jabones artesanales</dt><dd>20</dd>
+          <dt>Acompañamiento</dt><dd>6 meses</dd>
+          <dt>Acceso a las clases</dt><dd>De por vida</dd>
+          <dt>Proveedores por país</dt><dd>Incluido</dd>
+          <dt>Certificado</dt><dd>Incluido</dd>
+        </dl>
+        <div class="et-inf"><span>Nivel: desde cero</span><span>Garantía: 7 días</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 5. Los 3 cursos, en pestañas -->
+<!-- ========== 5. Para vos si ========== -->
 <section class="claro sec" style="padding-top:0">
   <div class="wrap dos">
-    <div>
-      <p class="eyebrow">Qué vas a aprender</p>
-      <h2>3 cursos completos en uno</h2>
+    <div class="head rv">
+      <p class="eyebrow">Para quién es</p>
+      <h2>Es para vos <em>si…</em></h2>
     </div>
-    <div>
-      <div class="tabs" role="tablist" aria-label="Cursos">
-        <button role="tab" id="t-velas" aria-controls="p-velas" aria-selected="true">Velas</button>
-        <button role="tab" id="t-navidad" aria-controls="p-navidad" aria-selected="false" tabindex="-1">Navidad</button>
-        <button role="tab" id="t-jabones" aria-controls="p-jabones" aria-selected="false" tabindex="-1">Jabones</button>
-      </div>
-      <div class="panel" role="tabpanel" id="p-velas" aria-labelledby="t-velas" style="--ac:var(--dur)">
-        <h3>Velas</h3>
-        <p>Más de 30 técnicas, desde la primera vela en vaso.</p>
-        <ul class="chips"><li>En vaso</li><li>En gel</li><li>Marmoladas</li><li>Suculentas</li><li>Tipo repostería</li><li>Capuchino</li><li>En cuarzo</li><li>Y muchas más</li></ul>
-        <p class="extra"><b>Incluye:</b> cómo hacer tus propios moldes de silicona, yeso y cemento.</p>
-      </div>
-      <div class="panel" role="tabpanel" id="p-navidad" aria-labelledby="t-navidad" style="--ac:var(--ros)" hidden>
-        <h3>Velas navideñas</h3>
-        <p>Para decorar tu casa o regalar en las fiestas.</p>
-        <ul class="chips"><li>Árbol</li><li>Bubble navideña</li><li>Velas con agua</li><li>Aromatizantes de temporada</li></ul>
-      </div>
-      <div class="panel" role="tabpanel" id="p-jabones" aria-labelledby="t-jabones" style="--ac:var(--sal)" hidden>
-        <h3>Jabones</h3>
-        <p>Dos técnicas: glicerina vegetal y saponificación en frío.</p>
-        <ul class="chips"><li>Avena y miel</li><li>Lavanda</li><li>Café</li><li>Cacao</li><li>Y más</li></ul>
-      </div>
-      <p class="extra" style="color:var(--gris-o)">Además: <b style="color:var(--tinta)">lista de proveedores por país</b>, para saber dónde comprar los insumos.</p>
-    </div>
+    <ul class="paravos rv">
+      <li style="--ac:var(--lav)"><i>1</i><span>Te encantan las velas y los jabones, pero <b>no sabés por dónde empezar</b> ni qué materiales comprar.</span></li>
+      <li style="--ac:var(--sal)"><i>2</i><span>Ya probaste y tu vela <b>se hundió, se agrietó o no tenía aroma</b>, y no sabés por qué.</span></li>
+      <li style="--ac:var(--dur)"><i>3</i><span>Querés <b>hacer tus propios regalos</b> esta Navidad en lugar de comprarlos.</span></li>
+      <li style="--ac:var(--ros)"><i>4</i><span>Buscás una actividad creativa que te <b>relaje</b> y que puedas hacer desde casa.</span></li>
+      <li style="--ac:var(--lav)"><i>5</i><span>Te gustaría aprender algo que también <b>puedas ofrecer</b> a familia y amigos.</span></li>
+    </ul>
   </div>
 </section>
 
-<!-- 6. Cómo funciona -->
+<!-- ========== 6. Elegí por dónde empezar ========== -->
 <section class="sec">
-  <div class="wrap dos">
-    <div>
-      <p class="eyebrow" style="color:var(--brasa)">Cómo funciona</p>
-      <h2>De tu pago a tu primera vela</h2>
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Tocá una opción</p>
+      <h2>¿Qué te gustaría <em>hacer primero?</em></h2>
     </div>
-    <ol class="pasos">
-      <li><b>Pagás en Hotmart</b><span>Con tarjeta o, según tu país, en efectivo.</span></li>
-      <li><b>Te llega un correo con el acceso</b><span>Apenas se aprueba el pago.</span></li>
-      <li><b>Empezás con tu primera vela</b><span>Paso a paso, a tu ritmo, desde el celular o la computadora.</span></li>
+    <div class="opciones rv" role="group" aria-label="Elegí por dónde empezar">
+      <button class="opcion" data-op="velas" aria-pressed="true"><img src="img/velas-bao.jpg" alt="" width="600" height="600" loading="lazy"><span><small>Curso 1</small>Velas decorativas</span></button>
+      <button class="opcion" data-op="navidad" aria-pressed="false"><img src="img/velas-decorativas.jpg" alt="" width="600" height="600" loading="lazy"><span><small>Curso 2</small>Regalos de Navidad</span></button>
+      <button class="opcion" data-op="jabones" aria-pressed="false"><img src="img/jabones-estrella.jpg" alt="" width="600" height="600" loading="lazy"><span><small>Curso 3</small>Jabones naturales</span></button>
+    </div>
+    <div class="resultado rv" id="resultado" aria-live="polite">
+      <h3 id="r-tit">Velas decorativas</h3>
+      <p id="r-txt">Más de 30 técnicas, desde tu primera vela en vaso. Y aprendés a hacer tus propios moldes de silicona, yeso y cemento.</p>
+      <ul class="chips" id="r-chips"></ul>
+      <a class="cta" href="#" data-go id="r-cta">EMPEZAR POR VELAS<small>Incluye los 3 cursos · USD 35 pago único</small></a>
+    </div>
+    <p class="extra rv">Elijas lo que elijas, <b>accedés a los 3 cursos</b> y a la lista de proveedores por país para comprar los insumos.</p>
+  </div>
+</section>
+
+<!-- ========== 7. Cómo funciona ========== -->
+<section class="claro sec">
+  <div class="wrap dos">
+    <div class="head rv">
+      <p class="eyebrow">Sin vueltas</p>
+      <h2>De tu pago a <em>tu primera vela</em></h2>
+      <p class="lead">Todo pasa en Hotmart, la plataforma donde está el curso.</p>
+    </div>
+    <ol class="pasos rv">
+      <li><div><b>Pagás en Hotmart</b><span>Con tarjeta de crédito o débito, o en efectivo según tu país.</span></div></li>
+      <li><div><b>Te llega un correo con el acceso</b><span>Apenas se aprueba el pago. Entrás al área de alumnas.</span></div></li>
+      <li><div><b>Empezás con tu primera vela</b><span>Paso a paso y a tu ritmo, desde el celular o la computadora.</span></div></li>
     </ol>
   </div>
 </section>
 
-<!-- 7. Navidad (solo se muestra con fecha real) -->
-<section class="sec xmas" id="xmas" hidden style="background:var(--noche2);border-block:1px solid var(--linea-osc)">
-  <div class="wrap">
+<!-- ========== 8. Navidad (solo con fecha real) ========== -->
+<section class="sec xmas" id="xmas" hidden>
+  <div class="wrap rv">
+    <p class="eyebrow" style="justify-content:center">Temporada de regalos</p>
     <div class="num" id="xmas-num">0</div>
     <div class="lbl" id="xmas-lbl">días para Navidad</div>
-    <p>Las velas navideñas y los jabones son regalos que podés hacer vos. Empezá ahora y llegá con tiempo.</p>
+    <p>Las velas navideñas y los jabones son regalos que podés hacer vos. Si empezás ahora, llegás con tiempo para practicar.</p>
+    <a class="cta" href="#" data-go>QUIERO HACER MIS REGALOS<small>Acceso inmediato · 7 días de garantía</small></a>
   </div>
 </section>
 
-<!-- 8. Bonos -->
-<section class="claro sec">
+<!-- ========== 9. El ticket: anclaje de valor ========== -->
+<section class="sec" style="background:var(--ebano2);border-block:1px solid var(--linea)">
   <div class="wrap">
-    <p class="eyebrow">Sin costo extra</p>
-    <h2>Bonos incluidos</h2>
-    <div class="bonos">
-      <div class="bono" style="--ac:var(--lav)"><span>Bombas de baño</span><em><s>USD 15</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--sal)"><span>Shampoo en barra</span><em><s>USD 10</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--dur)"><span>Mantequilla corporal</span><em><s>USD 15</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--ros)"><span>Bálsamo labial</span><em><s>USD 18</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--lav)"><span>Varitas difusoras</span><em><s>USD 17</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--sal)"><span>Calendario de adviento</span><em><s>USD 20</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--dur)"><span>Decora tus envases</span><em><s>USD 16</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--ros)"><span>Velas para fechas especiales</span><em><s>USD 25</s><b>gratis</b></em></div>
-      <div class="bono" style="--ac:var(--lav)"><span>Desmaquillante natural</span><em><s>USD 12</s><b>gratis</b></em></div>
+    <div class="head rv" style="margin-inline:auto;text-align:center">
+      <p class="eyebrow" style="justify-content:center">Tu pedido</p>
+      <h2>Todo esto, <em>en un solo pago</em></h2>
     </div>
-    <div class="total">Valor de referencia de los bonos: <b>USD 148</b>, incluidos en tu compra.<small>Valores de referencia indicados por el productor. También incluye 6 meses de comunidad y acompañamiento, y certificado.</small></div>
+    <div class="ticket rv">
+      <h3>Taller de velas y jabones</h3>
+      <div class="tsub">Detalle de lo que recibís</div>
+      <div class="trow grupo"><span>Cursos</span><span></span></div>
+      <div class="trow"><span>Velas (30+ técnicas)</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>Velas navideñas</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>Jabones artesanales (20)</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>6 meses de acompañamiento</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>Certificado</span><span class="inc">incluido</span></div>
+      <div class="trow grupo"><span>Bonos</span><span>valor ref.</span></div>
+      <div class="trow"><span>Bombas de baño</span><span><s>USD 15</s></span></div>
+      <div class="trow"><span>Shampoo en barra</span><span><s>USD 10</s></span></div>
+      <div class="trow"><span>Mantequilla corporal</span><span><s>USD 15</s></span></div>
+      <div class="trow"><span>Bálsamo labial</span><span><s>USD 18</s></span></div>
+      <div class="trow"><span>Varitas difusoras</span><span><s>USD 17</s></span></div>
+      <div class="trow"><span>Calendario de adviento</span><span><s>USD 20</s></span></div>
+      <div class="trow"><span>Decora tus envases</span><span><s>USD 16</s></span></div>
+      <div class="trow"><span>Velas para fechas especiales</span><span><s>USD 25</s></span></div>
+      <div class="trow"><span>Desmaquillante natural</span><span><s>USD 12</s></span></div>
+      <div class="trow"><span><b>Valor de referencia de los bonos</b></span><span><b>USD 148</b></span></div>
+      <div class="ttotal"><span>Hoy pagás</span><b data-p="new">USD 35</b></div>
+      <div class="tnota">Pago único. Los valores de los bonos son de referencia, indicados por el productor del curso.</div>
+    </div>
+    <div class="rv" style="max-width:460px;margin:22px auto 0">
+      <a class="cta" href="#" data-go>QUIERO TODO ESTO<small>Pago seguro en Hotmart · acceso inmediato</small></a>
+    </div>
   </div>
 </section>
 
-<!-- 9. Garantía y prueba social -->
+<!-- ========== 10. Garantía + prueba social ========== -->
 <section class="sec">
   <div class="wrap">
-    <p class="eyebrow" style="color:var(--brasa)">Comprá tranquila</p>
-    <h2>Probalo 7 días</h2>
-    <div class="confianza">
-      <div class="sello">
-        <div class="disco"><span><b>7</b>días</span></div>
-        <p><b>Garantía de 7 días.</b> Si sentís que el curso no es para vos, pedís el reembolso desde Hotmart dentro de los 7 días.</p>
+    <div class="garantia">
+      <div class="sello-grande rv" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><defs><path id="circ2" d="M50 50 m-42 0 a42 42 0 1 1 84 0 a42 42 0 1 1 -84 0"/></defs><circle cx="50" cy="50" r="48" fill="none" stroke="#3a2c20" stroke-width="1"/><text font-family="Manrope,Arial,sans-serif" font-size="7" font-weight="800" fill="#f5a83a"><textPath href="#circ2" textLength="262" lengthAdjust="spacing">COMPRÁ TRANQUILA · REEMBOLSO DESDE HOTMART · </textPath></text></svg>
+        <div class="centro"><span><b>7</b><small>días de garantía</small></span></div>
       </div>
-      <div class="nota-social">
-        <div class="big">4,9</div>
-        <div><div class="stars" aria-hidden="true">★★★★★</div><p><b style="color:var(--cera)">283 evaluaciones</b> de alumnas en Hotmart.</p></div>
+      <div class="rv">
+        <p class="eyebrow">El riesgo es nuestro</p>
+        <h2>Probalo 7 días. <em>Si no es para vos, te devuelven el dinero.</em></h2>
+        <p>Entrás, mirás las clases y empezás tu primera vela. <b>Si sentís que el curso no es para vos, pedís el reembolso desde Hotmart dentro de los 7 días.</b></p>
+        <div class="rating-grande">
+          <div class="n">4,9</div>
+          <div><div class="st" aria-hidden="true">★★★★★</div><p><b>283 evaluaciones</b> de alumnas en Hotmart</p></div>
+        </div>
+        <div class="testi" id="testi"></div>
+        <div id="productor" hidden style="margin-top:16px;padding:16px;border:1px solid var(--linea);border-radius:16px"><p class="eyebrow" style="margin-bottom:6px">Quién da el curso</p><p id="productor-txt" style="margin:0;color:var(--humo)"></p></div>
       </div>
     </div>
-    <div class="testi" id="testi" style="margin-top:14px"></div>
-    <div id="productor" hidden style="margin-top:14px" class="sello"><p id="productor-txt"></p></div>
   </div>
 </section>
 
-<!-- 10. Preguntas frecuentes -->
+<!-- ========== 11. Preguntas frecuentes ========== -->
 <section class="claro sec faq">
   <div class="wrap dos">
-    <div>
+    <div class="head rv">
       <p class="eyebrow">Dudas</p>
-      <h2>Preguntas frecuentes</h2>
+      <h2>Preguntas <em>frecuentes</em></h2>
+      <p class="lead">Si te queda alguna duda, mirá acá antes de comprar.</p>
     </div>
-    <div>
+    <div class="rv">
       <details><summary>¿Necesito experiencia previa?</summary><p>No. El curso empieza desde cero: materiales, términos básicos y tu primera vela paso a paso.</p></details>
       <details><summary>¿Cómo y cuándo recibo el curso?</summary><p>Apenas se aprueba el pago te llega un correo con el acceso al área de alumnas en Hotmart. Es 100% online.</p></details>
       <details><summary>¿Cuánto dura el acceso?</summary><p>El acceso a las clases es de por vida: podés verlas cuando quieras y repetirlas las veces que necesites. El acompañamiento dura 6 meses.</p></details>
@@ -394,20 +548,27 @@ footer p{max-width:620px;margin:0 auto}
   </div>
 </section>
 
-<!-- 11. Cierre -->
+<!-- ========== 12. Cierre ========== -->
 <section class="sec cierre" id="final">
-  <div class="wrap inner">
-    <p class="eyebrow" style="color:var(--brasa)">Empezá hoy</p>
-    <h2 style="margin:8px 0 14px">Tu primera vela, esta semana</h2>
-    <p style="color:var(--gris-c);margin:0 0 18px">3 cursos en 1 · bonos · 6 meses de acompañamiento</p>
+  <div class="wrap rv">
+    <div class="mini" aria-hidden="true">
+      <img src="img/jabones-lavanda.jpg" alt="" width="600" height="600" loading="lazy">
+      <img src="img/velas-bao.jpg" alt="" width="600" height="600" loading="lazy">
+      <img src="img/jabones-colores.jpg" alt="" width="600" height="600" loading="lazy">
+    </div>
+    <p class="eyebrow">Empezá hoy</p>
+    <h2>Tu primera vela, <em>esta semana</em></h2>
+    <p class="lead" style="margin:14px auto 22px">3 cursos en 1 · bonos · 6 meses de acompañamiento · acceso de por vida</p>
     <div class="precio"><s data-p="old">USD 70</s><span class="nuevo" data-p="new">USD 35</span><span class="ahorro" data-p="save">Te ahorrás USD 35</span></div>
     <a class="cta" href="#" data-go>QUIERO EMPEZAR AHORA<small>Pago único · acceso inmediato</small></a>
-    <div class="seguro"><span>🛡️ 7 días de garantía</span><span>Precio en dólares: Hotmart lo muestra en tu moneda</span></div>
+    <div class="confianza-fila">
+      <span>🛡️ 7 días de garantía</span><span>Precio en dólares: Hotmart lo muestra en tu moneda</span>
+    </div>
   </div>
 </section>
 
 <footer>
-  <p>Esta es una página independiente de una afiliada. No soy la creadora del curso. Al hacer clic vas al pago oficial de Hotmart y puedo recibir una comisión si comprás, sin costo extra para vos. El curso es educativo y no garantiza ingresos.</p>
+  <p>Esta es una página independiente de una afiliada. No soy la creadora del curso. Al hacer clic vas al pago oficial de Hotmart y puedo recibir una comisión si comprás, sin costo extra para vos. El curso es educativo y no garantiza ingresos. Imágenes de referencia.</p>
 </footer>
 
 <div class="sticky" id="sticky" aria-hidden="true">
@@ -454,7 +615,8 @@ var CONFIG = {
   var P={old:CONFIG.ars.old,'new':CONFIG.ars.neu,save:CONFIG.ars.save};
   Object.keys(P).forEach(function(k){document.querySelectorAll('[data-p='+k+']').forEach(function(e){e.textContent=P[k];});});
   document.querySelectorAll('.precio').forEach(function(d){var n=document.createElement('small');n.textContent='Hotmart te muestra el total exacto en pesos antes de pagar.';d.appendChild(n);});
-  document.querySelectorAll('.precio .nuevo').forEach(function(e){e.style.fontSize='34px';});
+  document.querySelectorAll('.precio .nuevo,.ttotal b').forEach(function(e){e.style.fontSize='32px';});
+  var sb=document.querySelector('.sticky .p b'); if(sb) sb.style.fontSize='18px';
 })();
 
 /* ===== Navidad (fecha real) o promo con fecha límite real ===== */
@@ -462,8 +624,8 @@ var CONFIG = {
   var strip=document.getElementById('navidad'), band=document.getElementById('xmas');
   function dias(){var h=new Date(),n=new Date(h.getFullYear(),11,25);return Math.ceil((n-new Date(h.getFullYear(),h.getMonth(),h.getDate()))/864e5);}
   function pintar(){
-    var d=CONFIG.deadline?new Date(CONFIG.deadline):null, ahora=new Date();
-    if(d&&d>ahora){
+    var d=CONFIG.deadline?new Date(CONFIG.deadline):null, ahora=new Date(), promo=d&&d>ahora;
+    if(promo){
       var ms=d-ahora,dd=Math.floor(ms/864e5),hh=Math.floor(ms%864e5/36e5),mm=Math.floor(ms%36e5/6e4);
       strip.textContent='⏳ La promoción termina en '+dd+' d '+hh+' h '+mm+' min'; strip.hidden=false;
     }
@@ -471,26 +633,32 @@ var CONFIG = {
     if(on){
       document.getElementById('xmas-num').textContent=n;
       document.getElementById('xmas-lbl').textContent=n===1?'día para Navidad':'días para Navidad';
-      if(!(d&&d>ahora)){strip.textContent='🎄 Faltan '+n+(n===1?' día':' días')+' para Navidad'; strip.hidden=false;}
-    } else if(!(d&&d>ahora)){ strip.hidden=true; }
+      if(!promo){strip.textContent='🎄 Faltan '+n+(n===1?' día':' días')+' para Navidad'; strip.hidden=false;}
+    } else if(!promo){ strip.hidden=true; }
     band.hidden=!on;
   }
   pintar(); setInterval(pintar,60000);
 })();
 
-/* ===== Pestañas de cursos ===== */
+/* ===== ¿Qué te gustaría hacer primero? ===== */
 (function(){
-  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
-  function sel(t){
-    tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});
+  var OP={
+    velas:{t:'Velas decorativas',c:'var(--dur)',x:'Más de 30 técnicas, desde tu primera vela en vaso. Y aprendés a hacer tus propios moldes de silicona, yeso y cemento.',ch:['En vaso','En gel','Marmoladas','Suculentas','Tipo repostería','Capuchino','En cuarzo','Y muchas más'],b:'EMPEZAR POR VELAS'},
+    navidad:{t:'Regalos de Navidad',c:'var(--ros)',x:'Velas navideñas para decorar tu casa o regalar en las fiestas, más aromatizantes de temporada.',ch:['Árbol','Bubble navideña','Velas con agua','Aromatizantes de temporada','Calendario de adviento (bono)'],b:'EMPEZAR POR NAVIDAD'},
+    jabones:{t:'Jabones naturales',c:'var(--sal)',x:'Dos técnicas: glicerina vegetal y saponificación en frío. Recetas con ingredientes que reconocés.',ch:['Avena y miel','Lavanda','Café','Cacao','Y más'],b:'EMPEZAR POR JABONES'}
+  };
+  var btns=[].slice.call(document.querySelectorAll('.opcion')), res=document.getElementById('resultado');
+  function pon(k){
+    var o=OP[k]; res.style.setProperty('--ac',o.c);
+    document.getElementById('r-tit').textContent=o.t;
+    document.getElementById('r-txt').textContent=o.x;
+    var ul=document.getElementById('r-chips'); ul.textContent='';
+    o.ch.forEach(function(c){var li=document.createElement('li');li.textContent=c;ul.appendChild(li);});
+    document.getElementById('r-cta').firstChild.nodeValue=o.b;
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-op')===k);});
   }
-  tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){sel(t);});
-    t.addEventListener('keydown',function(e){
-      var j=e.key==='ArrowRight'?(i+1)%tabs.length:e.key==='ArrowLeft'?(i-1+tabs.length)%tabs.length:-1;
-      if(j>-1){e.preventDefault();sel(tabs[j]);tabs[j].focus();}
-    });
-  });
+  btns.forEach(function(b){b.addEventListener('click',function(){pon(b.getAttribute('data-op'));});});
+  pon('velas');
 })();
 
 /* ===== Testimonios y productor (solo si se cargan en CONFIG) ===== */
@@ -506,7 +674,15 @@ var CONFIG = {
   }
 })();
 
-/* ===== Barra de compra fija: aparece al pasar el primer botón, se oculta en el cierre ===== */
+/* ===== Aparición al hacer scroll ===== */
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+
+/* ===== Barra de compra fija ===== */
 (function(){
   var bar=document.getElementById('sticky'), first=document.getElementById('cta1'), last=document.getElementById('final');
   var pasoPrimero=false, enFinal=false;
