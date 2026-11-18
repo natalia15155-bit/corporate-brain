@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Consultorio en Orden: 20 documentos clínicos editables</title>
+<meta name="description" content="Kit de 20 documentos editables para consultorio psicológico: admisión, consentimiento, encuadre, evolución, informes y alta. Word y Google Docs. Pago único, garantía de 7 días.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#12241f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Consultorio en Orden: 20 documentos listos para completar">
+<meta property="og:description" content="De la primera consulta al alta: admisión, consentimientos, encuadre, evolución, informes y cierre. Editables y pensados para la práctica en Argentina.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='22' y='12' width='56' height='76' rx='6' fill='%23fffdf8' stroke='%2312241f' stroke-width='6'/%3E%3Cpath d='M34 36h32M34 52h32M34 68h20' stroke='%237fb3a2' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,400..800;1,7..72,400..800&display=swap">
+
+<style>
+/* Concepto: "el archivo del consultorio, en orden". Verde bosque profundo con papeles color hueso
+   apilados como expedientes; salvia para la calma, ámbar para la acción. Objetos del oficio:
+   pestañas de carpeta, hojas con campos [entre corchetes], etiqueta de archivo, sello de
+   "Confidencial". Tono sobrio y sereno: pocas animaciones, mucho orden. */
+:root{
+  --bosque:#12241f; --bosque2:#1a332c; --bosque3:#244338; --linea:#33564a;
+  --papel:#f5f1e8; --papel2:#ebe5d6; --blanco:#fffdf8; --tinta:#1f2d2a; --tinta2:#566762;
+  --salvia:#7fb3a2; --salvia2:#a9d8c4; --niebla:#b9cdc6;
+  --ambar:#f0b058; --ambar2:#ffd39a; --ambar-osc:#9a5f12;
+  --c1:#a9d8c4; --c2:#f6d7a8; --c3:#c9d6f2; --c4:#f0c9c0;
+  --display:"Literata","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --body:"Figtree",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mano:"Caveat","Segoe Print","Bradley Hand",cursive;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bosque);color:var(--papel);font:17px/1.65 var(--body);padding-bottom:90px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.wrap{width:100%;max-width:1100px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0;letter-spacing:-.015em}
+h2{font-size:clamp(30px,7vw,52px);line-height:1.06}
+h1 em,h2 em{font-style:italic;font-weight:500;color:var(--ambar)}
+.claro h2 em,.papel h2 em{color:var(--ambar-osc)}
+.eyebrow{font:800 11.5px/1.2 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--salvia2);display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.eyebrow::before{content:"";width:22px;height:1.5px;background:currentColor}
+.claro .eyebrow,.papel .eyebrow{color:#3d6b5e}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:6px}
+
+/* Franja */
+.top{background:#000;color:var(--niebla);font-size:12.5px;font-weight:700;letter-spacing:.04em;text-align:center;padding:8px 12px}
+.top b{color:#fff}
+.top .sep{opacity:.4;margin:0 6px}
+
+/* HERO */
+.hero{position:relative;padding:22px 0 30px;overflow:hidden}
+.hero::before{content:"";position:absolute;left:62%;top:30%;width:720px;height:720px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(127,179,162,.22),rgba(127,179,162,0) 62%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;gap:16px}
+.hero h1{font-size:clamp(36px,9.6vw,72px);line-height:1.02}
+.lead{color:var(--niebla);font-size:17px;max-width:46ch;margin:0}
+.lead b{color:var(--papel)}
+
+/* pila de documentos */
+.pila{position:relative;height:210px;margin:6px 0 2px}
+.doc{position:absolute;background:var(--blanco);color:var(--tinta);border-radius:6px;box-shadow:0 18px 40px rgba(0,0,0,.5);padding:14px 14px 12px}
+.doc::before{content:attr(data-n);position:absolute;top:-17px;left:12px;background:var(--c);color:var(--tinta);font:800 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:6px 10px 5px;border-radius:7px 7px 0 0}
+.doc h3{font-size:15px;margin:0 0 8px;line-height:1.15}
+.doc .ln{height:6px;border-radius:3px;background:#e4ddcc;margin:7px 0}
+.doc .ln.s{width:62%}
+.campo{display:inline-block;font:700 11.5px/1 var(--body);color:#2c6b5a;background:#dff0e9;border-radius:4px;padding:3px 6px;margin:2px 3px 2px 0}
+.d1{width:56%;height:180px;left:0;top:26px;--c:var(--c2);transform:rotate(-6deg)}
+.d2{width:58%;height:190px;left:20%;top:8px;--c:var(--c1);z-index:2;transform:rotate(1.5deg)}
+.d3{width:50%;height:170px;right:0;top:34px;--c:var(--c3);transform:rotate(7deg)}
+.sello-conf{position:absolute;z-index:3;right:4%;bottom:-8px;border:2px solid var(--ambar);color:var(--ambar);font:800 10.5px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;padding:7px 10px;border-radius:4px;transform:rotate(-8deg);background:rgba(18,36,31,.75)}
+
+.compra{position:relative;z-index:2}
+.precio{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
+.precio .nuevo{font:700 48px/1 var(--display);color:#fff}
+.precio .por{font-weight:700;font-size:14px;color:var(--salvia2)}
+.cta{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;
+  background:linear-gradient(180deg,var(--ambar2),var(--ambar) 58%);color:var(--bosque);text-decoration:none;
+  font:800 19px/1.2 var(--body);padding:17px 18px 15px;border-radius:14px;margin:14px 0 12px;
+  box-shadow:0 6px 0 var(--ambar-osc),0 18px 36px rgba(240,176,88,.28);transition:transform .08s,box-shadow .08s}
+.cta small{font-weight:700;font-size:12.5px;opacity:.78;margin-top:3px}
+.cta:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ambar-osc)}
+.confianza-fila{display:flex;flex-wrap:wrap;gap:8px}
+.confianza-fila span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--papel);background:var(--bosque2);border:1px solid var(--linea);padding:6px 11px;border-radius:999px}
+.confianza-fila svg{width:14px;height:14px;flex:0 0 14px}
+
+/* Cifras */
+.cifras{background:var(--bosque2);border-block:1px solid var(--linea)}
+.cifras ul{list-style:none;margin:0 auto;padding-block:24px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px 12px}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font:700 42px/1 var(--display);font-variant-numeric:tabular-nums}
+.cifras li:nth-child(1) b{color:var(--c1)} .cifras li:nth-child(2) b{color:var(--c2)}
+.cifras li:nth-child(3) b{color:var(--c3)} .cifras li:nth-child(4) b{color:var(--c4)}
+.cifras span{font-size:13.5px;color:var(--niebla);font-weight:600;margin-top:4px}
+
+/* Secciones */
+.sec{padding-block:64px}
+.papel{background:var(--papel);color:var(--tinta)}
+.papel .lead{color:var(--tinta2)}
+.head{margin-bottom:26px;max-width:640px}
+.head p{margin:14px 0 0}
+
+/* Problema */
+.dolores{display:grid;gap:12px}
+.dolor{background:var(--blanco);border-radius:6px 16px 16px 16px;padding:16px 18px;position:relative;box-shadow:0 10px 24px rgba(31,45,42,.08);font-size:16.5px;border-left:6px solid var(--c)}
+.dolor q{font-family:var(--display);font-style:italic;font-size:18px;quotes:"“" "”"}
+.cierra-dolor{margin-top:16px;font:700 24px/1.15 var(--mano);color:#3d6b5e;transform:rotate(-1deg)}
+
+/* Momentos */
+.moms{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mom{display:flex;gap:10px;align-items:center;text-align:left;border:1.5px solid var(--linea);background:var(--bosque2);color:var(--papel);border-radius:14px;padding:11px 12px;cursor:pointer;font:inherit;font-size:14.5px;font-weight:700;line-height:1.2;transition:transform .2s,background .2s,color .2s}
+.mom i{flex:0 0 28px;height:28px;border-radius:8px;background:var(--bosque3);color:var(--salvia2);display:grid;place-items:center;font:700 13px var(--display);font-style:normal}
+.mom[aria-pressed="true"]{background:var(--ambar);color:var(--bosque);border-color:var(--ambar);transform:translateY(-2px)}
+.mom[aria-pressed="true"] i{background:var(--bosque);color:var(--ambar)}
+.panel{margin-top:14px;background:var(--blanco);color:var(--tinta);border-radius:6px 18px 18px 18px;padding:22px 20px;position:relative;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.panel::before{content:attr(data-n);position:absolute;top:-22px;left:0;background:var(--c1);color:var(--tinta);font:800 11px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;padding:8px 14px 8px;border-radius:9px 9px 0 0}
+.panel h3{font-size:26px;line-height:1.1;margin:0 0 4px}
+.panel p{margin:0 0 12px;color:var(--tinta2);font-size:15.5px}
+.docs{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:8px}
+.docs li{display:flex;gap:10px;align-items:center;background:var(--papel);border-radius:10px;padding:10px 12px;font-weight:700;font-size:15.5px}
+.docs li::before{content:"";flex:0 0 18px;height:22px;border-radius:3px;background:#fff;border:2px solid var(--tinta);background-image:linear-gradient(var(--tinta) 0 0),linear-gradient(var(--tinta) 0 0);background-size:8px 2px,8px 2px;background-position:center 6px,center 11px;background-repeat:no-repeat}
+.panel .cta{margin-bottom:0}
+
+/* Hoja de muestra */
+.muestra{display:grid;gap:24px;align-items:center}
+.hoja{position:relative;max-width:440px;margin:0 auto;background:var(--blanco);color:var(--tinta);border-radius:4px;padding:26px 22px 22px;box-shadow:0 30px 60px rgba(31,45,42,.2);transform:rotate(-1.2deg);
+  background-image:repeating-linear-gradient(transparent 0 31px,#ece6d6 31px 32px);background-position:0 66px}
+.hoja h3{font-size:22px;margin-bottom:4px}
+.hoja .sub{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta2);font-weight:700;margin-bottom:14px}
+.hoja .fila{display:flex;gap:10px;align-items:baseline;min-height:32px;font-size:14.5px}
+.hoja .fila span:first-child{font-weight:700;flex:0 0 auto}
+.hoja .fila .campo{margin:0}
+.hoja .nota-mano{position:absolute;right:-6px;top:-14px;font:700 24px/1 var(--mano);color:#2c6b5a;transform:rotate(6deg);background:var(--papel);padding:2px 10px;border-radius:6px;box-shadow:0 6px 14px rgba(31,45,42,.15)}
+.aviso-ej{font-size:12.5px;color:var(--tinta2);text-align:center;margin:14px auto 0;max-width:440px}
+
+/* Qué recibís */
+.recibis{display:grid;gap:12px}
+.carpeta{position:relative;background:var(--bosque2);border:1px solid var(--linea);border-radius:4px 16px 16px 16px;padding:22px 18px 18px}
+.carpeta::before{content:attr(data-t);position:absolute;top:-13px;left:0;background:var(--c);color:var(--tinta);font:800 10.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:6px 11px 7px;border-radius:7px 7px 0 0}
+.carpeta b{display:block;font:600 20px/1.2 var(--display);margin-bottom:4px}
+.carpeta span{color:var(--niebla);font-size:15.5px}
+
+/* Para quién */
+.quien{display:grid;gap:14px}
+.quien .col{background:var(--blanco);border-radius:16px;padding:20px}
+.quien h3{font-size:22px;margin-bottom:10px}
+.quien ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.quien li{display:flex;gap:10px;font-size:15.5px;line-height:1.45}
+.quien li::before{content:"✓";flex:0 0 22px;height:22px;border-radius:50%;background:var(--c1);display:grid;place-items:center;font-weight:900;font-size:12px}
+.quien .no li::before{content:"–";background:var(--c4)}
+
+/* Transparencia */
+.transp{display:grid;gap:22px;align-items:start}
+.nota-leg{position:relative;background:var(--bosque2);border:1.5px solid var(--ambar);border-radius:6px 18px 18px 18px;padding:26px 20px 20px}
+.nota-leg::before{content:"Antes de comprar";position:absolute;top:-13px;left:0;background:var(--ambar);color:var(--bosque);font:800 10.5px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;padding:6px 12px 7px;border-radius:7px 7px 0 0}
+.nota-leg ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.nota-leg li{display:flex;gap:12px;font-size:16px}
+.nota-leg li::before{content:"";flex:0 0 10px;height:10px;border-radius:50%;background:var(--ambar);margin-top:9px}
+.nota-leg b{color:#fff}
+
+/* Precio */
+.tarjeta{position:relative;max-width:470px;margin:0 auto;background:var(--blanco);color:var(--tinta);border-radius:6px 20px 20px 20px;padding:30px 24px 24px;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.tarjeta::before{content:"Kit completo";position:absolute;top:-13px;left:0;background:var(--c1);color:var(--tinta);font:800 10.5px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;padding:6px 12px 7px;border-radius:7px 7px 0 0}
+.tarjeta .precio .nuevo{color:var(--tinta);font-size:56px}
+.tarjeta .precio .por{color:#3d6b5e}
+.tarjeta ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:7px}
+.tarjeta li{display:flex;gap:10px;font-size:15.5px;font-weight:600}
+.tarjeta li::before{content:"✓";color:#2c6b5a;font-weight:900}
+.tarjeta .pago{font-size:14px;color:var(--tinta2);margin:14px 0 0}
+.tarjeta .cta{margin:16px 0 10px}
+.tarjeta .gar{font-size:14px;color:var(--tinta2)}
+.tarjeta .gar b{color:var(--tinta)}
+
+/* FAQ */
+.faq details{border-bottom:1px solid #d9d2bf}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0;font:600 18px/1.3 var(--display)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:0 0 28px;height:28px;border-radius:50%;background:var(--bosque) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 6v12M6 12h12' stroke='%23f5f1e8' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center/16px no-repeat;transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 18px;color:var(--tinta2)}
+
+/* Cierre */
+.cierre{text-align:center;position:relative;overflow:hidden}
+.cierre::before{content:"";position:absolute;left:50%;top:-100px;width:760px;height:760px;transform:translateX(-50%);background:radial-gradient(circle,rgba(127,179,162,.2),rgba(127,179,162,0) 60%);pointer-events:none}
+.cierre .wrap{position:relative;max-width:600px}
+.cierre .eyebrow{justify-content:center}
+.cierre .precio,.cierre .confianza-fila{justify-content:center}
+.pie{background:#000;color:var(--niebla);font-size:13px;text-align:center;padding:24px 20px 30px}
+.pie p{max-width:640px;margin:0 auto}
+
+/* Barra fija */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(18,36,31,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--linea);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;gap:12px;align-items:center;justify-content:space-between;transform:translateY(110%);transition:transform .3s}
+.sticky.on{transform:none}
+.sticky .p{line-height:1.1}
+.sticky .p b{font:700 23px var(--display);color:#fff}
+.sticky .p small{display:block;font-size:11.5px;color:var(--niebla);font-weight:700}
+.sticky a{background:linear-gradient(180deg,var(--ambar2),var(--ambar));color:var(--bosque);text-decoration:none;font-weight:800;padding:13px 18px;border-radius:12px;white-space:nowrap;box-shadow:0 4px 0 var(--ambar-osc)}
+
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:900px){
+  .hero{padding:56px 0 72px}
+  .hero .wrap{grid-template-columns:1.05fr .95fr;column-gap:56px;align-items:center}
+  .hero .txt{grid-column:1;grid-row:1}
+  .hero .pila{grid-column:2;grid-row:1 / span 2;height:430px}
+  .hero .compra{grid-column:1;grid-row:2;max-width:520px}
+  .d1{height:300px;top:60px} .d2{height:330px;top:20px} .d3{height:280px;top:90px}
+  .doc{padding:20px 18px 16px} .doc h3{font-size:19px}
+  .cifras ul{grid-template-columns:repeat(4,1fr)}
+  .dos{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+  .dos .head{position:sticky;top:32px}
+  .dolores{grid-template-columns:1fr 1fr}
+  .moms{grid-template-columns:repeat(4,1fr)}
+  .muestra{grid-template-columns:1fr 1fr;gap:56px}
+  .recibis{grid-template-columns:1fr 1fr}
+  .quien{grid-template-columns:1fr 1fr}
+  .transp{grid-template-columns:.8fr 1.2fr;gap:48px}
+  .sticky{justify-content:center;gap:28px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none;transition:none}
+  .sticky,.mom,.cta{transition:none}
+}
+</style>
+</head>
+<body>
+<script>document.body.classList.add('js')</script>
+
+<div class="top"><b>Acceso inmediato</b><span class="sep">·</span>Pago único<span class="sep">·</span><b>Garantía de 7 días</b></div>
+
+<!-- ========== 1. HERO ========== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="txt">
+      <p class="eyebrow">Para psicólogas y psicólogos</p>
+      <h1>Los 20 documentos que tu consultorio necesita, <em>listos para completar</em></h1>
+      <p class="lead" style="margin-top:12px">De la primera consulta al alta: admisión, consentimientos, encuadre, evolución, informes y cierre. <b>Editables, en español y pensados para la práctica en Argentina.</b></p>
+    </div>
+
+    <div class="pila" aria-label="Ejemplos de documentos del kit">
+      <div class="doc d1" data-n="Documento" style="--c:var(--c2)"><h3>Ficha de admisión</h3><span class="campo">[Nombre]</span><span class="campo">[Fecha]</span><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div>
+      <div class="doc d2" data-n="Documento" style="--c:var(--c1)"><h3>Consentimiento informado</h3><span class="campo">[Paciente]</span><span class="campo">[Matrícula]</span><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div>
+      <div class="doc d3" data-n="Documento" style="--c:var(--c3)"><h3>Hoja de evolución</h3><span class="campo">[Sesión]</span><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div>
+      <div class="sello-conf">Confidencial</div>
+    </div>
+
+    <div class="compra">
+      <div class="precio"><span class="nuevo">USD 12</span><span class="por">pago único · USD 0,60 por documento</span></div>
+      <a class="cta" id="cta1" href="#" data-go>QUIERO EL KIT POR USD 12<small>Acceso inmediato por correo · Garantía de 7 días</small></a>
+      <div class="confianza-fila">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#7fb3a2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Garantía de 7 días</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#7fb3a2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/></svg>Word y Google Docs</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#7fb3a2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro en Hotmart</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== 2. Cifras ========== -->
+<section class="cifras" aria-label="El kit en números">
+  <ul class="wrap">
+    <li><b>20</b><span>documentos editables</span></li>
+    <li><b>8</b><span>momentos del tratamiento</span></li>
+    <li><b>5</b><span>para atender mañana (Kit Primera Sesión)</span></li>
+    <li><b>7</b><span>días de garantía</span></li>
+  </ul>
+</section>
+
+<!-- ========== 3. El problema ========== -->
+<section class="sec papel">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Lo que le pasa a casi todo consultorio</p>
+      <h2>Los papeles <em>siempre quedan para después</em></h2>
+    </div>
+    <div class="dolores rv">
+      <div class="dolor" style="--c:var(--c1)"><q>Terminás de atender y todavía te queda armar el informe para la escuela.</q></div>
+      <div class="dolor" style="--c:var(--c2)"><q>Cada consentimiento lo redactás de cero, o usás uno que te pasó una colega hace años.</q></div>
+      <div class="dolor" style="--c:var(--c3)"><q>Hablar de honorarios y ausencias te incomoda porque nunca quedó por escrito.</q></div>
+      <div class="dolor" style="--c:var(--c4)"><q>La facultad te formó para la clínica, no para los papeles del consultorio.</q></div>
+    </div>
+    <p class="cierra-dolor rv">Un documento para cada momento, y listo ✓</p>
+  </div>
+</section>
+
+<!-- ========== 4. Momentos del tratamiento ========== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Ordenado según el recorrido del paciente</p>
+      <h2>¿En qué momento <em>del tratamiento estás?</em></h2>
+      <p class="lead">No es una carpeta de modelos sueltos: cada documento tiene su lugar. Tocá un momento y mirá qué incluye.</p>
+    </div>
+    <div class="moms rv" role="group" aria-label="Momentos del tratamiento">
+      <button class="mom" data-m="0" aria-pressed="true"><i>1</i>Antes de la primera sesión</button>
+      <button class="mom" data-m="1" aria-pressed="false"><i>2</i>Primera sesión</button>
+      <button class="mom" data-m="2" aria-pressed="false"><i>3</i>Durante el tratamiento</button>
+      <button class="mom" data-m="3" aria-pressed="false"><i>4</i>Cuando te piden un papel</button>
+      <button class="mom" data-m="4" aria-pressed="false"><i>5</i>Trabajo con otros</button>
+      <button class="mom" data-m="5" aria-pressed="false"><i>6</i>Casos particulares</button>
+      <button class="mom" data-m="6" aria-pressed="false"><i>7</i>Honorarios</button>
+      <button class="mom" data-m="7" aria-pressed="false"><i>8</i>Cierre</button>
+    </div>
+    <div class="panel rv" id="panel" aria-live="polite" data-n="Momento 1">
+      <h3 id="p-tit">Antes de la primera sesión</h3>
+      <p id="p-txt">Lo que dejás listo antes de que el paciente llegue.</p>
+      <ul class="docs" id="p-docs"></ul>
+      <a class="cta" href="#" data-go>QUIERO ESTOS Y LOS DEMÁS<small>Los 20 documentos · USD 12 pago único</small></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5. Hoja de muestra ========== -->
+<section class="sec papel">
+  <div class="wrap muestra">
+    <div class="rv">
+      <p class="eyebrow">Completás y listo</p>
+      <h2>Campos marcados <em>entre corchetes</em></h2>
+      <p class="lead" style="margin-top:14px">Cada documento viene con los datos a completar señalados entre corchetes: los reemplazás por la información de tu consultorio y de tu paciente. Son archivos de Word, que también se abren en Google Docs.</p>
+    </div>
+    <div class="rv">
+      <div class="hoja" aria-label="Ilustración de cómo se completan los campos">
+        <span class="nota-mano">¡se completa y listo!</span>
+        <h3>Nombre del documento</h3>
+        <div class="sub">Ilustración de ejemplo</div>
+        <div class="fila"><span>Profesional:</span><span class="campo">[Nombre y apellido]</span></div>
+        <div class="fila"><span>Matrícula:</span><span class="campo">[N.º de matrícula]</span></div>
+        <div class="fila"><span>Paciente:</span><span class="campo">[Nombre del paciente]</span></div>
+        <div class="fila"><span>Fecha:</span><span class="campo">[DD/MM/AAAA]</span></div>
+      </div>
+      <p class="aviso-ej">Ilustración de ejemplo para mostrar cómo se ven los campos entre corchetes. No es un documento del kit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 6. Qué recibís ========== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Qué recibís</p>
+      <h2>Todo en <em>un solo archivo</em>, por correo</h2>
+    </div>
+    <div class="recibis rv">
+      <div class="carpeta" data-t="Principal" style="--c:var(--c1)"><b>20 documentos editables</b><span>En Word, dentro de un ZIP. También se abren en Google Docs.</span></div>
+      <div class="carpeta" data-t="Aparte" style="--c:var(--c2)"><b>Kit Primera Sesión</b><span>Los 5 documentos para atender mañana, en un archivo aparte.</span></div>
+      <div class="carpeta" data-t="Fácil" style="--c:var(--c3)"><b>Campos entre corchetes</b><span>Completás y listo.</span></div>
+      <div class="carpeta" data-t="Guía" style="--c:var(--c4)"><b>Instrucciones de uso y autoría</b><span>En PDF.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7. Para quién ========== -->
+<section class="sec papel">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Para quién es</p>
+      <h2>Para quién es, <em>y para quién no</em></h2>
+    </div>
+    <div class="quien rv">
+      <div class="col" style="border-top:6px solid var(--c1)">
+        <h3>Es para vos si…</h3>
+        <ul>
+          <li>Sos psicóloga o psicólogo y empezás a atender en consultorio privado.</li>
+          <li>Tenés años de práctica y querés ordenar tus papeles.</li>
+          <li>Atendés online y necesitás dejarlo por escrito.</li>
+        </ul>
+      </div>
+      <div class="col no" style="border-top:6px solid var(--c4)">
+        <h3>No es para vos si…</h3>
+        <ul>
+          <li>Buscás que reemplace el asesoramiento legal o las normas de tu colegio profesional.</li>
+          <li>Esperás técnicas o tests psicológicos: no los incluye.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 8. Transparencia ========== -->
+<section class="sec">
+  <div class="wrap transp">
+    <div class="head rv" style="margin-bottom:0">
+      <p class="eyebrow">Transparencia</p>
+      <h2>Lo que tenés que <em>saber antes de comprar</em></h2>
+      <p class="lead">Preferimos decírtelo antes: así sabés exactamente qué estás llevando.</p>
+    </div>
+    <div class="nota-leg rv">
+      <ul>
+        <li><span><b>Son modelos de referencia.</b> Adaptalos a tu matrícula, tu jurisdicción y las normas de tu colegio profesional.</span></li>
+        <li><span><b>No garantizan validez legal por sí mismos.</b> La validez depende de cómo los completes y de las normas de tu jurisdicción.</span></li>
+        <li><span><b>Se redactaron con ayuda de herramientas de inteligencia artificial</b> y no pasaron por una revisión legal formal: leelos completos y ajustalos antes de usarlos con pacientes.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 9. Precio ========== -->
+<section class="sec papel" id="comprar">
+  <div class="wrap">
+    <div class="head rv" style="margin-inline:auto;text-align:center">
+      <p class="eyebrow" style="justify-content:center">Tu kit</p>
+      <h2>Ordená tu consultorio <em>esta semana</em></h2>
+    </div>
+    <div class="tarjeta rv">
+      <div class="precio"><span class="nuevo">USD 12</span><span class="por">pago único</span></div>
+      <ul>
+        <li>20 documentos editables (Word)</li>
+        <li>Kit Primera Sesión: 5 documentos</li>
+        <li>Instrucciones de uso y autoría (PDF)</li>
+        <li>Acceso inmediato por correo</li>
+      </ul>
+      <p class="pago">Pago único. En el checkout se cobra en pesos al tipo de cambio del día, con tarjeta, Mercado Pago o PayPal.</p>
+      <a class="cta" href="#" data-go>QUIERO ORDENAR MI CONSULTORIO<small>Pago seguro en Hotmart · acceso inmediato</small></a>
+      <p class="gar"><b>Garantía de 7 días:</b> si ves que no te sirve, pedís el reembolso desde Hotmart y se te devuelve el pago.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 10. FAQ ========== -->
+<section class="sec papel faq" style="padding-top:0">
+  <div class="wrap dos">
+    <div class="head rv">
+      <p class="eyebrow">Dudas</p>
+      <h2>Preguntas <em>frecuentes</em></h2>
+    </div>
+    <div class="rv">
+      <details><summary>¿En qué formato viene?</summary><p>Archivos de Word editables, dentro de un ZIP. Google Docs los abre sin problemas.</p></details>
+      <details><summary>¿Sirve fuera de Argentina?</summary><p>Está escrito para Argentina. Podés adaptarlo, revisando la normativa de tu país.</p></details>
+      <details><summary>¿Tienen validez legal?</summary><p>Son modelos. La validez depende de cómo los completes y de las normas de tu jurisdicción.</p></details>
+      <details><summary>¿Cómo lo recibo?</summary><p>Por correo, al instante, después del pago.</p></details>
+      <details><summary>¿Puedo modificarlos?</summary><p>Sí. Son documentos editables, con los campos a completar marcados entre corchetes.</p></details>
+      <details><summary>¿Incluye técnicas o tests psicológicos?</summary><p>No. El kit son documentos para el funcionamiento del consultorio.</p></details>
+      <details><summary>¿Puedo usarlo en más de un consultorio?</summary><p>La licencia de uso es para un solo consultorio.</p></details>
+      <details><summary>¿Y si no me sirve?</summary><p>Tenés 7 días de garantía para pedir el reembolso desde Hotmart.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 11. Cierre ========== -->
+<section class="sec cierre" id="final">
+  <div class="wrap rv">
+    <p class="eyebrow">Empezá hoy</p>
+    <h2>Atendé mañana con <em>todo en orden</em></h2>
+    <p class="lead" style="margin:14px auto 22px">20 documentos editables · Kit Primera Sesión · instrucciones en PDF</p>
+    <div class="precio"><span class="nuevo">USD 12</span><span class="por">pago único</span></div>
+    <a class="cta" href="#" data-go>QUIERO EL KIT POR USD 12<small>Acceso inmediato · Garantía de 7 días</small></a>
+    <div class="confianza-fila"><span>🛡️ Garantía de 7 días</span><span>Pago seguro en Hotmart</span></div>
+  </div>
+</section>
+
+<div class="pie">
+  <p>Consultorio en Orden · Contenido original. Licencia de uso para un solo consultorio.<span id="soporte"></span></p>
+</div>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="p"><b>USD 12</b><small>Pago único · 7 días de garantía</small></div>
+  <a href="#" data-go tabindex="-1">QUIERO EL KIT</a>
+</div>
+
+<script>
+/* ===== CONFIGURACIÓN ===== */
+var CONFIG = {
+  // Link de pago de Hotmart (el mismo de la landing original).
+  hotmart: 'https://pay.hotmart.com/T108514864A',
+  // Parámetro para saber de qué landing o anuncio viene cada venta (Hotmart lo acepta como "src").
+  srcPrefix: 'LPCO_',
+  // ID del píxel de Meta. La landing original no tenía píxel: pon el ID aquí para medir visitas y clics.
+  pixelId: null,
+  precioUSD: 12,
+  // Correo de soporte REAL. La landing original mostraba "[correo de soporte]" sin completar.
+  soporte: null
+};
+
+/* ===== Píxel de Meta (solo si se configuró un ID) ===== */
+if (CONFIG.pixelId) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', CONFIG.pixelId);
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent', {content_name: 'Consultorio en Orden', currency: 'USD', value: CONFIG.precioUSD});
+}
+
+/* ===== Botones de compra ===== */
+(function(){
+  var q=new URLSearchParams(location.search);
+  var src=q.get('src')||q.get('utm_content')||'LP1';
+  var url=CONFIG.hotmart+'?src='+encodeURIComponent(CONFIG.srcPrefix+src);
+  document.querySelectorAll('[data-go]').forEach(function(a){
+    a.href=url;
+    a.addEventListener('click',function(e){
+      if(typeof fbq!=='function'||!CONFIG.pixelId)return; // sin píxel, el enlace funciona tal cual
+      try{fbq('track','InitiateCheckout',{content_name:'Consultorio en Orden',currency:'USD',value:CONFIG.precioUSD});}catch(err){}
+      // Clic normal: damos 350 ms al píxel. Con ctrl/cmd/clic central, el navegador abre el link tal cual.
+      if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+      e.preventDefault();
+      setTimeout(function(){location.href=url;},350);
+    });
+  });
+})();
+
+/* ===== Correo de soporte (solo si se configuró) ===== */
+(function(){
+  if(!CONFIG.soporte)return;
+  document.getElementById('soporte').textContent=' Soporte: '+CONFIG.soporte;
+})();
+
+/* ===== Momentos del tratamiento ===== */
+(function(){
+  var M=[
+    {t:'Antes de la primera sesión',x:'Lo que dejás listo antes de que el paciente llegue.',d:['Mensajes de bienvenida, recordatorio y reprogramación']},
+    {t:'Primera sesión',x:'Lo que necesitás para abrir un tratamiento con todo por escrito.',d:['Ficha de admisión','Consentimiento informado','Encuadre terapéutico','Registro de primera entrevista']},
+    {t:'Durante el tratamiento',x:'El seguimiento del día a día del consultorio.',d:['Hoja de evolución','Plan de tratamiento','Registro de ausencias']},
+    {t:'Cuando te piden un papel',x:'Para responder rápido cuando alguien te pide un documento.',d:['Constancia de asistencia','Certificado de tratamiento','Informe psicológico','Informe para la escuela']},
+    {t:'Trabajo con otros',x:'Para coordinar con otros profesionales.',d:['Autorización para compartir información','Nota de derivación']},
+    {t:'Casos particulares',x:'Para las situaciones que piden un consentimiento específico.',d:['Consentimiento para atención online','Consentimiento para niños, niñas y adolescentes']},
+    {t:'Honorarios',x:'Para hablar de dinero con claridad y por escrito.',d:['Recibo interno','Aviso de actualización de honorarios']},
+    {t:'Cierre',x:'Para cerrar el proceso de manera ordenada.',d:['Resumen de alta','Mensaje de seguimiento']}
+  ];
+  var btns=[].slice.call(document.querySelectorAll('.mom')), panel=document.getElementById('panel');
+  function pon(i){
+    var m=M[i];
+    panel.setAttribute('data-n','Momento '+(i+1));
+    document.getElementById('p-tit').textContent=m.t;
+    document.getElementById('p-txt').textContent=m.x;
+    var ul=document.getElementById('p-docs'); ul.textContent='';
+    m.d.forEach(function(n){var li=document.createElement('li');li.textContent=n;ul.appendChild(li);});
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-m')==String(i));});
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){pon(+b.getAttribute('data-m'));});});
+  pon(0);
+})();
+
+/* ===== Aparición al hacer scroll ===== */
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+
+/* ===== Barra de compra fija ===== */
+(function(){
+  var bar=document.getElementById('sticky'), first=document.getElementById('cta1'), last=document.getElementById('final');
+  var pasoPrimero=false, enFinal=false;
+  function act(){var on=pasoPrimero&&!enFinal;bar.classList.toggle('on',on);bar.setAttribute('aria-hidden',on?'false':'true');bar.querySelector('a').tabIndex=on?0:-1;}
+  if(!('IntersectionObserver' in window))return;
+  new IntersectionObserver(function(en){var e=en[0];pasoPrimero=!e.isIntersecting&&e.boundingClientRect.top<0;act();}).observe(first);
+  new IntersectionObserver(function(en){enFinal=en[0].isIntersecting;act();}).observe(last);
+})();
+</script>
+</body>
+</html>
