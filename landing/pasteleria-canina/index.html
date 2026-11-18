@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pastelería Canina y Felina: curso online desde cero</title>
+<meta name="description" content="Más de 30 recetas de pastelería para perros y gatos, desde cero: galletas, muffins, tortas, helados y premios sin azúcar. 43 clases, recetario y certificado. 7 días de garantía en Hotmart.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#12393a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pastelería Canina y Felina">
+<meta property="og:description" content="Más de 30 recetas para perros y gatos, sin azúcar y desde cero. 43 clases en video. 7 días de garantía.">
+<meta property="og:image" content="https://pasteleria-canina-curso.netlify.app/img/hero.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23ff7a59'%3E%3Cellipse cx='50' cy='66' rx='22' ry='18'/%3E%3Ccircle cx='24' cy='42' r='9'/%3E%3Ccircle cx='40' cy='28' r='9'/%3E%3Ccircle cx='60' cy='28' r='9'/%3E%3Ccircle cx='76' cy='42' r='9'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@700&family=Nunito:wght@400;600;700;800&display=swap">
+
+<!-- Meta Pixel Code (mismo ID que la landing original) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1844504486862894');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', {content_name: 'Pasteleria Canina', currency: 'USD', value: 69.99});
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1844504486862894&ev=PageView&noscript=1" alt=""/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+/* Concepto: "la vitrina de una pastelería para mascotas". Fondo menta como el de la foto,
+   tinta verde azulado profundo, coral de glaseado para la acción, manteca y frutilla como
+   colores de las fichas de receta. Objetos del oficio: vitrina con toldo, fichas de receta,
+   etiqueta de ingredientes, comanda de la pastelería, huellitas. */
+:root{
+  --menta:#e3f4f0; --menta2:#cdeae3; --crema:#fffaf3; --hueso:#f4e8d6;
+  --tinta:#12393a; --tinta2:#4d6b6b; --profundo:#0f2f30; --profundo2:#174546; --linea:#2a5a5b;
+  --coral:#ff7a59; --coral2:#ffb199; --coral-osc:#c94b2c;
+  --manteca:#ffd66b; --frutilla:#ffb3c1; --pistacho:#b9dfa6; --arandano:#b8c4ff;
+  --niebla:#b7d3cf;
+  --display:"Bricolage Grotesque","Arial Rounded MT Bold","Trebuchet MS",sans-serif;
+  --body:"Nunito",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mano:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--menta);color:var(--tinta);font:16.5px/1.6 var(--body);padding-bottom:90px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:800;text-wrap:balance;margin:0;letter-spacing:-.025em}
+h2{font-size:clamp(32px,7.8vw,58px);line-height:1}
+h1 em,h2 em{font-style:normal;color:var(--coral-osc);position:relative}
+.oscuro h2 em{color:var(--coral)}
+.eyebrow{font:800 12px/1.2 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--coral-osc);display:flex;align-items:center;gap:8px;margin:0 0 14px}
+.eyebrow::before{content:"";width:16px;height:14px;flex:0 0 16px;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='66' rx='22' ry='18'/%3E%3Ccircle cx='24' cy='42' r='9'/%3E%3Ccircle cx='40' cy='28' r='9'/%3E%3Ccircle cx='60' cy='28' r='9'/%3E%3Ccircle cx='76' cy='42' r='9'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='66' rx='22' ry='18'/%3E%3Ccircle cx='24' cy='42' r='9'/%3E%3Ccircle cx='40' cy='28' r='9'/%3E%3Ccircle cx='60' cy='28' r='9'/%3E%3Ccircle cx='76' cy='42' r='9'/%3E%3C/svg%3E") center/contain no-repeat}
+.oscuro .eyebrow{color:var(--coral)}
+.mano{font-family:var(--mano);font-weight:700}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--coral-osc);outline-offset:3px;border-radius:6px}
+
+/* Franjas */
+.top{background:var(--profundo);color:var(--niebla);font-size:12.5px;font-weight:800;letter-spacing:.04em;text-align:center;padding:8px 12px}
+.top b{color:#fff}
+.top .sep{opacity:.45;margin:0 6px}
+.navidad{background:var(--manteca);color:var(--tinta);text-align:center;font-size:13.5px;font-weight:800;padding:7px 12px}
+
+/* HERO: vitrina con toldo */
+.hero{position:relative;padding:18px 0 28px;overflow:hidden}
+.hero .wrap{position:relative;display:grid;gap:14px}
+.hero h1{font-size:clamp(36px,10.4vw,76px);line-height:.98}
+.subr{white-space:nowrap;position:relative;display:inline-block}
+.subr svg{position:absolute;left:-3%;bottom:-.1em;width:106%;height:.36em;overflow:visible}
+.subr path{fill:none;stroke:var(--coral);stroke-width:6;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:trazo 1.1s .5s cubic-bezier(.6,.1,.3,1) forwards}
+@keyframes trazo{to{stroke-dashoffset:0}}
+.lead{color:var(--tinta2);font-size:16.5px;max-width:44ch;margin:0}
+.lead b{color:var(--tinta)}
+.vitrina{position:relative;margin-top:4px}
+.toldo{position:relative;z-index:2;height:30px;border-radius:12px 12px 0 0;
+  background:repeating-linear-gradient(90deg,var(--coral) 0 34px,var(--crema) 34px 68px);
+  box-shadow:0 6px 0 rgba(18,57,58,.12)}
+.toldo::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:13px;
+  background:radial-gradient(circle at 17px 0,var(--coral) 16px,transparent 17px) 0 0/68px 13px repeat-x,
+             radial-gradient(circle at 51px 0,var(--crema) 16px,transparent 17px) 0 0/68px 13px repeat-x}
+.vidrio{position:relative;border:6px solid var(--crema);border-top:0;border-radius:0 0 22px 22px;overflow:hidden;background:var(--crema);box-shadow:0 20px 40px rgba(18,57,58,.18)}
+.vidrio img{width:100%;height:auto;aspect-ratio:860/500;object-fit:cover}
+.sticker{position:absolute;z-index:3;font-weight:800;box-shadow:0 8px 18px rgba(18,57,58,.25)}
+.st-azucar{left:-4px;top:48px;background:var(--manteca);color:var(--tinta);border-radius:999px;padding:8px 12px;font-size:12.5px;transform:rotate(-8deg);letter-spacing:.02em}
+.st-rating{left:10px;bottom:-14px;background:#fff;color:var(--tinta);border-radius:999px;padding:7px 13px 7px 10px;font-size:13px;display:flex;gap:7px;align-items:center}
+.st-rating .st{color:#e3a008;letter-spacing:1px}
+.sello-giro{position:absolute;z-index:3;right:-6px;bottom:-24px;width:92px;height:92px}
+.sello-giro svg{width:100%;height:100%;animation:gira 18s linear infinite}
+.sello-giro .centro{position:absolute;inset:22px;border-radius:50%;background:var(--coral);color:var(--profundo);display:grid;place-items:center;text-align:center;font:900 10px/1 var(--body);letter-spacing:.06em}
+.sello-giro .centro b{display:block;font:800 22px/1 var(--display)}
+@keyframes gira{to{transform:rotate(360deg)}}
+
+.compra{position:relative;z-index:2;margin-top:8px}
+.precio{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
+.precio .nuevo{font:800 46px/1 var(--display);color:var(--tinta);letter-spacing:-.03em}
+.precio .unico{font-weight:800;font-size:13.5px;color:var(--tinta2)}
+.precio small{flex-basis:100%;font-size:13px;color:var(--tinta2)}
+.cta{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;
+  background:linear-gradient(180deg,var(--coral2),var(--coral) 58%);color:var(--profundo);text-decoration:none;
+  font:900 19px/1.2 var(--body);letter-spacing:.01em;padding:17px 18px 15px;border-radius:18px;margin:12px 0 12px;
+  box-shadow:0 6px 0 var(--coral-osc),0 18px 36px rgba(255,122,89,.35);transition:transform .08s,box-shadow .08s}
+.cta small{font-weight:800;font-size:12.5px;opacity:.8;margin-top:3px}
+.cta::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-18deg);animation:brillo 3.8s 1.5s ease-in-out infinite}
+@keyframes brillo{0%,70%{left:-60%}100%{left:130%}}
+.cta:active{transform:translateY(4px);box-shadow:0 2px 0 var(--coral-osc)}
+.confianza-fila{display:flex;flex-wrap:wrap;gap:8px}
+.confianza-fila span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:var(--tinta);background:#fff;padding:6px 11px;border-radius:999px;box-shadow:0 1px 0 rgba(18,57,58,.08)}
+.confianza-fila svg{width:14px;height:14px;flex:0 0 14px}
+.oscuro .confianza-fila span{background:var(--profundo2);color:#fff;box-shadow:none}
+.afil{font-size:12.5px;color:var(--tinta2);margin:10px 0 0}
+
+/* Cinta */
+.marquesina{background:var(--profundo);color:var(--crema);overflow:hidden;transform:rotate(-1.6deg);margin:18px -10px 6px;box-shadow:0 10px 26px rgba(18,57,58,.25)}
+.marquesina .pista{display:flex;width:max-content;animation:corre 40s linear infinite}
+.marquesina span{font:800 19px/1 var(--display);padding:14px 0;white-space:nowrap}
+.marquesina span::after{content:"";display:inline-block;width:14px;height:12px;margin:0 16px;vertical-align:1px;background:var(--coral);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='66' rx='22' ry='18'/%3E%3Ccircle cx='24' cy='42' r='9'/%3E%3Ccircle cx='40' cy='28' r='9'/%3E%3Ccircle cx='60' cy='28' r='9'/%3E%3Ccircle cx='76' cy='42' r='9'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='66' rx='22' ry='18'/%3E%3Ccircle cx='24' cy='42' r='9'/%3E%3Ccircle cx='40' cy='28' r='9'/%3E%3Ccircle cx='60' cy='28' r='9'/%3E%3Ccircle cx='76' cy='42' r='9'/%3E%3C/svg%3E") center/contain no-repeat}
+@keyframes corre{to{transform:translateX(-50%)}}
+
+/* Secciones */
+.sec{padding-block:64px}
+.oscuro{background:var(--profundo);color:var(--crema)}
+.oscuro .lead{color:var(--niebla)}
+.blanco{background:var(--crema)}
+.head{margin-bottom:28px;max-width:640px}
+.head p{margin:14px 0 0}
+
+/* Cifras */
+.cifras{background:var(--crema);border-block:2px dashed var(--menta2)}
+.cifras ul{list-style:none;margin:0 auto;padding-block:24px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px 12px}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font:800 42px/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.cifras li:nth-child(1) b{color:var(--coral-osc)} .cifras li:nth-child(2) b{color:#2f7f73}
+.cifras li:nth-child(3) b{color:#b0790f} .cifras li:nth-child(4) b{color:#5865c9}
+.cifras span{font-size:13.5px;color:var(--tinta2);font-weight:700;margin-top:4px}
+
+/* ¿Para quién cocinás? */
+.opciones{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.opcion{border:2px solid var(--linea);background:var(--profundo2);color:#fff;border-radius:18px;padding:14px 10px;cursor:pointer;font:inherit;text-align:center;transition:transform .2s,box-shadow .2s,background .2s}
+.opcion svg{width:52px;height:52px;margin:0 auto 6px}
+.opcion b{display:block;font:800 17px/1.1 var(--display)}
+.opcion{--ojo:#0f2f30}
+.opcion[aria-pressed="true"]{--ojo:#fffaf3;background:var(--coral);color:var(--profundo);border-color:var(--coral);transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.3)}
+.resultado{margin-top:14px;background:var(--crema);color:var(--tinta);border-radius:20px;padding:20px}
+.resultado h3{font-size:26px;line-height:1.1}
+.resultado p{color:var(--tinta2);margin:8px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0 0 4px;padding:0}
+.chips li{font-size:14px;font-weight:800;padding:6px 12px;border-radius:999px;background:var(--hueso)}
+.chips li:nth-child(4n+1){background:var(--frutilla)} .chips li:nth-child(4n+2){background:var(--pistacho)}
+.chips li:nth-child(4n+3){background:var(--manteca)} .chips li:nth-child(4n+4){background:var(--arandano)}
+.resultado .cta{margin-bottom:0}
+.resultado .afil{margin-top:8px}
+
+/* Recetario: fichas */
+.fichas{display:grid;gap:14px}
+.ficha{position:relative;background:#fff;border-radius:6px 16px 16px 16px;padding:18px 18px 16px 18px;box-shadow:0 14px 30px rgba(18,57,58,.12);
+  background-image:linear-gradient(transparent 52px,#ffd9cf 52px 54px,transparent 54px),repeating-linear-gradient(transparent 0 29px,#e5f1ee 29px 30px);background-position:0 0,0 54px;background-repeat:no-repeat,repeat}
+.ficha .pest{position:absolute;top:-14px;left:0;background:var(--ac);color:var(--tinta);font:800 11.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:7px 12px 9px;border-radius:8px 8px 0 0}
+.ficha h3{display:flex;align-items:center;gap:10px;font-size:23px;height:36px}
+.ficha h3 svg{width:34px;height:34px;flex:0 0 34px}
+.ficha ul{list-style:none;margin:14px 0 0;padding:0}
+.ficha li{font-size:15.5px;line-height:30px;padding-left:22px;position:relative}
+.ficha li::before{content:"";position:absolute;left:2px;top:11px;width:9px;height:9px;border-radius:50%;background:var(--ac)}
+.ficha .nota{font:700 20px/1.1 var(--mano);color:var(--coral-osc);margin-top:6px;transform:rotate(-1.5deg)}
+
+/* Etiqueta de ingredientes (seguridad) */
+.seguridad{display:grid;gap:24px;align-items:center}
+.etiqueta{background:#fff;color:#000;border:2.5px solid #000;padding:12px 14px 14px;max-width:420px;margin:0 auto;font-family:var(--body);box-shadow:10px 10px 0 var(--coral)}
+.etiqueta .et-tit{font:900 30px/1 var(--display);letter-spacing:-.02em;border-bottom:9px solid #000;padding-bottom:6px}
+.etiqueta .et-sub{font-size:13px;font-weight:700;border-bottom:1.5px solid #000;padding:5px 0}
+.et-fila{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #000;padding:7px 0;font-size:15px}
+.et-fila b{font-weight:900}
+.et-fila.grueso{border-bottom:5px solid #000}
+.etiqueta .et-pie{font-size:12px;line-height:1.4;padding-top:8px}
+
+/* Para vos si */
+.paravos{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.paravos li{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:16px;padding:14px 16px;font-size:16px}
+.paravos li i{flex:0 0 30px;height:30px;border-radius:50%;background:var(--ac);display:grid;place-items:center;font-style:normal}
+.paravos li i svg{width:16px;height:16px}
+
+/* Cómo funciona */
+.pasos{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:p}
+.pasos li{counter-increment:p;display:flex;gap:14px;align-items:flex-start;background:var(--profundo2);border-radius:16px;padding:16px}
+.pasos li::before{content:counter(p);flex:0 0 42px;height:42px;border-radius:50%;background:var(--manteca);color:var(--tinta);font:800 22px/42px var(--display);text-align:center}
+.pasos b{display:block;font-size:17px;color:#fff}
+.pasos span{color:var(--niebla);font-size:15px}
+
+/* Navidad */
+.xmas{position:relative;overflow:hidden;text-align:center;background:var(--coral);color:var(--profundo)}
+.xmas .eyebrow{color:var(--profundo);justify-content:center}
+.xmas .num{font:800 clamp(110px,34vw,220px)/.85 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.xmas .lbl{font:800 24px/1.1 var(--display);margin-top:4px}
+.xmas p{max-width:38ch;margin:14px auto 22px;font-weight:700}
+.xmas .cta{max-width:440px;margin-inline:auto;background:var(--profundo);color:#fff;box-shadow:0 6px 0 #061a1a}
+.xmas .cta::after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.25),transparent)}
+
+/* Comanda */
+.comanda{position:relative;max-width:460px;margin:0 auto;background:var(--crema);color:var(--tinta);padding:26px 22px 22px;font-family:var(--mono);font-size:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);
+  -webkit-mask:radial-gradient(circle 8px at 50% 0,#0000 98%,#000) 50% 0/22px 51% repeat-x,radial-gradient(circle 8px at 50% 100%,#0000 98%,#000) 50% 100%/22px 51% repeat-x;
+  mask:radial-gradient(circle 8px at 50% 0,#0000 98%,#000) 50% 0/22px 51% repeat-x,radial-gradient(circle 8px at 50% 100%,#0000 98%,#000) 50% 100%/22px 51% repeat-x}
+.comanda h3{font-family:var(--display);font-size:25px;text-align:center}
+.comanda .tsub{text-align:center;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta2);margin:2px 0 14px}
+.trow{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed #cfe0dc}
+.trow span:last-child{white-space:nowrap}
+.trow .inc{color:#2f7f73;font-weight:800}
+.ttotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:12px;border-top:2px solid var(--tinta)}
+.ttotal b{font:800 40px/1 var(--display);letter-spacing:-.03em}
+.tclase{margin-top:10px;text-align:center;font:700 22px/1.1 var(--mano);color:var(--coral-osc);transform:rotate(-2deg)}
+.tnota{font-size:11.5px;color:var(--tinta2);margin-top:10px;line-height:1.45}
+
+/* Social + garantía */
+.social{display:grid;gap:22px}
+.rating-grande{display:flex;gap:16px;align-items:center}
+.rating-grande .n{font:800 66px/1 var(--display);letter-spacing:-.04em}
+.rating-grande .st{color:#e3a008;font-size:18px;letter-spacing:2px}
+.rating-grande p{margin:2px 0 0;font-size:15px;color:var(--tinta2)}
+.profe{margin-top:16px;background:#fff;border-radius:16px;padding:14px 16px;font-size:15px;display:flex;gap:12px;align-items:center}
+.profe i{flex:0 0 40px;height:40px;border-radius:50%;background:var(--frutilla);display:grid;place-items:center;font-style:normal;font:800 18px var(--display)}
+.reviews{display:grid;gap:12px}
+.rev{margin:0;background:#fff;border-radius:20px;padding:18px;position:relative;box-shadow:0 10px 24px rgba(18,57,58,.08)}
+.rev::after{content:"";position:absolute;left:28px;bottom:-12px;border:12px solid transparent;border-top-color:#fff;border-bottom:0}
+.rev .st{color:#e3a008;letter-spacing:1px;font-size:14px}
+.rev p{margin:6px 0 10px;font-size:17px;font-weight:700;line-height:1.45}
+.rev footer{font:800 13px/1.3 var(--body);color:var(--coral-osc)}
+.rev footer small{display:block;font-weight:600;color:var(--tinta2);font-size:12px}
+.garantia{display:grid;gap:22px;align-items:center;margin-top:48px;padding:28px 20px;background:var(--profundo);color:var(--crema);border-radius:26px}
+.sello-grande{position:relative;width:190px;height:190px;margin:0 auto}
+.sello-grande svg{width:100%;height:100%;animation:gira 30s linear infinite}
+.sello-grande .centro{position:absolute;inset:38px;border-radius:50%;background:var(--coral);color:var(--profundo);display:grid;place-items:center;text-align:center}
+.sello-grande .centro b{display:block;font:800 54px/.9 var(--display)}
+.sello-grande .centro small{font:900 11px/1 var(--body);letter-spacing:.12em;text-transform:uppercase}
+.garantia h2{font-size:clamp(28px,6.4vw,46px)}
+.garantia h2 em{color:var(--coral)}
+.garantia p{color:var(--niebla);margin:12px 0 0}
+.garantia p b{color:#fff}
+
+/* FAQ */
+.faq details{border-bottom:2px dashed var(--menta2)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0;font:800 18px/1.25 var(--display)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:0 0 30px;height:30px;border-radius:50%;background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 6v12M6 12h12' stroke='%230f2f30' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") center/16px no-repeat;transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 18px;color:var(--tinta2)}
+
+/* Cierre */
+.cierre{text-align:center}
+.cierre .wrap{max-width:640px}
+.cierre .eyebrow{justify-content:center}
+.cierre .foto-cierre{width:220px;height:220px;margin:0 auto 22px;border-radius:50%;overflow:hidden;border:8px solid var(--crema);box-shadow:0 0 0 3px var(--coral),0 20px 40px rgba(0,0,0,.35)}
+.cierre .foto-cierre img{width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.cierre .precio,.cierre .confianza-fila{justify-content:center}
+.cierre .precio .nuevo{color:#fff}
+.cierre .precio .unico{color:var(--niebla)}
+.pie{background:#061a1a;color:var(--niebla);font-size:12px;text-align:center;padding:24px 20px 30px}
+.pie p{max-width:660px;margin:0 auto}
+
+/* Barra fija */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(15,47,48,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;gap:12px;align-items:center;justify-content:space-between;transform:translateY(110%);transition:transform .3s}
+.sticky.on{transform:none}
+.sticky .p{line-height:1.1}
+.sticky .p b{font:800 23px var(--display);color:#fff}
+.sticky .p small{display:block;font-size:11.5px;color:var(--niebla);font-weight:800}
+.sticky a{background:linear-gradient(180deg,var(--coral2),var(--coral));color:var(--profundo);text-decoration:none;font-weight:900;padding:13px 18px;border-radius:14px;white-space:nowrap;box-shadow:0 4px 0 var(--coral-osc)}
+
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:700px){
+  .opciones{grid-template-columns:repeat(4,1fr)}
+  .fichas{grid-template-columns:1fr 1fr}
+}
+@media (min-width:900px){
+  .hero{padding:48px 0 64px}
+  .hero .wrap{grid-template-columns:1fr 1fr;column-gap:56px;align-items:center}
+  .hero .txt{grid-column:1;grid-row:1}
+  .hero .vitrina{grid-column:2;grid-row:1 / span 2}
+  .hero .compra{grid-column:1;grid-row:2;max-width:520px}
+  .sello-giro{width:118px;height:118px;right:-18px}
+  .sello-giro .centro{inset:28px}
+  .cifras ul{grid-template-columns:repeat(4,1fr)}
+  .dos{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+  .dos .head{position:sticky;top:32px}
+  .fichas{grid-template-columns:repeat(3,1fr)}
+  .seguridad{grid-template-columns:1fr 1fr;gap:56px}
+  .social{grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+  .garantia{grid-template-columns:230px 1fr;gap:44px;padding:40px}
+  .sello-grande{width:220px;height:220px}
+  .sello-grande .centro{inset:44px}
+  .sticky{justify-content:center;gap:28px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .sello-giro svg,.sello-grande svg,.marquesina .pista,.cta::after{animation:none}
+  .subr path{animation:none;stroke-dashoffset:0}
+  .js .rv{opacity:1;transform:none;transition:none}
+  .sticky,.opcion{transition:none}
+}
+</style>
+</head>
+<body>
+<script>document.body.classList.add('js')</script>
+
+<div class="top"><b>43 clases</b><span class="sep">·</span>Pago único<span class="sep">·</span><b>7 días de garantía</b></div>
+<div class="navidad" id="navidad" hidden></div>
+
+<!-- ========== 1. HERO ========== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="txt">
+      <p class="eyebrow">Curso online · para perros y gatos</p>
+      <h1>Más de 30 recetas de pastelería para tu mascota. <span class="subr">Desde cero.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 40 4, 90 4, 120 10 S 180 16, 197 6"/></svg></span></h1>
+      <p class="lead" style="margin-top:12px">Galletas, muffins, tortas de cumpleaños, helados y premios <b>con ingredientes naturales y sin azúcar.</b></p>
+    </div>
+
+    <div class="vitrina">
+      <div class="toldo" aria-hidden="true"></div>
+      <div class="vidrio"><img src="img/hero.jpg" alt="Un gato y un perro frente a una torta de cumpleaños" width="860" height="500" fetchpriority="high"></div>
+      <span class="sticker st-azucar">Sin azúcar</span>
+      <div class="sticker st-rating"><span class="st" aria-hidden="true">★★★★★</span>4,8 · 661 evaluaciones</div>
+      <div class="sello-giro" aria-label="Garantía de 7 días">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="circ" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0"/></defs><text font-family="Nunito,Arial,sans-serif" font-size="8.6" font-weight="900" fill="#12393a"><textPath href="#circ" textLength="236" lengthAdjust="spacing">GARANTÍA · 7 DÍAS · REEMBOLSO · </textPath></text></svg>
+        <div class="centro"><span><b>7</b>DÍAS</span></div>
+      </div>
+    </div>
+
+    <div class="compra">
+      <div class="precio"><span class="nuevo" data-p="new">USD 69,99</span><span class="unico">pago único · acceso de por vida</span></div>
+      <a class="cta" id="cta1" href="#" data-go>QUIERO APRENDER AHORA<small>Pago seguro en Hotmart · acceso inmediato</small></a>
+      <div class="confianza-fila">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#c94b2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>7 días de garantía</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#c94b2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#c94b2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 9h8M8 13h6"/></svg>Recetario PDF</span>
+      </div>
+      <p class="afil">Soy afiliada: la compra se hace en Hotmart y puedo recibir una comisión.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ========== 2. Cinta ========== -->
+<div class="marquesina" aria-hidden="true"><div class="pista">
+  <span>Galletas de hígado y perejil</span><span>Muffins de pollo</span><span>Torta de cumpleaños</span><span>Petzza</span><span>Helado</span><span>Brownies</span><span>Gelatina para gatos</span><span>Calabaza y cúrcuma</span><span>Manzana y canela</span><span>Glacé de papa</span><span>Cobertura de yogur griego</span><span>Fondant</span>
+  <span>Galletas de hígado y perejil</span><span>Muffins de pollo</span><span>Torta de cumpleaños</span><span>Petzza</span><span>Helado</span><span>Brownies</span><span>Gelatina para gatos</span><span>Calabaza y cúrcuma</span><span>Manzana y canela</span><span>Glacé de papa</span><span>Cobertura de yogur griego</span><span>Fondant</span>
+</div></div>
+
+<!-- ========== 3. Cifras ========== -->
+<section class="cifras" aria-label="El curso en números">
+  <ul class="wrap">
+    <li><b>43</b><span>clases en video HD</span></li>
+    <li><b>+300</b><span>minutos de contenido</span></li>
+    <li><b>30+</b><span>recetas</span></li>
+    <li><b>4,8 ★</b><span>661 evaluaciones</span></li>
+  </ul>
+</section>
+
+<!-- ========== 4. ¿Para quién cocinás? ========== -->
+<section class="sec oscuro">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Tocá una opción</p>
+      <h2>¿Para quién vas <em>a cocinar?</em></h2>
+    </div>
+    <div class="opciones rv" role="group" aria-label="Elegí para quién vas a cocinar">
+      <button class="opcion" data-op="perro" aria-pressed="true"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 22c-6 2-8 12-4 16l6-6zM50 22c6 2 8 12 4 16l-6-6z" fill="currentColor" opacity=".55"/><circle cx="32" cy="34" r="18" fill="currentColor"/><circle cx="25" cy="31" r="2.6" style="fill:var(--ojo)"/><circle cx="39" cy="31" r="2.6" style="fill:var(--ojo)"/><ellipse cx="32" cy="40" rx="4.4" ry="3.2" style="fill:var(--ojo)"/></svg><b>Mi perro</b></button>
+      <button class="opcion" data-op="gato" aria-pressed="false"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M15 26l3-14 10 9zM49 26l-3-14-10 9z" fill="currentColor"/><circle cx="32" cy="36" r="17" fill="currentColor"/><ellipse cx="25" cy="34" rx="2.4" ry="3.2" style="fill:var(--ojo)"/><ellipse cx="39" cy="34" rx="2.4" ry="3.2" style="fill:var(--ojo)"/><path d="M30 41h4l-2 2.4z" style="fill:var(--ojo)"/></svg><b>Mi gato</b></button>
+      <button class="opcion" data-op="ambos" aria-pressed="false"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><ellipse cx="32" cy="42" rx="11" ry="9"/><circle cx="19" cy="30" r="5"/><circle cx="27" cy="22" r="5"/><circle cx="37" cy="22" r="5"/><circle cx="45" cy="30" r="5"/></g></svg><b>Los dos</b></button>
+      <button class="opcion" data-op="vender" aria-pressed="false"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 26h44l-4-12H14z" fill="currentColor"/><rect x="14" y="26" width="36" height="24" rx="3" fill="currentColor" opacity=".7"/><rect x="26" y="36" width="12" height="14" style="fill:var(--ojo)"/></svg><b>Para vender</b></button>
+    </div>
+    <div class="resultado rv" aria-live="polite">
+      <h3 id="r-tit">Para tu perro</h3>
+      <p id="r-txt">Premios y postres caseros para mimarlo todos los días y una torta para su cumpleaños.</p>
+      <ul class="chips" id="r-chips"></ul>
+      <a class="cta" href="#" data-go id="r-cta">QUIERO COCINARLE A MI PERRO<small>43 clases · pago único</small></a>
+      <p class="afil" id="r-nota" hidden>El curso es educativo y no garantiza ingresos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5. Recetario en fichas ========== -->
+<section class="sec blanco">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">El recetario</p>
+      <h2>Más de 30 recetas, <em>de la galleta a la torta</em></h2>
+      <p class="lead">Empezás por los utensilios básicos, los ingredientes y la conservación, y seguís receta por receta.</p>
+    </div>
+    <div class="fichas rv">
+      <div class="ficha" style="--ac:var(--manteca)"><span class="pest">Ficha 1</span>
+        <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 14a5 5 0 1 1 7-4h8a5 5 0 1 1 7 4 5 5 0 1 1-7 4h-8a5 5 0 1 1-7-4z" transform="translate(0 6)" fill="#ffd66b" stroke="#12393a" stroke-width="2"/></svg>Galletas</h3>
+        <ul><li>Hígado y perejil</li><li>Pollo y cilantro</li><li>Calabaza y cúrcuma</li><li>Manzana y canela</li><li>Para el aliento y más</li></ul></div>
+      <div class="ficha" style="--ac:var(--frutilla)"><span class="pest">Ficha 2</span>
+        <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 20h22l-3 14H12z" fill="#ffb3c1" stroke="#12393a" stroke-width="2"/><path d="M8 20c0-7 5-11 12-11s12 4 12 11z" fill="#fffaf3" stroke="#12393a" stroke-width="2"/></svg>Muffins</h3>
+        <ul><li>Pollo y pavo</li><li>Cerdo y cordero</li><li>Frutas</li><li>Mantequilla de maní</li></ul></div>
+      <div class="ficha" style="--ac:var(--pistacho)"><span class="pest">Ficha 3</span>
+        <h3><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="18" width="26" height="16" rx="3" fill="#b9dfa6" stroke="#12393a" stroke-width="2"/><path d="M7 24c4 3 8-3 13 0s9 3 13 0" fill="none" stroke="#12393a" stroke-width="2"/><path d="M20 8v10" stroke="#12393a" stroke-width="2"/><path d="M20 4c2 2 2 4 0 5-2-1-2-3 0-5z" fill="#ff7a59"/></svg>Tortas y especiales</h3>
+        <ul><li>Tortas de cumpleaños para perros y gatos</li><li>Brownies</li><li>Gelatina para gatos</li><li>“Petzza” y tamales</li><li>Helado</li></ul></div>
+      <div class="ficha" style="--ac:var(--arandano)"><span class="pest">Ficha 4</span>
+        <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12 30l14-14 4 4-14 14H12z" fill="#b8c4ff" stroke="#12393a" stroke-width="2"/><path d="M26 16l3-3 4 4-3 3" fill="#fffaf3" stroke="#12393a" stroke-width="2"/></svg>Decoración apta</h3>
+        <ul><li>Cobertura de yogur griego</li><li>Glacé de papa</li><li>Crema pastelera</li><li>Fondant</li></ul></div>
+      <div class="ficha" style="--ac:var(--coral2)"><span class="pest">Ficha 5</span>
+        <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12 12h16v20a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3z" fill="#ffb199" stroke="#12393a" stroke-width="2"/><rect x="10" y="7" width="20" height="6" rx="2" fill="#fffaf3" stroke="#12393a" stroke-width="2"/></svg>Básicos caseros</h3>
+        <ul><li>Tu propia harina de avena</li><li>Yogur griego</li><li>Mantequilla de maní</li><li>Cómo conservar todo</li></ul>
+        <div class="nota">¡hecho en casa!</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 6. Seguridad: etiqueta de ingredientes ========== -->
+<section class="sec">
+  <div class="wrap seguridad">
+    <div class="rv">
+      <p class="eyebrow">Lo más importante</p>
+      <h2>¿Es seguro <em>para mi mascota?</em></h2>
+      <p class="lead" style="margin-top:14px">Es la primera duda de todas, y está bien que lo sea. El curso te enseña qué ingredientes son aptos y cuáles evitar.</p>
+      <p class="lead" style="margin-top:12px"><b>Según el productor del curso, las proporciones fueron revisadas por un veterinario y ninguna receta lleva azúcar.</b> Cada animal es distinto: para cantidades según su tamaño, o si tiene alguna condición, consultá a tu veterinario.</p>
+    </div>
+    <div class="etiqueta rv" aria-label="Resumen de ingredientes del curso">
+      <div class="et-tit">Información del recetario</div>
+      <div class="et-sub">Pastelería para perros y gatos · 30+ recetas</div>
+      <div class="et-fila grueso"><span>Azúcar</span><b>Ninguna receta lleva*</b></div>
+      <div class="et-fila"><span>Ingredientes</span><b>Naturales</b></div>
+      <div class="et-fila"><span>Proporciones</span><b>Revisadas por veterinario*</b></div>
+      <div class="et-fila"><span>Ingredientes aptos y a evitar</span><b>Incluido</b></div>
+      <div class="et-fila"><span>Conservación</span><b>Incluido</b></div>
+      <div class="et-pie">* Según el productor del curso. El curso es educativo y no reemplaza la consulta veterinaria.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7. Para vos si ========== -->
+<section class="sec blanco">
+  <div class="wrap dos">
+    <div class="head rv">
+      <p class="eyebrow">Para quién es</p>
+      <h2>Es para vos <em>si…</em></h2>
+    </div>
+    <ul class="paravos rv">
+      <li style="--ac:var(--manteca)"><i><svg viewBox="0 0 100 100"><g fill="#12393a"><ellipse cx="50" cy="66" rx="22" ry="18"/><circle cx="24" cy="42" r="9"/><circle cx="40" cy="28" r="9"/><circle cx="60" cy="28" r="9"/><circle cx="76" cy="42" r="9"/></g></svg></i><span>Querés darle a tu perro o gato premios <b>caseros y naturales</b>, sin conservantes.</span></li>
+      <li style="--ac:var(--frutilla)"><i><svg viewBox="0 0 100 100"><g fill="#12393a"><ellipse cx="50" cy="66" rx="22" ry="18"/><circle cx="24" cy="42" r="9"/><circle cx="40" cy="28" r="9"/><circle cx="60" cy="28" r="9"/><circle cx="76" cy="42" r="9"/></g></svg></i><span>Te gustaría hacerle <b>una torta de cumpleaños</b> a tu mascota.</span></li>
+      <li style="--ac:var(--pistacho)"><i><svg viewBox="0 0 100 100"><g fill="#12393a"><ellipse cx="50" cy="66" rx="22" ry="18"/><circle cx="24" cy="42" r="9"/><circle cx="40" cy="28" r="9"/><circle cx="60" cy="28" r="9"/><circle cx="76" cy="42" r="9"/></g></svg></i><span>No sabés <b>qué ingredientes</b> son aptos y cuáles evitar.</span></li>
+      <li style="--ac:var(--arandano)"><i><svg viewBox="0 0 100 100"><g fill="#12393a"><ellipse cx="50" cy="66" rx="22" ry="18"/><circle cx="24" cy="42" r="9"/><circle cx="40" cy="28" r="9"/><circle cx="60" cy="28" r="9"/><circle cx="76" cy="42" r="9"/></g></svg></i><span>Buscás un <b>emprendimiento desde casa</b> con algo que te apasiona.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 8. Cómo funciona ========== -->
+<section class="sec oscuro">
+  <div class="wrap dos">
+    <div class="head rv">
+      <p class="eyebrow">Sin vueltas</p>
+      <h2>De tu pago <em>a la primera galleta</em></h2>
+    </div>
+    <ol class="pasos rv">
+      <li><div><b>Pagás en Hotmart</b><span>Hotmart te muestra el total en tu moneda antes de pagar.</span></div></li>
+      <li><div><b>Te llega un correo con el acceso</b><span>Apenas se aprueba el pago, al área de miembros.</span></div></li>
+      <li><div><b>Horneás tu primera receta</b><span>Con utensilios básicos, paso a paso y a tu ritmo.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========== 9. Navidad (fecha real) ========== -->
+<section class="sec xmas" id="xmas" hidden>
+  <div class="wrap rv">
+    <p class="eyebrow">Temporada de fiestas</p>
+    <div class="num" id="xmas-num">0</div>
+    <div class="lbl" id="xmas-lbl">días para Navidad</div>
+    <p>Prepará tortas y premios para tus mascotas antes de las fiestas. Si empezás ahora, llegás con tiempo para practicar.</p>
+    <a class="cta" href="#" data-go>QUIERO EMPEZAR ANTES DE NAVIDAD<small>Acceso inmediato · 7 días de garantía</small></a>
+  </div>
+</section>
+
+<!-- ========== 10. Comanda ========== -->
+<section class="sec oscuro">
+  <div class="wrap">
+    <div class="head rv" style="margin-inline:auto;text-align:center">
+      <p class="eyebrow" style="justify-content:center">Tu pedido</p>
+      <h2>Todo esto, <em>en un solo pago</em></h2>
+    </div>
+    <div class="comanda rv">
+      <h3>Pastelería Canina y Felina</h3>
+      <div class="tsub">Comanda · curso online</div>
+      <div class="trow"><span>43 clases en video HD</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>+300 minutos de contenido</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>Recetario en PDF</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>Grupo privado con la profesora</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>Certificado</span><span class="inc">incluido</span></div>
+      <div class="trow"><span>Acceso de por vida</span><span class="inc">incluido</span></div>
+      <div class="ttotal"><span>Pagás una vez</span><b data-p="new">USD 69,99</b></div>
+      <div class="tclase" id="por-clase">menos de USD 1,63 por clase</div>
+      <div class="tnota">Pago único. Hotmart te muestra el total en tu moneda antes de pagar.</div>
+    </div>
+    <div class="rv" style="max-width:460px;margin:22px auto 0">
+      <a class="cta" href="#" data-go>QUIERO TODO ESTO<small>Pago seguro en Hotmart · acceso inmediato</small></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 11. Prueba social + garantía ========== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="social">
+      <div class="rv">
+        <p class="eyebrow">Lo que dicen las alumnas</p>
+        <div class="rating-grande">
+          <div class="n">4,8</div>
+          <div><div class="st" aria-hidden="true">★★★★★</div><p><b>661 evaluaciones</b> en Hotmart</p></div>
+        </div>
+        <div class="profe"><i>D</i><span>Te acompaña <b>Diana</b>, la profesora del curso, en el grupo privado de Facebook.</span></div>
+      </div>
+      <div class="reviews rv">
+        <blockquote class="rev"><div class="st" aria-hidden="true">★★★★★</div><p>Diana, la facilitadora, aplica una metodología muy didáctica, fácil de entender y divertida.</p><footer>Sandra<small>29/04/2025 · reseña en Hotmart</small></footer></blockquote>
+        <blockquote class="rev"><div class="st" aria-hidden="true">★★★★★</div><p>Todo el contenido me parece muy interesante y de mucha utilidad, muy bien explicado, muy ameno. Estoy muy conforme con la compra…</p><footer>Johanna<small>19/07/2025 · reseña en Hotmart</small></footer></blockquote>
+        <blockquote class="rev"><div class="st" aria-hidden="true">★★★★★</div><p>Voy a comenzar mi emprendimiento y ya tengo clientes.</p><footer>Christian<small>21/06/2026 · reseña en Hotmart</small></footer></blockquote>
+      </div>
+    </div>
+    <div class="garantia">
+      <div class="sello-grande rv" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><defs><path id="circ2" d="M50 50 m-42 0 a42 42 0 1 1 84 0 a42 42 0 1 1 -84 0"/></defs><text font-family="Nunito,Arial,sans-serif" font-size="7" font-weight="900" fill="#ff7a59"><textPath href="#circ2" textLength="262" lengthAdjust="spacing">COMPRÁ TRANQUILA · REEMBOLSO DESDE HOTMART · </textPath></text></svg>
+        <div class="centro"><span><b>7</b><small>días de garantía</small></span></div>
+      </div>
+      <div class="rv">
+        <p class="eyebrow">Sin riesgo</p>
+        <h2>Probalo 7 días. <em>Si no es para vos, pedís el reembolso.</em></h2>
+        <p>Entrás, mirás las clases y horneás tu primera receta. <b>Si sentís que el curso no es para vos, pedís el reembolso desde Hotmart dentro de los 7 días.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 12. FAQ ========== -->
+<section class="sec blanco faq">
+  <div class="wrap dos">
+    <div class="head rv">
+      <p class="eyebrow">Dudas</p>
+      <h2>Preguntas <em>frecuentes</em></h2>
+    </div>
+    <div class="rv">
+      <details><summary>¿Necesito experiencia?</summary><p>No. Arranca con utensilios básicos, conservación e ingredientes, y sigue paso a paso.</p></details>
+      <details><summary>¿Las recetas son seguras para mi mascota?</summary><p>Según el productor, las proporciones fueron revisadas por un veterinario y ninguna receta lleva azúcar. Cada animal es distinto: para cantidades según su tamaño o si tiene alguna condición, consultá a tu veterinario.</p></details>
+      <details><summary>¿Sirve para gatos también?</summary><p>Sí. Incluye recetas para gatos, como gelatina y tortas de cumpleaños.</p></details>
+      <details><summary>¿Cómo recibo el curso?</summary><p>Al aprobarse el pago te llega un correo con el acceso al área de miembros de Hotmart.</p></details>
+      <details><summary>¿Cuánto cuesta?</summary><p><span data-p="new">USD 69,99</span>, pago único. Hotmart te muestra el total en tu moneda antes de pagar.</p></details>
+      <details><summary>¿Dónde consulto mis dudas?</summary><p>En el grupo privado de Facebook del curso, con la profesora.</p></details>
+      <details><summary>¿Y si no me gusta?</summary><p>Tenés 7 días de garantía para pedir el reembolso desde Hotmart.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 13. Cierre ========== -->
+<section class="sec oscuro cierre" id="final">
+  <div class="wrap rv">
+    <div class="foto-cierre"><img src="img/hero.jpg" alt="" width="860" height="500" loading="lazy"></div>
+    <p class="eyebrow">Empezá hoy</p>
+    <h2>Su próximo cumpleaños, <em>con torta hecha por vos</em></h2>
+    <p class="lead" style="margin:14px auto 22px">43 clases · recetario PDF · grupo con la profesora · certificado · acceso de por vida</p>
+    <div class="precio"><span class="nuevo" data-p="new">USD 69,99</span><span class="unico">pago único</span></div>
+    <a class="cta" href="#" data-go>QUIERO APRENDER AHORA<small>Pago único · acceso inmediato</small></a>
+    <div class="confianza-fila"><span>🛡️ 7 días de garantía</span><span>Pago seguro en Hotmart</span></div>
+  </div>
+</section>
+
+<div class="pie">
+  <p>Página independiente de una afiliada. No soy la creadora del curso. Al hacer clic vas al pago oficial de Hotmart y puedo recibir una comisión si comprás, sin costo extra para vos. El curso es educativo: no reemplaza la consulta veterinaria ni garantiza ingresos. Imagen de referencia.</p>
+</div>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="p"><b data-p="new">USD 69,99</b><small>Pago único · 7 días de garantía</small></div>
+  <a href="#" data-go tabindex="-1">QUIERO EMPEZAR</a>
+</div>
+
+<script>
+/* ===== CONFIGURACIÓN ===== */
+var CONFIG = {
+  // Link de afiliada de Hotmart y prefijo de origen (los mismos de la landing original).
+  hotmart: 'https://go.hotmart.com/N108533748H?ap=3734',
+  srcPrefix: 'LPPC_',
+  precioUSD: 69.99,
+  clases: 43,
+  // Fecha límite REAL de una promo, si la hubiera. null = sin cuenta regresiva.
+  deadline: null,
+  // Precio en Argentina (el de la landing original, al 17-nov-2026; revisar el tipo de cambio).
+  ars: { neu: 'ARS 128.959', valor: 128959 }
+};
+
+/* ===== Botones de compra + píxel ===== */
+(function(){
+  var q=new URLSearchParams(location.search);
+  var src=q.get('src')||q.get('utm_content')||'LP1';
+  var url=CONFIG.hotmart+'&src='+encodeURIComponent(CONFIG.srcPrefix+src);
+  document.querySelectorAll('[data-go]').forEach(function(a){
+    a.href=url;
+    a.addEventListener('click',function(e){
+      try{fbq('track','InitiateCheckout',{content_name:'Pasteleria Canina',currency:'USD',value:CONFIG.precioUSD});}catch(err){}
+      // Clic normal: damos 350 ms al píxel. Con ctrl/cmd/clic central, el navegador abre el link tal cual.
+      if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+      e.preventDefault();
+      setTimeout(function(){location.href=url;},350);
+    });
+  });
+})();
+
+/* ===== Precio por clase (cuenta real) y precio en pesos para Argentina ===== */
+(function(){
+  var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(e){}
+  var ar=/Argentina|Buenos_Aires/.test(tz);
+  var pc=document.getElementById('por-clase');
+  if(ar){
+    document.querySelectorAll('[data-p=new]').forEach(function(e){e.textContent=CONFIG.ars.neu;});
+    var v=Math.ceil(CONFIG.ars.valor/CONFIG.clases/100)*100;
+    pc.textContent='menos de ARS '+v.toLocaleString('es-AR')+' por clase';
+    document.querySelectorAll('.precio .nuevo,.ttotal b').forEach(function(e){e.style.fontSize='36px';});
+    var sb=document.querySelector('.sticky .p b'); if(sb) sb.style.fontSize='19px';
+  } else {
+    var u=Math.ceil(CONFIG.precioUSD/CONFIG.clases*100)/100;
+    pc.textContent='menos de USD '+u.toFixed(2).replace('.',',')+' por clase';
+  }
+})();
+
+/* ===== Navidad (fecha real) ===== */
+(function(){
+  var strip=document.getElementById('navidad'), band=document.getElementById('xmas');
+  function dias(){var h=new Date(),n=new Date(h.getFullYear(),11,25);return Math.ceil((n-new Date(h.getFullYear(),h.getMonth(),h.getDate()))/864e5);}
+  function pintar(){
+    var d=CONFIG.deadline?new Date(CONFIG.deadline):null, ahora=new Date(), promo=d&&d>ahora;
+    if(promo){
+      var ms=d-ahora,dd=Math.floor(ms/864e5),hh=Math.floor(ms%864e5/36e5),mm=Math.floor(ms%36e5/6e4);
+      strip.textContent='⏳ La promoción termina en '+dd+' d '+hh+' h '+mm+' min'; strip.hidden=false;
+    }
+    var n=dias(), on=n>0&&n<=60;
+    if(on){
+      document.getElementById('xmas-num').textContent=n;
+      document.getElementById('xmas-lbl').textContent=n===1?'día para Navidad':'días para Navidad';
+      if(!promo){strip.textContent='🎄 Faltan '+n+(n===1?' día':' días')+' para Navidad'; strip.hidden=false;}
+    } else if(!promo){ strip.hidden=true; }
+    band.hidden=!on;
+  }
+  pintar(); setInterval(pintar,60000);
+})();
+
+/* ===== ¿Para quién vas a cocinar? ===== */
+(function(){
+  var OP={
+    perro:{t:'Para tu perro',x:'Premios y postres caseros para mimarlo todos los días y una torta para su cumpleaños.',ch:['Galletas de hígado y perejil','Muffins de pollo','Torta de cumpleaños','Petzza','Helado','Galletas para el aliento'],b:'QUIERO COCINARLE A MI PERRO',n:false},
+    gato:{t:'Para tu gato',x:'El curso incluye recetas pensadas para gatos, además de las de perros.',ch:['Gelatina para gatos','Torta de cumpleaños para gatos'],b:'QUIERO COCINARLE A MI GATO',n:false},
+    ambos:{t:'Para los dos',x:'Recetas para perros y para gatos en el mismo curso, con la decoración apta para ambos.',ch:['Tortas de cumpleaños','Muffins','Gelatina para gatos','Galletas','Glacé de papa','Fondant'],b:'QUIERO COCINARLES A LOS DOS',n:false},
+    vender:{t:'Para emprender desde casa',x:'Las recetas, la decoración apta y la conservación son la base para ofrecer tus productos.',ch:['Tortas de cumpleaños','Galletas','Muffins','Decoración apta','Conservación'],b:'QUIERO EMPEZAR MI EMPRENDIMIENTO',n:true}
+  };
+  var btns=[].slice.call(document.querySelectorAll('.opcion'));
+  function pon(k){
+    var o=OP[k];
+    document.getElementById('r-tit').textContent=o.t;
+    document.getElementById('r-txt').textContent=o.x;
+    var ul=document.getElementById('r-chips'); ul.textContent='';
+    o.ch.forEach(function(c){var li=document.createElement('li');li.textContent=c;ul.appendChild(li);});
+    document.getElementById('r-cta').firstChild.nodeValue=o.b;
+    document.getElementById('r-nota').hidden=!o.n;
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-op')===k);});
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){pon(b.getAttribute('data-op'));});});
+  pon('perro');
+})();
+
+/* ===== Aparición al hacer scroll ===== */
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+
+/* ===== Barra de compra fija ===== */
+(function(){
+  var bar=document.getElementById('sticky'), first=document.getElementById('cta1'), last=document.getElementById('final');
+  var pasoPrimero=false, enFinal=false;
+  function act(){var on=pasoPrimero&&!enFinal;bar.classList.toggle('on',on);bar.setAttribute('aria-hidden',on?'false':'true');bar.querySelector('a').tabIndex=on?0:-1;}
+  if(!('IntersectionObserver' in window))return;
+  new IntersectionObserver(function(en){var e=en[0];pasoPrimero=!e.isIntersecting&&e.boundingClientRect.top<0;act();}).observe(first);
+  new IntersectionObserver(function(en){enFinal=en[0].isIntersecting;act();}).observe(last);
+})();
+</script>
+</body>
+</html>
