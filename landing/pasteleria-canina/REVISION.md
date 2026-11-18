@@ -17,7 +17,7 @@ Versión nueva: `landing/pasteleria-canina/index.html`, hecha con la skill `land
 | # | Problema | Corrección |
 |---|---|---|
 | 1 | **El botón de compra quedaba fuera de la primera pantalla** del celular (terminaba en y=851 px, con pantalla de 844). | Ahora termina en y=797 px. |
-| 2 | Mezcla de tuteo y voseo: "**Aprende** a hacer" en el título, y "Querés", "Pagás", "Empezá" en el resto. | Voseo en toda la página. Si el anuncio apunta a México o Colombia, conviene una versión en español neutro. |
+| 2 | Mezcla de tuteo y voseo: "**Aprende** a hacer" en el título, y "Querés", "Pagás", "Empezá" en el resto. | Español neutro (tuteo) en toda la página, para México, Colombia y el resto de LatAm. |
 | 3 | La cuenta para Navidad pasaba al año siguiente después del 25/12 ("Faltan 364 días"). | Se muestra solo en los 60 días previos. |
 | 4 | La seguridad de las recetas, la duda número uno en comida para mascotas, estaba escondida en una pregunta frecuente. | Sección propia con una etiqueta tipo "información nutricional", con la misma aclaración del productor y su asterisco. |
 | 5 | El aviso de afiliada estaba solo en el pie. | También bajo el primer botón. |
@@ -41,5 +41,5 @@ Versión nueva: `landing/pasteleria-canina/index.html`, hecha con la skill `land
 1. **4,8 · 661 evaluaciones**: que siga vigente en Hotmart.
 2. **Precio USD 69,99** y el valor en pesos (ARS 128.959 al 17-nov): se desactualiza con el tipo de cambio.
 3. **La foto principal** (gato y perro con torta y velas) parece de banco de imágenes y no del curso. Confirmá que tenés derecho a usarla. Fotos reales de las recetas del curso sumarían mucha confianza.
-4. **Idioma**: voseo o español neutro según el país de los anuncios.
+4. **Idioma**: pasada a español neutro (tuteo) a pedido de la clienta.
 5. **Diana**: con su apellido y una frase real sobre su experiencia se puede sumar una sección de autoridad.
