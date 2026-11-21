@@ -27,5 +27,5 @@ Sirve para decidir **qué de lo aprendido se puede usar** y **qué hay que proba
 Al desarmar una pieza real (plantilla de teardown), cada patrón observado entra como fila **Obs** con id nuevo; su "por qué funciona" entra como **Inf** aparte. Así lo observado y lo inferido nunca se mezclan.
 
 ## Límites actuales
-- 13 de 16 afirmaciones son de fuentes secundarias: **ninguna** está confirmada con datos propios.
-- No hay corpus de piezas reales desarmadas: Meta bloquea a clientes automatizados y los anuncios del Creative Center cargan por JavaScript con API protegida. Hace falta que la usuaria aporte piezas y métricas.
+- Las afirmaciones de fuentes secundarias **no están confirmadas con datos propios**; el conteo vigente sale de correr `scripts/auditar.py` (no se repite acá para que no quede viejo).
+- Corpus: solo texto de anuncios vía agregadores (`research/creativos-teardowns.md`). No hay video ni imagen observados, y Meta y el Creative Center no se pueden leer de forma automatizada. Hace falta que la usuaria aporte piezas y métricas.
