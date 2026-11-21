@@ -29,7 +29,12 @@ def main(video, lang=None):
     if not tr:
         print("Sin voz detectable: no se transcribe (audio probablemente música o ambiente).")
         return 0
-    ruta = glob.glob(os.path.expanduser("~/.cache/huggingface/hub/models--Systran--faster-whisper-tiny/snapshots/*"))
+    # Carpetas donde buscar el modelo: ASR_MODEL_DIR (si se define), cachés de Hugging Face.
+    bases = [os.environ.get("ASR_MODEL_DIR", ""), os.environ.get("HF_HUB_CACHE", ""),
+             os.path.join(os.environ.get("HF_HOME", ""), "hub"), os.path.expanduser("~/.cache/huggingface/hub")]
+    ruta = []
+    for b in filter(None, bases):
+        ruta += glob.glob(os.path.join(b, "models--Systran--faster-whisper-tiny", "snapshots", "*"))
     if not ruta:
         sys.exit("Modelo no encontrado en la caché de Hugging Face.")
     seg, info = WhisperModel(ruta[0], device="cpu", compute_type="int8").transcribe(a, language=lang)

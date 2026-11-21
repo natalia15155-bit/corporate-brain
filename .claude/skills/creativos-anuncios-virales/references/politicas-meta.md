@@ -21,3 +21,10 @@ Páginas a leer completas: Health and Wellness · Personal Attributes · Persona
 - **Todos:** "emprender" no puede prometer ganancias.
 
 Resultado de la revisión: marcar cada pieza como **aprobable / ajustar / no usar**.
+
+## Riesgos observados en anuncios reales (lote 2, ver `research/creativos-teardowns-lote2.md`)
+- [ ] No usar promesa de ingresos ("paga mi factura", "dinero desde casa"): aparece en los 3 videos de The Soapbox, hoy sin anuncios activos [Obs, según agregador].
+- [ ] No usar capturas de pedidos o de notificaciones de tienda como prueba salvo que sean propias y verificables.
+- [ ] No tachar un precio de referencia sin fecha ni historia real; no mostrar el mismo producto a dos precios distintos.
+- [ ] No mostrar nombres ni montos de clientes sin permiso.
+- [ ] Para psicología: no abrir con "¿Todavía cargás con trauma sin resolver?" ni preguntas que impliquen un estado de quien mira (caso observado en Naturalistico).
