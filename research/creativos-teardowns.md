@@ -26,7 +26,13 @@ Fuente: `admanage.ai/ad-library/homemade-candle-making`
 | Destino | yourhomemadeworld.com | Obs |
 | Gancho (tipo) | **Resultado primero, con voz de cliente** (testimonio) | Inf |
 | Estructura | Resultado → valor del curso ("superó mis expectativas") → agradecimiento | Inf (solo del copy) |
-| Visual, ritmo, subtítulos, voz | **No observado** | - |
+| Archivo de video | 12,6 s, 640×640 (**1:1**), H.264 + audio AAC. Fuente: bucket público del agregador; SHA-256 (16 primeros) `1b4a9feb129e025c`. No se guarda en el repo | Obs |
+| Cortes | **0** (detección de escena > 0,3): un solo plano fijo | Obs |
+| Visual | Plantilla estática tipo Canva: óvalo con foto/clip de una vela en mano, ondas de color tierra, tipografía en mayúsculas | Obs |
+| Movimiento | Solo el clip del óvalo: la vela está encendida (s0 a s2) y se apaga echando humo (s3 a s12). Todo lo demás no se mueve | Obs |
+| Texto en pantalla (fijo los 12 s) | "CANDLE MAKING"; viñetas: scented candle, massage candles, natural wax candles, certificate included, "+23.000 students"; botón "CLICK ON LEARN MORE"; barra de búsqueda falsa "Exclusive candle recipes" | Obs |
+| Audio | Presente (volumen medio −18,7 dB, pico −0,5 dB). **No se transcribió**: no hay herramienta de transcripción disponible. No sé si es voz o música | Obs / sin determinar |
+| Rol del video frente al copy | El video es una **ficha de especificaciones**; la promesa y el testimonio van en el texto del anuncio | Inf |
 
 **Mecanismo [Inf]:** prueba social específica en primera persona; el resultado ("pedidos") aparece antes que la explicación del producto.
 **Qué NO se replica:** el testimonio ni su contenido. Nosotros solo podemos usar testimonios reales, con permiso y verificables.
@@ -76,7 +82,9 @@ Cada archivo es **un solo cuadro de 600 px**; en los videos es una captura, no l
 - El **subtítulo cortado a mitad de frase** sugiere subtítulos "palabra por palabra"; solo se confirma viendo el video.
 - La **grilla rotulada** hace que la persona busque su ítem: sirve para "elegí por dónde empezar" en velas, jabones o recetas.
 
-**Sigue sin verse:** la miniatura de T01 es el logo de la marca (60×34 px), no el anuncio. No hay observación visual de la única pieza de tu nicho.
+**T01 completo:** la miniatura del agregador era solo el logo (60×34 px), pero el video entero se obtuvo aparte y se desarmó (ver tabla de T01). Dispositivos de retención observados: ninguno por montaje (sin cortes); solo el humo de la vela como movimiento. **La retención se apoya en el texto y en el copy, no en el ritmo [Inf].** Frente a Brooklyn Candle Studio (UGC a cámara, 9:16) es el extremo opuesto: plantilla fija 1:1.
+
+**Cifra de prueba social:** "+23.000 students" aparece sin fuente. Para tus piezas solo se usan cifras reales y verificables de la plataforma.
 
 ## Qué falta para completarlo
 - Ver los **videos** (línea de tiempo, plano, cortes, subtítulos, audio): requiere que me pases archivos o enlaces, o habilitar los servidores de miniaturas y video.
