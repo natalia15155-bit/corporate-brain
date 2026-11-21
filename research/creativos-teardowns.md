@@ -59,6 +59,25 @@ Fuente: `topgrowthmarketing.com/paid-ads-library/product-ad-examples/`. Titulare
 4. **Escasez solo cuando es un dato** (T10: "Sold out 3x") **[Obs]**. Para nosotros: solo con fechas o cupos reales.
 5. **Claims clínicos llevan la fuente a la vista** (T05) **[Obs]**.
 
+## Observación visual (miniaturas, agregada tras habilitar los servidores de imágenes)
+Cada archivo es **un solo cuadro de 600 px**; en los videos es una captura, no la línea de tiempo. Cuatro cuadros revisados a ojo **[Obs]**:
+
+| Pieza | Proporción | Qué se ve | Texto en pantalla |
+|---|---|---|---|
+| Brooklyn Candle Studio (video) | 9:16 | Persona a cámara, luz natural, sostiene dos productos hacia el lente | Subtítulo blanco sin caja, tercio superior, frase cortada ("that instantly elevate") |
+| Jones Road (video) | 9:16 | Primerísimo plano: aplica el producto sobre la piel; cajas del producto en mano | Título serif con nombre y producto; **sticker de "respuesta a comentario"** ("Is it full coverage") |
+| Peach & Lily (imagen) | 4:5 | Frasco y textura a la derecha, cifras en columna a la izquierda | Titular con promesa, 4 porcentajes y **nota al pie con la fuente del estudio** |
+| Adore Me (imagen) | 4:5 | Grilla 3×4 de 12 productos, cabecera de color, logo al pie | "Your Lingerie Horoscope"; cada producto rotulado con un signo |
+
+**Proporciones de los 25 cuadros [Obs]:** 14 en 9:16, 8 en 4:5, 2 en 1:1, 1 en 3:4. Es decir, 9:16 domina, y el 4:5 es el segundo formato (imagen estática).
+
+**Inferencias [Inf] (a validar):**
+- El **sticker de comentario** convierte el anuncio en una respuesta a una duda real; es un formato replicable sin copiar nada, solo con comentarios propios.
+- El **subtítulo cortado a mitad de frase** sugiere subtítulos "palabra por palabra"; solo se confirma viendo el video.
+- La **grilla rotulada** hace que la persona busque su ítem: sirve para "elegí por dónde empezar" en velas, jabones o recetas.
+
+**Sigue sin verse:** la miniatura de T01 es el logo de la marca (60×34 px), no el anuncio. No hay observación visual de la única pieza de tu nicho.
+
 ## Qué falta para completarlo
 - Ver los **videos** (línea de tiempo, plano, cortes, subtítulos, audio): requiere que me pases archivos o enlaces, o habilitar los servidores de miniaturas y video.
 - Piezas de **tus otros 3 nichos** (pastelería canina/felina, psicología): no aparecieron.
