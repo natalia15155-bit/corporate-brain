@@ -11,6 +11,8 @@ Archivos:
 - `references/plantilla-teardown.md`: ficha para desarmar una pieza.
 - `references/ganchos.md`: tipos de gancho y por qué funcionan.
 - `references/politicas-meta.md`: checklist de políticas y riesgos de rechazo.
+- `references/puente-landing.md`: coherencia creativo-landing, verificación previa y eventos del píxel.
+- Aplicación a los 4 productos: `creativos/propuestas.md` (12 piezas) y `creativos/plan-de-prueba.md`.
 - `references/modelo-auditoria.md`, `references/ledger-afirmaciones.csv` y `scripts/auditar.py`: modelo para auditar qué conocimiento está verificado y cuál es solo hipótesis. Correr `python3 -I scripts/auditar.py references/ledger-afirmaciones.csv`.
 
 ## Reglas que no se negocian
