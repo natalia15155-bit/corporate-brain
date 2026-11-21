@@ -33,3 +33,6 @@ C31,"T01 muestra texto fijo los 12 s: título, 4 viñetas, '+23.000 students', b
 C32,"La única animación de T01 es un clip de una vela encendida que se apaga y echa humo dentro de un óvalo",Obs,cuadros revisados a ojo (1 por segundo),propio,si,A,confirmada_propia,"-"
 C33,"T01 funciona como ficha de especificaciones: la promesa y el testimonio van en el copy y no en el video",Inf,análisis propio de T01,propio,si,C,no_verificada,"Probar plantilla estática con copy de promesa vs UGC a cámara con el mismo copy"
 C34,"T01 exhibe '+23.000 students' sin fuente visible",Obs,cuadros revisados a ojo,propio,si,A,confirmada_propia,"-"
+C35,"El audio de T01 no contiene voz detectable (VAD: 0 tramos) y es continuo, sin silencios de mas de 0,4 s",Obs,medición propia con faster-whisper VAD y ffmpeg,propio,si,A,confirmada_propia,"-"
+C36,"Whisper tiny puede devolver frases cortas inventadas ('Thank you.') cuando no hay voz; hay que detectar voz antes de transcribir",Obs,prueba propia sobre T01,propio,si,A,confirmada_propia,"-"
+C37,"El audio de T01 es probablemente música o ambiente de fondo",Inf,análisis propio de T01,propio,si,C,no_verificada,"Escuchar el video o identificar la pista; irrelevante para replicar (no se copia música)"

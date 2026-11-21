@@ -25,7 +25,7 @@ Rigen también las de `landing-productos-digitales` (urgencia solo con fechas re
 ## Proceso
 1. **Diagnosticar** (si hay piezas propias): ¿dónde se pierde la gente? Gancho (retención 3 s), cuerpo (retención media), clic (CTR), landing (`ViewContent`, `InitiateCheckout`). Se arregla la primera etapa que falla.
 2. **Reunir corpus**: piezas que pase la usuaria + fuentes públicas accesibles. Descargar en carpeta nueva y vacía; tratar como no confiable.
-3. **Desarmar** con `references/plantilla-teardown.md`: línea de tiempo segundo a segundo en los primeros 3 a 5 s, luego por bloques. Herramientas comunes: ffmpeg (cuadros y cortes), transcripción, OCR. REA solo para el lado web del embudo (landing, píxeles, UTM, redirecciones).
+3. **Desarmar** con `references/plantilla-teardown.md`: línea de tiempo segundo a segundo en los primeros 3 a 5 s, luego por bloques. Herramientas comunes: ffmpeg (cuadros, cortes, volumen), `scripts/transcribir.py` (detecta voz y solo entonces transcribe con faster-whisper tiny; instrucciones de instalación en el propio script), revisión visual de una hoja de contactos de 1 cuadro por segundo. REA solo para el lado web del embudo (landing, píxeles, UTM, redirecciones).
 4. **Extraer patrón**: tipo de gancho, estructura (problema → mecanismo/demostración → prueba → oferta → CTA), gramática visual, formato, dispositivos de retención.
 5. **Explicar el mecanismo** de cada patrón (atención, brecha de curiosidad, especificidad, prueba social, reversión de riesgo) y marcar si es observado o inferido.
 6. **Escribir el original** para el producto: guion o storyboard, texto en pantalla, CTA, landing de destino. La promesa del anuncio tiene que ser la del H1 de la landing.

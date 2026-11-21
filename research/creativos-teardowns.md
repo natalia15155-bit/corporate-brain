@@ -31,7 +31,8 @@ Fuente: `admanage.ai/ad-library/homemade-candle-making`
 | Visual | Plantilla estática tipo Canva: óvalo con foto/clip de una vela en mano, ondas de color tierra, tipografía en mayúsculas | Obs |
 | Movimiento | Solo el clip del óvalo: la vela está encendida (s0 a s2) y se apaga echando humo (s3 a s12). Todo lo demás no se mueve | Obs |
 | Texto en pantalla (fijo los 12 s) | "CANDLE MAKING"; viñetas: scented candle, massage candles, natural wax candles, certificate included, "+23.000 students"; botón "CLICK ON LEARN MORE"; barra de búsqueda falsa "Exclusive candle recipes" | Obs |
-| Audio | Presente (volumen medio −18,7 dB, pico −0,5 dB). **No se transcribió**: no hay herramienta de transcripción disponible. No sé si es voz o música | Obs / sin determinar |
+| Audio | Presente, continuo (volumen medio −18,7 dB, pico −0,5 dB; sin silencios de más de 0,4 s a −35 dB). **Detección de voz: 0 tramos**, o sea que no hay habla detectable. Whisper tiny devolvió "Thank you." con 44% de confianza: es una alucinación típica ante música, **no se toma como dato** | Obs |
+| Tipo de audio | Probablemente música o ambiente de fondo. No se identificó la pista | Inf |
 | Rol del video frente al copy | El video es una **ficha de especificaciones**; la promesa y el testimonio van en el texto del anuncio | Inf |
 
 **Mecanismo [Inf]:** prueba social específica en primera persona; el resultado ("pedidos") aparece antes que la explicación del producto.
