@@ -17,3 +17,10 @@ Generadas con `creativos/motion/render.cjs` (ilustración vectorial + texto anim
 - **Aviso "Publicidad · Enlace de afiliada de Hotmart":** está al final de A1, B1, B2 y B3. Es una decisión de transparencia; sacalo si preferís otro formato.
 - **Precios, cupones y garantía no aparecen**: verificalos antes de agregarlos.
 - **Nada se publicó ni se cargó en una cuenta publicitaria.**
+
+## Versiones con voz y música (`*_voz.mp4`)
+- **Voz:** sintetizada en local con Piper, modelo `es_AR-daniela-high` (español rioplatense). **Licencia del modelo: CC BY-SA 4.0** (OpenSLR 61). **Revisar antes de usarla en anuncios pagos**: exige atribución y "compartir igual", y no está claro cómo aplica al audio generado. Alternativas con licencia permisiva (pero **sin acento argentino**): `es_MX/claude/high` (Apache 2.0), `es_ES/davefx/medium` (CC0), `es_MX/ald/medium` (Unlicense).
+- **Música:** ambiental, **sintetizada por código (original)**; baja de volumen mientras habla la voz. Es simple. Para un resultado más "de plataforma", reemplazala por una pista de la biblioteca de música comercial de Instagram/TikTok.
+- **No se escuchó**: la verificación fue por medición (volumen) y por reconocimiento de voz con un modelo chico, que entendió casi todo pero con errores. **Hay que escucharla antes de publicar.**
+- Reproducir: `python3 creativos/motion/audio.py <A1|B1|B2|B3> <video_sin_audio> <salida> <modelo.onnx>`.
+- Las versiones sin audio (`A1.mp4`, etc.) se conservan.
